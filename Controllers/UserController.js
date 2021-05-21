@@ -17,15 +17,28 @@ exports.login = ({email,password},req,res) =>{
   firebase.auth.signInWithEmailAndPassword(email, password)
   .then((userCredential) => {
     // Signed in
+    req.session.uid = userCredential.user.uid
+    req.session.displayname = userCredential.user.displayName
+    req.session.photoURL = userCredential.user.photoURL
+    req.session.email = userCredential.user.email
+    
     res.writeHead(200, {"Content-Type": "application/json"});
-    res.end(JSON.stringify(userCredential));
+    res.end(JSON.stringify(userCredential.user));
     var user = userCredential.user;
     // ...
   })
   .catch((error) => {
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    res.send(errorMessage)
+    if(error.message == "The password is invalid or the user does not have a password."){
+      res.render('pages/login',{
+        error: "Mot de passe incorrecte"
+      })
+    }else if(error.message == "There is no user record corresponding to this identifier. The user may have been deleted."){
+      res.render('pages/login',{
+        error: "Utilisateur introuvable"
+      })
+    }else{
+      res.status = 500
+    }
   });
 }
 exports.logout = (req,res)=>{
