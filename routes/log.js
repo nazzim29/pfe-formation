@@ -1,4 +1,5 @@
 const router = require("express").Router()
+const firebase = require('../utils/firebaseapp')
 const UserController = require('../Controllers/UserController')
 
 router.get('/logout',(req,res)=>{
@@ -6,8 +7,8 @@ router.get('/logout',(req,res)=>{
     UserController.logout(req,res);
 })
 
-router.get('/login/haja',(req,res)=>{
-    res.render('pages/logintest')
+router.get('/login',(req,res)=>{
+    res.render('pages/login')
 })
 router.get('/home',(req,res)=>{
     if (!(req.session.email || firebase.auth.currentUser)) res.status(401).send('Unauthorized')
