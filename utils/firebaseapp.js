@@ -13,5 +13,5 @@ firebaseadmin = admin.initializeApp({
     databaseURL: "https://at-formation-353d2.firebaseio.com"
 })
 
-exports.auth = firebase.auth()
+exports.app = firebase
 exports.firestore = firebaseadmin.firestore()
