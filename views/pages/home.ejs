@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <pre>
+        Bonjour mr <%= session.email.replace(/^\w/, (c) => c.toUpperCase()); %> 
+        nous somme le <%= new Date().toLocaleDateString('fr-FR',{
+            weekday : 'long',
+            year : 'numeric',
+            month : 'long',
+            day : 'numeric',
+            hour : 'numeric',
+            minute : '2-digit',
+            second : 'numeric'
+
+        }) %>
+    </pre>
+</body>
+</html>

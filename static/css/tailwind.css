@@ -1,0 +1,29 @@
+@tailwind base; 
+@tailwind components; 
+@tailwind utilities;
+
+
+@layer components{
+    .login-input{
+        @apply appearance-none;
+        @apply rounded-none;
+        @apply relative;
+        @apply block;
+        @apply w-full;
+        @apply px-3;
+        @apply py-2;
+        @apply border;
+        @apply border-atgreen;
+        @apply placeholder-atblue-light;
+        @apply text-gray-900;
+        @apply focus:outline-none;
+        @apply focus:ring-atblue;
+        @apply focus:border-atblue;
+        @apply focus:z-10;
+        @apply sm:text-sm;
+    }
+    .input-container{
+        @apply rounded-md shadow-sm -space-y-px;
+
+    }
+}

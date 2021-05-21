@@ -1,0 +1,82 @@
+.cls-1 {
+    stroke: #20b471;
+    fill: #20b471;
+}
+
+.cls-1,
+.cls-2,
+.cls-3 {
+fill-rule: evenodd
+}
+
+.cls-2 {
+stroke: #2c5eaa;
+fill:#2c5eaa;
+}
+
+.cls-3 {
+stroke: #00a959;
+fill: #00a959;
+}
+
+#Calque_1 .cls-1{
+    fill:transparent;
+    stroke-dasharray: 165;
+    stroke-dashoffset: 165;
+    stroke-width: 1px;
+    animation: logoanim1 1s ease-in-out 0.5s forwards;
+}
+#Calque_1 .cls-2{
+    fill:transparent;
+    stroke-dasharray: 165;
+    stroke-dashoffset: 165;
+    stroke-width: 1px;
+    animation: logoanim2 1s ease-in-out 0.5s forwards;
+}
+#Calque_1 .cls-3{
+    fill:transparent;
+    stroke-dasharray: 165;
+    stroke-dashoffset: 165;
+    stroke-width: 1px;
+    animation: logoanim3 1s ease-in-out 0.5s forwards;
+}
+@keyframes logoanim1 {
+    from{
+        fill:transparent;
+        stroke-dasharray: 165;
+        stroke-dashoffset: 165;
+    }
+    to{
+        fill:#20b471;
+        stroke-dasharray: 165;
+        stroke-dashoffset: 0;
+        stroke-width: 0;
+    }  
+}
+@keyframes logoanim2 {
+    from{
+        fill:transparent;
+        stroke-dasharray: 165;
+        stroke-dashoffset: 165;
+    }
+    to{
+        fill:#2c5eaa;
+        stroke-dasharray: 165;
+        stroke-dashoffset: 0;
+        stroke-width: 0;
+    }  
+}
+@keyframes logoanim3 {
+    from{
+        fill:transparent;
+        stroke-dasharray: 165;
+        stroke-dashoffset: 165;
+    }
+    to{
+        fill:#00a959;
+        stroke-dasharray: 165;
+        stroke-dashoffset: 0;
+        stroke-width: 0;
+    }  
+}
+

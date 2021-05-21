@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <title>Se Connecter</title>
+    <link rel="icon" type="image/png" href="Image/LOGOc.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="\CSS/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    <link rel="manifest" href="\manifest.json">
+<link rel="apple-touch-icon" href="GHIS2-96x96.png">
+  <meta name="apple-mobile-web-app-status-bar" content="white">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="theme-color" content="white">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="left-container">
+            <div>
+                <h1>Trouvez le stage qui vous convient,<br>Acquérez de l'expérience professionnelle,<br>et lancez votre
+                    carrière</h1>
+            </div>
+        </div>
+        <div class="login-content">
+            <div class="usr-icon">
+            </div>
+            <form action="/login" method="POST">
+                <div class="input-div one">
+                    <div class="i">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="div">
+                        <input type="text" class="input" id="email" name="email"
+                        <% if (emailvalue){ %>
+                            value = "<%= emailvalue %>"
+                        <% }%>
+                        required>
+                        <label for="email">
+                            <span class="content-name">
+                                Nom d'utilisateur
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                <div class="input-div pass">
+                    <div class="i">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="div">
+                        <input type="password" class="input" id="password" name = "password"
+                        <%if (passwordvalue){%>
+                            value = "<%= passwordvalue %>"
+                        <% } %>
+                        required>
+                        <label for="password">
+                            <span class="content-name">
+                                Mot de passe
+                            </span>
+                        </label>
+                    </div>
+                </div>
+                <%if (error){ %>
+                <div class="alert alert-danger" role="alert"> <%= error %> </div>
+                <% } %> 
+                <div class="check-div">
+                    <input type="checkbox" id="remember" name="remember"
+                    <% if (emailvalue && passwordvalue){ %> 
+                    checked 
+                    <% }%> >
+                    <i></i>
+                    <label for="remember">Se souvenir de moi</label>
+                </div>
+                <input type="submit" class="btn" value="Se Connecter" id="loginbtn">
+            </form>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script
+        src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-157cd5b220a5c80d4ff8e0e70ac069bffd87a61252088146915e8726e5d9f147.js"></script>
+    <script src="https://ricostacruz.com/jquery.transit/jquery.transit.min.js"></script>
+    <script src="JS/login.js"></script>
+</body>
+</html>
