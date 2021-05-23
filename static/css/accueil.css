@@ -5,6 +5,7 @@
 body{
     font-family: sans-serif;
 }
+
 .navbar{
     background-image:linear-gradient(to right, #ffffff, #5084d3) ;
     padding: 0 ;
@@ -34,7 +35,7 @@ body{
 }
 .nom{
     font-family: cursive;
-    font-size: 300%;
+    font-size: 250%;
 }
 .nom1{
     font-family: cursive;
@@ -68,6 +69,7 @@ h2{
     border-radius: 15px;
     
 }
+
 #sn:hover{
     border-color: #086139;
     background-color:#086139;
