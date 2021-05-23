@@ -4,7 +4,7 @@ const firestorestore = require('firestore-store')(session)
 
 
 
-const db = firebase.firestore
+const db = firebase.firestore()
 
 module.exports = session({
     store: new firestorestore({

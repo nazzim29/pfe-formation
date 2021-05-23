@@ -12,13 +12,15 @@ router.get('/login',(req,res)=>{
 })
 router.get('/home',(req,res)=>{
     if(!firebase.app.auth().currentUser) res.redirect('/login');
+    // res.send(firebase.app.auth().currentUser)
+    res.render('pages/home')
 })
-router.post('/login',(req,res)=>{
-    if(firebase.app.auth().currentUser) res.redirect('/home');
+router.post('/login',async (req,res)=>{
     UserController.login({
         email : req.body.email,
         password: req.body.password
     },req,res)
+    // console.log('log.js',firebase.app.auth().currentUser)
 })
 
 module.exports = router
