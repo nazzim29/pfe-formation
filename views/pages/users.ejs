@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="\public/css/style.css">
+    <title>Utilisateurs</title>
+</head>
+<body class="h-screen overflow-hidden flex items-center justify-center bg-atblue-light">
+    <%- include('../navbar') %> 
+    <div class="w-full flex-1">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>prenom</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% locals.users.forEach(user => { %>
+                    <tr>
+                        <td><%= user.nom %> </td>
+                        <td><%= user.prenom %> </td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+            </body>
+        </table>
+    </div>
+</html>

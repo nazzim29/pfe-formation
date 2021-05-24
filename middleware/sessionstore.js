@@ -1,4 +1,4 @@
-const firebase = require('./firebaseapp')
+const firebase = require('../utils/firebaseapp')
 const session = require('express-session')
 const firestorestore = require('firestore-store')(session)
 

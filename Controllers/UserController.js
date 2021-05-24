@@ -1,20 +1,36 @@
 const firebase = require("../utils/firebaseapp")
-exports.create = (user,req,res) =>{
+const firebaseadmin = require('../utils/firebaseadmin')
+const User = require('../models/User')
+exports.create = (req,res) =>{
 
+}
+exports.read= (req,res) =>{
+  let userid = req.params?.id
+  if(userid == req.session.uid) return res.redirect('/user/me')
+  if(userid == "me") userid = req.session.uid
+  if(!userid){
+    User.getAll().then((users)=>{
+      res.render('pages/users',{
+        users
+      })
+    })
+  }else{
+    res.send('un')
+  }
 }
 exports.login = async (req,res) =>{
   firebase.auth().onAuthStateChanged(user => {
     if (user) {
       user.getIdToken(true).then(idToken => {
         req.session.authToken= idToken
+        req.session.redirecturl = undefined
+        req.session.uid = user.uid
+        req.session.displayname = user.displayName
+        req.session.photoURL = user.photoURL
+        req.session.email = user.email
         console.log('redirected to: ', req.session.redirecturl )
         res.redirect(req.session.redirecturl || '\/home');
-        req.session.redirecturl = undefined
       });
-      req.session.uid = userCredential.user.uid
-      req.session.displayname = userCredential.user.displayName
-      req.session.photoURL = userCredential.user.photoURL
-      req.session.email = userCredential.user.email
       if(req.body.remember_me){
         res.cookie('email',req.body.email,{signed:true})
         res.cookie('password',req.body.password,{signed:true})
