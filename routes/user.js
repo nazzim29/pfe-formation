@@ -4,8 +4,8 @@ const UserController = require('../Controllers/UserController')
 
 
 router.get('/me',(req,res)=>{
-    console.log(firebase.app.auth().currentUser)
-    if(!firebase.app.auth().currentUser) req.session.redirecturl = req.originalUrl; res.redirect('\/login')
+    console.log(firebase.auth().currentUser)
+    if(!firebase.auth().currentUser) req.session.redirecturl = req.originalUrl; res.redirect('\/login')
     res.send('wesh alors')
 })
 

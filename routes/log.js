@@ -1,26 +1,37 @@
 const router = require("express").Router()
 const firebase = require('../utils/firebaseapp')
+const fadmin = require('../utils/firebaseadmin')
 const UserController = require('../Controllers/UserController')
 
 router.get('/logout',(req,res)=>{
-    if(!firebase.app.auth().currentUser) return res.status(201).send('vous n\'etes pas connecté')
-    UserController.logout(req,res);
+    req.session.destroy()
+    res.end()
 })
 
 router.get('/login',(req,res)=>{
-    res.render('pages/login')
+    console.log()
+    res.render('pages/login',{
+        email: req.signedCookies?.email,
+        password: req.signedCookies?.password
+    })
 })
 router.get('/home',(req,res)=>{
-    if(!firebase.app.auth().currentUser) res.redirect('/login');
+    if(!(req.session.authToken)){
+        req.session.redirecturl = req.url
+        return res.redirect('\/login')
+    }
+    fadmin.auth().verifyIdToken(req.session.authToken)
+    .then((decodedToken) => {
+        const uid = decodedToken.uid;
+        console.log(uid)
+        res.render('pages/home')
+    })
+    .catch((error) => {
+        req.session.redirecturl = req.url
+
+    });
     // res.send(firebase.app.auth().currentUser)
-    res.render('pages/home')
 })
-router.post('/login',async (req,res)=>{
-    UserController.login({
-        email : req.body.email,
-        password: req.body.password
-    },req,res)
-    // console.log('log.js',firebase.app.auth().currentUser)
-})
+router.post('/login',UserController.login)
 
 module.exports = router

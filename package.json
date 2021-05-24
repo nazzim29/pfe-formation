@@ -23,6 +23,7 @@
     "firebase": "^8.6.1",
     "firebase-admin": "^9.7.0",
     "firestore-store": "^2.0.2",
+    "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
     "postcss": "^8.2.15",
     "postcss-cli": "^8.3.1",
