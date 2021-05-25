@@ -15,7 +15,11 @@ exports.read= (req,res) =>{
       })
     })
   }else{
-    res.send('un')
+    console.log(userid)
+    let user = new User(userid)
+    user.read().then((u)=>{
+      res.send(u)
+    })
   }
 }
 exports.login = async (req,res) =>{
