@@ -1,3 +1,5 @@
+const storage = require('firebase/storage')
+
 module.exports =  firebase = require('firebase').initializeApp({
     apiKey: "AIzaSyDfrFSvLkngJZPCpvq6lq5DVC0-lCDOanc",
     authDomain: "at-formation-353d2.firebaseapp.com",

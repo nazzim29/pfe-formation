@@ -1,11 +1,12 @@
 const router = require("express").Router()
 const firebase = require('../utils/firebaseapp')
-const UserController = require('../Controllers/UserController')
+const {read,create,test} = require('../Controllers/UserController')
 
 
-router.get('/:id',UserController.read)
-router.get('/',UserController.read)
-
+router.get('/photo', test)
+router.get('/',read)
+router.post('/',create)
+router.get('/:id',read)
 
 
 

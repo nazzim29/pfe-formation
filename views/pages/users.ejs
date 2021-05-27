@@ -5,27 +5,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="\public/css/style.css">
+    <script src="\/public/js/modal.js" defer></script>
     <title>Utilisateurs</title>
 </head>
 <body class="h-screen overflow-hidden flex items-center justify-center bg-atblue-light">
+
     <%- include('../navbar') %> 
     <div class="w-full flex-1">
-        <table>
-            <thead>
-                <tr>
-                    <th>Nom</th>
-                    <th>prenom</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% locals.users.forEach(user => { %>
-                    <tr>
-                        <td><%= user.nom %> </td>
-                        <td><%= user.prenom %> </td>
-                    </tr>
-                    <% }) %>
-                </tbody>
-            </body>
-        </table>
+        <%= locals.error %> 
+        <form action="/user" method="post">
+            <label for="nom">nom: </label><input type="text" name="nom" id="nom">
+            <label for="prenom">prenom: </label><input type="text" name="prenom" id="prenom">
+            <label for="nom_utilisateur">nom d'utilisateur: </label><input type="text" name="nom_utilisateur" id="nom_utilisateur">
+            <label for="email">email: </label><input type="email" name="email" id="email">
+            <label for="password">password: </label><input type="password" name="password" id="password">
+            <label for="role">role: </label><input type="text" name="role" id="role">
+            <label for="activite">activite: </label><input type="text" name="activite" id="activite">
+            <input type="submit" value="validate">
+        </form>
     </div>
+    
 </html>

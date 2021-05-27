@@ -1,4 +1,5 @@
 require('dotenv').config()
+global.XMLHttpRequest = require("xhr2");
 const express = require('express')
 const session = require("./middleware/sessionstore")
 const ejsSession = require('./middleware/ejs-session')

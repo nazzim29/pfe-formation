@@ -691,6 +691,20 @@ video {
   width: 100%;
 }
 
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 50;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  --tw-bg-opacity: 1;
+  background-color: rgba(0, 0, 0, var(--tw-bg-opacity));
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
 .box{
   position: absolute;
   top: 50%;
@@ -705,7 +719,7 @@ video {
   border: 2px solid #2a3cad;
   color: white;
   padding: 20px;
-  margin: left 350 px;
+  margin-left: 500px;
 }
 
 .box:before{
@@ -718,6 +732,11 @@ video {
   background: rgba(255,255,255,0.1);
   transition:0.5s;
   pointer-events: none;
+}
+
+.box:hover:before{
+  left:-50%;
+  transform: skewX(-5deg);
 }
 
 .box .content{

@@ -2,6 +2,32 @@ const firebase = require("../utils/firebaseapp")
 const firebaseadmin = require('../utils/firebaseadmin')
 const User = require('../models/User')
 exports.create = (req,res) =>{
+  if(!req.body.email) return res.send('no email provided')
+  if(!req.body.password) return res.send('no password provided')
+  if(!req.body.nom) return res.send('no nom provided')
+  if(!req.body.prenom) return res.send('no prenom provided')
+  if(!req.body.role) return res.send('no role provided')
+  if(!req.body.activite) return res.send('no activite provided')
+  if(!req.body.nom_utilisateur) return res.send('no displayName provided')
+  let newUser = new User()
+  newUser.nom = req.body.nom
+  newUser.prenom = req.body.prenom
+  newUser.email = req.body.email
+  newUser.password = req.body.password
+  newUser.role = req.body.role
+  newUser.activite = req.body.activite
+  newUser.display_name = req.body.nom_utilisateur
+  newUser.create().then((error)=>{
+    if(error) return res.render("pages/users",{
+      error 
+    })
+    res.render("pages/users",{
+      success: "utilisateur crée avec succes"
+    })
+  })
+
+}
+exports.delete = (req,res) =>{
 
 }
 exports.read= (req,res) =>{
@@ -15,10 +41,9 @@ exports.read= (req,res) =>{
       })
     })
   }else{
-    console.log(userid)
     let user = new User(userid)
-    user.read().then((u)=>{
-      res.send(u)
+    user.read().then(()=>{
+      res.json(user)
     })
   }
 }
@@ -73,3 +98,12 @@ exports.logout = (req,res)=>{
 
 }
 
+exports.test = (req,res)=>{
+  var storage = firebase.storage();
+  var pathReference = storage.ref('Avatar/default.jpg');
+  pathReference.getDownloadURL().then(url=>{
+    res.send(url)
+  }).catch(error=>{
+    res.send(error)
+  })
+}

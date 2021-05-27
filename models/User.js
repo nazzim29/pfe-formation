@@ -1,4 +1,6 @@
 const Model = require('./model')
+const fadmin = require('../utils/firebaseadmin')
+const firestore = require('firebase-admin').firestore
 module.exports = class User extends Model{
     static colref = this.db.collection('usertest')
     /**
@@ -13,14 +15,29 @@ module.exports = class User extends Model{
             this.docref = this.colref.doc(this._id);
         }
     }
+
     /**
      * @param {void}
-     * @returns {object} user
+     * @returns {Promise} user
      */
     read () {
         return this.docref.get().then((doc)=>{
             if(doc.exists){
-                return doc.data()
+                let f = doc.data()
+                this.prenom = f.prenom
+                this.nom = f.nom
+                this.role = f.role
+                this.activite = f.activite
+                this.date_modification = f.date_modification
+                return fadmin.auth().getUser(this._id).then((userrecord)=>{
+                    console.log('ha nktb wsh b9a')
+                    this.date_creation = Date(userrecord.creationTime)
+                    this.email = userrecord.email
+                    this.derniere_connexion = Date(userrecord.lastSignInTime)
+                    this.avatar = userrecord.photoURL
+                }).catch(error=>{
+                    console.log("error")
+                })
             }else{
                 throw new Error('user not found')
             }
@@ -36,7 +53,14 @@ module.exports = class User extends Model{
         return this.colref.get().then((snapshot)=>{
             let users = []
             snapshot.forEach( doc => {
-                users.push(doc.data())
+                let f = doc.data()
+                fadmin.auth().getUser(doc.id).then((userrecord)=>{
+                    f.date_creation = Date(userrecord.creationTime)
+                    f.email = userrecord.email
+                    f.derniere_connexion = Date(userrecord.lastSignInTime)
+                    f.avatar = userrecord.photoURL
+                })
+                users.push(f)
             });
             return users
         }).catch((error)=>{
@@ -44,7 +68,53 @@ module.exports = class User extends Model{
         })
         
     }
-    
+    create(){ 
+        return fadmin.auth().createUser({
+            email: this.email,
+            password: this.password,
+            displayName: this.display_name,
+            photoURL: this.avatar || "https://firebasestorage.googleapis.com/v0/b/at-formation-353d2.appspot.com/o/Avatar%2Fdefault.jpg?alt=media&token=250482c6-75ad-44af-8153-7022eaa6ba36",
+        }).then((userRecord)=>{
+            return this.colref.doc(userRecord.uid).set({
+                prenom : this.prenom,
+                nom : this.nom,
+                role : this.role,
+                activite : this.activite,
+                date_modification : firestore.Timestamp.fromMillis(new Date(this.date_modification).getTime()),
+            })
+            .catch(error=>{
+                fadmin.deleteUser(userRecord.uid)
+                return error.code
+            })
+        }).catch((error)=>{
+            return error.code
+        })
+    }
+    /**
+     * @param {void}
+     * @returns {string} display_name 
+     */
+    get display_name() {return this._display_name}
+
+    /**
+     * @param {string} value
+     * @returns {void}
+     */
+
+    set display_name(value) { this._display_name = value}
+
+    /**
+     * @param {void}
+     * @returns {Date} derniere_connexion
+     */
+    get derniere_connexion() {return this._derniere_connexion.toDate()}
+
+    /**
+     * @param {Date} value
+     * @returns {void}
+     */
+    set derniere_connexion(value) {this._derniere_connexion = value}
+
     /**
      * @param {void}
      * @returns {string} role
@@ -87,7 +157,7 @@ module.exports = class User extends Model{
      * @param {void}
      * @returns {Date} date_creation
      */
-    get date_creation() {return this._date_creation}
+    get date_creation() {return this._date_creation.toDate()}
 
     /**
      * @param {Date} value
@@ -99,13 +169,16 @@ module.exports = class User extends Model{
      * @param {void}
      * @returns {Date} date_modification
      */
-    get date_modification() {return this._date_modification}
+    get date_modification() {return this._date_modification?.toDate() || new Date()}
 
     /**
      * @param {Date} value
      * @returns {void}
      */
-    set date_modification(value) {this._date_modification = value}
+    set date_modification(value) {
+        if(typeof value !== 'Date') return this._date_modification = Date(value._secondes)
+        this._date_modification = value
+    }
 
     /**
      * @param {void}
