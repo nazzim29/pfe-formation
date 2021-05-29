@@ -1,28 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="\public/css/tables/datatables.css">
+    <link rel="stylesheet" href="\public/css/tables/responsive.dataTables.css">
+    <link rel="stylesheet" href="\public/css/iconfont/material-icons.css">
     <link rel="stylesheet" href="\public/css/style.css">
-    <script src="\/public/js/modal.js" defer></script>
+
     <title>Utilisateurs</title>
 </head>
-<body class="h-screen overflow-hidden flex items-center justify-center bg-atblue-light">
 
-    <%- include('../navbar') %> 
-    <div class="w-full flex-1">
-        <%= locals.error %> 
-        <form action="/user" method="post">
-            <label for="nom">nom: </label><input type="text" name="nom" id="nom">
-            <label for="prenom">prenom: </label><input type="text" name="prenom" id="prenom">
-            <label for="nom_utilisateur">nom d'utilisateur: </label><input type="text" name="nom_utilisateur" id="nom_utilisateur">
-            <label for="email">email: </label><input type="email" name="email" id="email">
-            <label for="password">password: </label><input type="password" name="password" id="password">
-            <label for="role">role: </label><input type="text" name="role" id="role">
-            <label for="activite">activite: </label><input type="text" name="activite" id="activite">
-            <input type="submit" value="validate">
-        </form>
-    </div>
-    
+<body class="h-screen overflow-hidden flex flex-row items-center justify-center bg-atblue-light">
+
+    <%- include('../navbar') %>
+        <div class="flex w-full flex-col h-full">
+            <div class="search-bar sm:ml-auto sm:mt-10">
+                <input class="rounded-l-full w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none"
+                    id="search" type="text" placeholder="Search">
+
+                <div class=" bg-white py-0.5 pr-0.5 rounded-r-full ">
+                    <button
+                        class="bg-blue-500 text-white rounded-full p-2 hover:bg-blue-400 focus:outline-none w-12 h-12 flex items-center justify-center">
+                        <i class="material-icons ">search</i>
+                    </button>
+                </div>
+            </div>
+            <div
+                class="bg-white h-full mx-3 max-w-4xl sm:mx-auto justify-center items-center flex rounded-xl mb-10 shadow-xl">
+                <table id="example" class="stripe " style="padding-top: 1em;  padding-bottom: 1em;">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th data-priority="1">Nom et Prenom</th>
+                            <th data-priority="4">Role</th>
+                            <th data-priority="5">Activité</th>
+                            <th data-priority="6">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        <tr>
+                            <td>
+                                <img src="https://firebasestorage.googleapis.com/v0/b/at-formation-353d2.appspot.com/o/Avatar%2Fdefault.jpg?alt=media&token=250482c6-75ad-44af-8153-7022eaa6ba36"
+                                    width="50px">
+                                <div class="flex flex-col">
+                                    <h1>Tina May</h1>
+                                    <span>Ljubljana@haja.com</span>
+
+                                </div>
+                            </td>
+                            <td>61</td>
+                            <td>2011/04/25</td>
+                            <td>
+                                <button class="button bg-atgreen-light  hover:bg-atgreen">Afficher</button>
+                                <button class="button bg-yellow-500 hover:bg-yellow-600">Modifier</button>
+                                <button class="button  bg-red-500 hover:bg-red-600">Supprimer</button>
+                            </td>
+
+                        </tr>
+
+                        <!-- Rest of your data (refer to https://datatables.net/examples/server_side/ for server side processing)-->
+
+                        <tr>
+                            <td class="">
+                                <img class=""
+                                    src="https://firebasestorage.googleapis.com/v0/b/at-formation-353d2.appspot.com/o/Avatar%2Fdefault.jpg?alt=media&token=250482c6-75ad-44af-8153-7022eaa6ba36">
+                                <div class="flex flex-col">
+                                    <h1>Donna Snider</h1>
+                                    <span class="">New York@faha.com</span>
+                                </div>
+                            </td>
+                            <td>61</td>
+                            <td>2011/01/25</td>
+                            <td>
+                                <button>Afficher</button>
+                                <button>Modifier</button>
+                                <button>Supprimer</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th></th>
+                            <th>Role</th>
+                            <th>Activité</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+
+                </table>
+            </div>
+
+        </div>
+        <style>
+            /*Overrides for Tailwind CSS */
+
+            /*Form fields*/
+            .dataTables_wrapper select,
+            .dataTables_wrapper .dataTables_filter input {
+                color: #4a5568;
+                /*text-gray-700*/
+                padding-left: 1rem;
+                /*pl-4*/
+                padding-right: 1rem;
+                /*pl-4*/
+                padding-top: .5rem;
+                /*pl-2*/
+                padding-bottom: .5rem;
+                /*pl-2*/
+                line-height: 1.25;
+                /*leading-tight*/
+                border-width: 2px;
+                /*border-2*/
+                border-radius: .25rem;
+                border-color: #edf2f7;
+                /*border-gray-200*/
+                background-color: #edf2f7;
+                /*bg-gray-200*/
+            }
+
+            /*Row Hover*/
+            table.dataTable.hover tbody tr:hover,
+            table.dataTable.display tbody tr:hover {
+                background-color: #ebf4ff;
+                /*bg-indigo-100*/
+            }
+
+            /*Pagination Buttons*/
+            .dataTables_wrapper .dataTables_paginate .paginate_button {
+                font-weight: 700;
+                /*font-bold*/
+                border-radius: .25rem;
+                /*rounded*/
+                border: 1px solid transparent;
+                /*border border-transparent*/
+            }
+
+            /*Pagination Buttons - Current selected */
+            .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+                color: #fff !important;
+                /*text-white*/
+                box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+                /*shadow*/
+                font-weight: 700;
+                /*font-bold*/
+                border-radius: .25rem;
+                /*rounded*/
+                background: #667eea !important;
+                /*bg-indigo-500*/
+                border: 1px solid transparent;
+                /*border border-transparent*/
+            }
+
+            /*Pagination Buttons - Hover */
+            .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+                color: #fff !important;
+                /*text-white*/
+                box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+                /*shadow*/
+                font-weight: 700;
+                /*font-bold*/
+                border-radius: .25rem;
+                /*rounded*/
+                background: #667eea !important;
+                /*bg-indigo-500*/
+                border: 1px solid transparent;
+                /*border border-transparent*/
+            }
+
+            /*Add padding to bottom border */
+            table.dataTable.no-footer {
+                border-bottom: 1px solid #e2e8f0;
+                /*border-b-1 border-gray-300*/
+                margin-top: 0.75em;
+                margin-bottom: 0.75em;
+            }
+
+            /*Change colour of responsive icon*/
+            table.dataTable.dtr-inline.collapsed>tbody>tr>td:first-child:before,
+            table.dataTable.dtr-inline.collapsed>tbody>tr>th:first-child:before {
+                background-color: #667eea !important;
+                /*bg-indigo-500*/
+            }
+        </style>
+        <script src="\public/js/Jquery/jquery-3.6.0.min.js"></script>
+        <script src="\public/js/Jquery/jquery.dataTables.min.js"></script>
+        <script src="\public/js/Jquery/dataTables.responsive.min.js"></script>
+        <script src="\public/js/usertable.js"></script>
+</body>
+
 </html>

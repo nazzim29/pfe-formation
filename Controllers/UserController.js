@@ -31,11 +31,19 @@ exports.delete = (req,res) =>{
 
 }
 exports.read= (req,res) =>{
+  console.log(req.query)
   let userid = req.params?.id
-  if(userid == req.session.uid) return res.redirect('/user/me')
+  if(userid == req.session.uid && userid !== undefined) return res.redirect('/user/me')
   if(userid == "me") userid = req.session.uid
   if(!userid){
     User.getAll().then((users)=>{
+      if(req.query.json){
+        if(!req.query.draw) return res.json(users)
+        let debut = req.query.start
+        let fin = parseInt(req.query.length) + parseInt(debut)
+        if(fin > users.length) return res.json({"draw":req.query.draw,"data":users.slice(debut),"recordsFiltered":users.slice(debut).length,"recordsTotal":users.length})
+        return res.json({"draw":req.query.draw,"data":users.slice(debut,fin),"recordsFiltered":users.slice(debut,fin).length,"recordsTotal":users.length})
+      }
       res.render('pages/users',{
         users
       })

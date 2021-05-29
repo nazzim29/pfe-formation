@@ -32,6 +32,24 @@
   .nav-link{
     @apply h-16 px-6 flex justify-center items-center w-full focus:text-yellow-500;
   }
+  .search-bar{
+    @apply flex justify-end h-5 bg-white items-center rounded-full shadow-xl mr-1 ml-2 mt-5 mb-10;
+  } 
+  .button{
+    @apply px-2 font-bold text-center rounded-full m-1;
+  }
+  table tbody tr td:first-child{
+    @apply flex items-center space-x-3 text-left;
+  }
+  span.admin{
+    @apply rounded-full px-2 bg-atblue-dark py-0.5 align-middle uppercase text-white font-semibold;
+  }
+  img.avatar-sm{
+    @apply w-10 h-10 rounded-full object-cover;
+  }
+  tr td:last-child{
+    @apply flex flex-row flex-wrap space-x-1;
+  }
   .modal {
     @apply hidden;
     @apply fixed;
