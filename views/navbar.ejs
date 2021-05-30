@@ -110,9 +110,10 @@ class="flex flex-col items-center bg-white text-gray-700 shadow h-full">
     </li>
 
     <li class="hover:bg-gray-200">
-        <a
-            href="\me"
-            class="nav-link">
+        <a class="nav-link <% if (locals.user) { %>
+         active
+        <% } %>"
+            href="\user">
             <svg 
                 class="h-5 w-5"
                 xmlns="http://www.w3.org/2000/svg"

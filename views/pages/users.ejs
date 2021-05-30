@@ -15,8 +15,8 @@
 
 <body class="h-screen overflow-hidden flex flex-row items-center justify-center bg-atblue-light">
 
-    <%- include('../navbar') %>
-        <div class="flex w-full flex-col h-full">
+    <%- include('../navbar',{user:true}) %>
+        <div class="flex w-full flex-col h-full overflow-hidden">
             <div class="search-bar sm:ml-auto sm:mt-10">
                 <input class="rounded-l-full w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none"
                     id="search" type="text" placeholder="Search">
@@ -28,8 +28,8 @@
                     </button>
                 </div>
             </div>
-            <div
-                class="bg-white h-full mx-3 max-w-4xl sm:mx-auto justify-center items-center flex rounded-xl mb-10 shadow-xl">
+            <div style="max-height: 85%;"
+                class="bg-white h-full py-1 mx-3 max-w-4xl overflow-hidden sm:mx-auto justify-center items-center flex rounded-xl mb-10 shadow-xl">
                 <table id="example" class="stripe " style="padding-top: 1em;  padding-bottom: 1em;">
                     <thead class="bg-gray-50">
                         <tr>
@@ -40,45 +40,6 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
-                        <tr>
-                            <td>
-                                <img src="https://firebasestorage.googleapis.com/v0/b/at-formation-353d2.appspot.com/o/Avatar%2Fdefault.jpg?alt=media&token=250482c6-75ad-44af-8153-7022eaa6ba36"
-                                    width="50px">
-                                <div class="flex flex-col">
-                                    <h1>Tina May</h1>
-                                    <span>Ljubljana@haja.com</span>
-
-                                </div>
-                            </td>
-                            <td>61</td>
-                            <td>2011/04/25</td>
-                            <td>
-                                <button class="button bg-atgreen-light  hover:bg-atgreen">Afficher</button>
-                                <button class="button bg-yellow-500 hover:bg-yellow-600">Modifier</button>
-                                <button class="button  bg-red-500 hover:bg-red-600">Supprimer</button>
-                            </td>
-
-                        </tr>
-
-                        <!-- Rest of your data (refer to https://datatables.net/examples/server_side/ for server side processing)-->
-
-                        <tr>
-                            <td class="">
-                                <img class=""
-                                    src="https://firebasestorage.googleapis.com/v0/b/at-formation-353d2.appspot.com/o/Avatar%2Fdefault.jpg?alt=media&token=250482c6-75ad-44af-8153-7022eaa6ba36">
-                                <div class="flex flex-col">
-                                    <h1>Donna Snider</h1>
-                                    <span class="">New York@faha.com</span>
-                                </div>
-                            </td>
-                            <td>61</td>
-                            <td>2011/01/25</td>
-                            <td>
-                                <button>Afficher</button>
-                                <button>Modifier</button>
-                                <button>Supprimer</button>
-                            </td>
-                        </tr>
                     </tbody>
                     <tfoot>
                         <tr>
@@ -91,9 +52,71 @@
 
                 </table>
             </div>
+            <div
+                class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
+                <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
 
+                <div
+                    class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded-md shadow-lg z-50 overflow-y-auto">
+                    <!-- Add margin if you want to see some of the overlay behind the modal-->
+                    <div class="modal-content py-4 text-left px-6">
+                        <!--Title-->
+                        <div class="flex justify-between items-center pb-3">
+                            <p class="text-2xl font-bold modal-title">Supprimer</p>
+                            <div class="modal-close cursor-pointer z-50">
+                                <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18"
+                                    height="18" viewBox="0 0 18 18">
+                                    <path
+                                        d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!--Body-->
+                        <div class="modal-body flex flex-col space-y-2 justify-center items-center">
+                            
+                        </div>
+
+                        <!--Footer-->
+                        <div class="flex justify-end pt-3">
+                            <button
+                                class="px-4 bg-transparent p-3 rounded-lg hover:bg-gray-100 text-gray-500 hover:text-gray-700 mr-2 cancel">Annuler</button>
+                            <button class="px-4  p-1.5 rounded-lg text-white  action">Supprimer</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
         <style>
+            .dataTables_wrapper{
+                max-height: 100%;
+                max-width: 100%;
+                position: inherit;
+                overflow-y: scroll;
+                overflow-x: hidden;
+            }
+            .dataTables_wrapper table{
+                width: auto;
+                overflow-y: scroll;
+            }
+            .dtr-details li:last-child .dtr-data{
+                display:flex;
+                flex-direction: row;
+                flex-grow: 0;
+                flex-shrink: 1;
+                margin-top: 0.25rem;
+            }
+            .modal {
+                transition: opacity 0.25s ease;
+            }
+
+            body.modal-active {
+                overflow-x: hidden;
+                overflow-y: visible !important;
+            }
+
             /*Overrides for Tailwind CSS */
 
             /*Form fields*/
@@ -188,6 +211,9 @@
         <script src="\public/js/Jquery/jquery.dataTables.min.js"></script>
         <script src="\public/js/Jquery/dataTables.responsive.min.js"></script>
         <script src="\public/js/usertable.js"></script>
+        <script>
+
+        </script>
 </body>
 
 </html>

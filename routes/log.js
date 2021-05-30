@@ -4,10 +4,7 @@ const fadmin = require('../utils/firebaseadmin')
 const {isAuth} = require('../middleware/Auth')
 const UserController = require('../Controllers/UserController')
 
-router.get('/logout',(req,res)=>{
-    req.session.destroy()
-    res.end()
-})
+router.get('/logout',UserController.logout)
 
 router.get('/login',(req,res)=>{
     res.render('pages/login',{
