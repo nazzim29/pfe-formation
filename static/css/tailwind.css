@@ -53,5 +53,4 @@
   tr td:last-child{
     @apply flex flex-row flex-wrap space-x-1;
   }
-  
 }
