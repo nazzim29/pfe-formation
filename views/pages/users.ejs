@@ -17,19 +17,26 @@
 
     <%- include('../navbar',{user:true}) %>
         <div class="flex w-full flex-col h-full overflow-hidden">
-            <div class="search-bar sm:ml-auto sm:mt-10">
-                <input class="rounded-l-full w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none"
-                    id="search" type="text" placeholder="Search">
+            <div class="flex flex-row items-center w-full mx-1 align-middle justify-center">
+                <div class="flex px-1 h-full items-center sm:mt-5 sm:mr-2.5 sm:flex-1 sm:justify-end ">
+                    <button class="text-atgreen-dark rounded-md outline-none hover:bg-gray-200 focus:outline-none"><i class=" align-middle material-icons">add</i></button>
 
-                <div class=" bg-white py-0.5 pr-0.5 rounded-r-full ">
-                    <button
-                        class="bg-blue-500 text-white rounded-full p-2 hover:bg-blue-400 focus:outline-none w-12 h-12 flex items-center justify-center">
-                        <i class="material-icons ">search</i>
-                    </button>
+                </div>
+                <div class="mr-2 search-bar sm:ml-auto  sm:mt-10 w-max my-6 mx-auto">
+                    <input class="rounded-l-full w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none"
+                        id="search" type="text" placeholder="Search">
+    
+                    <div class=" bg-white py-0.5 pr-0.5 rounded-r-full ">
+                        <button
+                            class="bg-blue-500 text-white rounded-full p-2 hover:bg-blue-400 focus:outline-none w-12 h-12 flex items-center justify-center">
+                            <i class="material-icons ">search</i>
+                        </button>
+                    </div>
                 </div>
             </div>
+
             <div style="max-height: 85%;"
-                class="bg-white h-full py-1 mx-3 max-w-4xl overflow-hidden sm:mx-auto justify-center items-center flex rounded-xl mb-10 shadow-xl">
+                class="bg-white h-full py-1 mx-3 sm:mx-5 sm:max-w-max sm:self-center overflow-hidden justify-center items-center flex rounded-xl mb-10 shadow-xl">
                 <table id="example" class="stripe " style="padding-top: 1em;  padding-bottom: 1em;">
                     <thead class="bg-gray-50">
                         <tr>
@@ -90,10 +97,17 @@
             </div>
         </div>
         <style>
+            @media (min-width : 640px) {
+                .dataTables_wrapper{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+            }
             .dataTables_wrapper{
-                max-height: 100%;
-                max-width: 100%;
-                position: inherit;
+                width: 100%;
+                height: 100%;
                 overflow-y: scroll;
                 overflow-x: hidden;
             }

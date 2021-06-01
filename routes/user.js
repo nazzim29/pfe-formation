@@ -43,7 +43,6 @@ router.get('/photo', test)
 router.get('/:id',read)
 router.delete('/:id',(req,res)=>{
     console.log(req.params.id)
-    res.send('ty')
 })
 router.post('/:id',upload.single('avatar'),patchbody,(req,res)=>{
     console.log('file',req.file)
