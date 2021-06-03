@@ -36,7 +36,7 @@
     @apply text-yellow-500;
   }
   .search-bar{
-    @apply flex justify-end h-5 bg-white items-center rounded-full shadow-xl mr-1 ml-2 mt-5 mb-10;
+    @apply flex justify-end h-5 bg-white items-center rounded-full shadow-xl;
   } 
   .button{
     @apply px-2 font-bold text-center rounded-full m-1;
@@ -53,4 +53,9 @@
   tr td:last-child{
     @apply flex flex-row flex-wrap space-x-1;
   }
+<<<<<<< HEAD
 }
+=======
+  
+}
+>>>>>>> 326ae4bbb840279bfc6cb6ecaadca18bcc0c666b

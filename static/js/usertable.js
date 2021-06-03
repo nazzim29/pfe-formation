@@ -104,21 +104,32 @@ const supprimer = (f) => {
   xhr.send();
 };
 const modifier = (f) => {
-    let form = new FormData()
-    if($('.modal-content .modal-body #avatar')[0].files[0] && $('.modal-content .modal-body #avatar')[0].files[0]?.type == "image/jpeg") form.append('avatar',$('.modal-content .modal-body #avatar')[0].files[0])
-    if(!($('.modal-content .modal-body #email').val() && $('.modal-content .modal-body #nom').val() &&
-    $('.modal-content .modal-body #prenom').val() && $('.modal-content .modal-body #activite').val() &&
-    $('.modal-content .modal-body #role').val())) return console.log('all field required')
-    form.append(email,$('.modal-content .modal-body #email').val())
-    form.append(nom,$('.modal-content .modal-body #nom').val())
-    form.append(prenom,$('.modal-content .modal-body #prenom').val())
-    form.append(activite,$('.modal-content .modal-body #activite').val())
-    form.append(role,$('.modal-content .modal-body #role').val())
-    console.log(form)
-    let xhr = new XMLHttpRequest()
-    xhr.open('post',"\\user/"+f)
-    console.log('sending')
-    xhr.send(form)
+  let form = new FormData();
+  if (
+    $(".modal-content .modal-body #avatar")[0].files[0] &&
+    $(".modal-content .modal-body #avatar")[0].files[0]?.type == "image/jpeg"
+  )
+    form.append("avatar", $(".modal-content .modal-body #avatar")[0].files[0]);
+  if (
+    !(
+      $(".modal-content .modal-body #email").val() &&
+      $(".modal-content .modal-body #nom").val() &&
+      $(".modal-content .modal-body #prenom").val() &&
+      $(".modal-content .modal-body #activite").val() &&
+      $(".modal-content .modal-body #role").val()
+    )
+  )
+    return console.log("all field required");
+  form.append(email, $(".modal-content .modal-body #email").val());
+  form.append(nom, $(".modal-content .modal-body #nom").val());
+  form.append(prenom, $(".modal-content .modal-body #prenom").val());
+  form.append(activite, $(".modal-content .modal-body #activite").val());
+  form.append(role, $(".modal-content .modal-body #role").val());
+  console.log(form);
+  let xhr = new XMLHttpRequest();
+  xhr.open("post", "\\user/" + f);
+  console.log("sending");
+  xhr.send(form);
 };
 
 document.onkeydown = function (evt) {
@@ -135,6 +146,7 @@ document.onkeydown = function (evt) {
 };
 
 function toggleModal() {
+  console.log("cc");
   const body = document.querySelector("body");
   const modal = document.querySelector(".modal");
   modal.classList.toggle("opacity-0");
@@ -177,22 +189,30 @@ $(document).on("click", (e) => {
 
         <input
             class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
-            type="text" name="prenom" id="prenom" placeholder="Prenom" value="${row.prenom}">
+            type="text" name="prenom" id="prenom" placeholder="Prenom" value="${
+              row.prenom
+            }">
     </div>
     <div class="flex flex-row">
         <input
             class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
-            type="email" name="email" id="email" placeholder="Email" value="${row.email}">
+            type="email" name="email" id="email" placeholder="Email" value="${
+              row.email
+            }">
     </div>
     <div class="flex flex-row">
         <input
             class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
-            type="text" name="role" id="role" placeholder="Role" value="${row.role}">
+            type="text" name="role" id="role" placeholder="Role" value="${
+              row.role
+            }">
     </div>
     <div class="flex flex-row mb-2">
         <input
             class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
-            type="text" name="activite" id="activite" placeholder="Activite" value="${row.activite}">
+            type="text" name="activite" id="activite" placeholder="Activite" value="${
+              row.activite
+            }">
     </div>
     <input type="file" name="avatar" id="avatar"  class="outline-none">
         `);
@@ -205,19 +225,7 @@ $(document).on("click", (e) => {
           });
         $(".modal-content .cancel").click(toggleModal);
         toggleModal();
-
         break;
     }
   }
 });
-
-/**
- * onClick='supprimer(${JSON.stringify(
-                    {
-                      id: row.id,
-                      nom: row.nom,
-                      prenom: row.prenom,
-                      role: row.role,
-                    }
-                  )})'
- */
