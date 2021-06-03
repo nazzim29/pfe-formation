@@ -2,13 +2,14 @@ const firebase = require("../utils/firebaseapp")
 const firebaseadmin = require('../utils/firebaseadmin')
 const User = require('../models/User')
 exports.create = (req,res) =>{
+  console.log(req.body)
   if(!req.body.email) return res.send('no email provided')
   if(!req.body.password) return res.send('no password provided')
   if(!req.body.nom) return res.send('no nom provided')
   if(!req.body.prenom) return res.send('no prenom provided')
   if(!req.body.role) return res.send('no role provided')
   if(!req.body.activite) return res.send('no activite provided')
-  if(!req.body.nom_utilisateur) return res.send('no displayName provided')
+  if(!req.body.username) return res.send('no displayName provided')
   let newUser = new User()
   newUser.nom = req.body.nom
   newUser.prenom = req.body.prenom
@@ -18,12 +19,10 @@ exports.create = (req,res) =>{
   newUser.activite = req.body.activite
   newUser.display_name = req.body.nom_utilisateur
   newUser.create().then((error)=>{
-    if(error) return res.render("pages/users",{
-      error 
-    })
-    res.render("pages/users",{
-      success: "utilisateur crée avec succes"
-    })
+    if(error){
+      return res.send(error)
+    } 
+    res.send('ok')
   })
 
 }
@@ -31,7 +30,6 @@ exports.delete = (req,res) =>{
 
 }
 exports.read= (req,res) =>{
-  console.log(req.query)
   let userid = req.params?.id
   if(userid == req.session.uid && userid !== undefined) return res.redirect('/user/me')
   if(userid == "me") userid = req.session.uid
