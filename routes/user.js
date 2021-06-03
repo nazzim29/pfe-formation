@@ -44,9 +44,9 @@ router.get('/:id',read)
 router.delete('/:id',(req,res)=>{
     console.log(req.params.id)
 })
-router.post('/:id',upload.single('avatar'),patchbody,(req,res)=>{
-    console.log('file',req.file)
+router.post('/:id',(req,res)=>{
     console.log(req.body)
+    res.send('ok')
     
 })
 

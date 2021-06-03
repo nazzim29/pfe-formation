@@ -104,34 +104,61 @@ const supprimer = (f) => {
   xhr.send();
 };
 const modifier = (f) => {
-  let form = new FormData();
-  if (
-    $(".modal-content .modal-body #avatar")[0].files[0] &&
-    $(".modal-content .modal-body #avatar")[0].files[0]?.type == "image/jpeg"
-  )
-    form.append("avatar", $(".modal-content .modal-body #avatar")[0].files[0]);
   if (
     !(
       $(".modal-content .modal-body #email").val() &&
       $(".modal-content .modal-body #nom").val() &&
       $(".modal-content .modal-body #prenom").val() &&
       $(".modal-content .modal-body #activite").val() &&
-      $(".modal-content .modal-body #role").val()
+      $(".modal-content .modal-body #role").val() &&
+      $(".modal-content .modal-body #username").val()
     )
   )
     return console.log("all field required");
-  form.append(email, $(".modal-content .modal-body #email").val());
-  form.append(nom, $(".modal-content .modal-body #nom").val());
-  form.append(prenom, $(".modal-content .modal-body #prenom").val());
-  form.append(activite, $(".modal-content .modal-body #activite").val());
-  form.append(role, $(".modal-content .modal-body #role").val());
-  console.log(form);
   let xhr = new XMLHttpRequest();
   xhr.open("post", "\\user/" + f);
   console.log("sending");
-  xhr.send(form);
+  xhr.send({
+    username: $(".modal-content .modal-body #username").val(),
+    email: $(".modal-content .modal-body #email").val(),
+    nom: $(".modal-content .modal-body #nom").val(),
+    prenom: $(".modal-content .modal-body #prenom").val(),
+    activite: $(".modal-content .modal-body #activite").val(),
+    role: $(".modal-content .modal-body #role").val(),
+  });
 };
-
+const creer = (f) => {
+  if (
+    !(
+      $(".modal-content .modal-body #email").val() &&
+      $(".modal-content .modal-body #nom").val() &&
+      $(".modal-content .modal-body #prenom").val() &&
+      $(".modal-content .modal-body #activite").val() &&
+      $(".modal-content .modal-body #role").val() &&
+      $(".modal-content .modal-body #password").val() &&
+      $(".modal-content .modal-body #password_confirm").val() &&
+      $(".modal-content .modal-body #username").val()
+    )
+  )
+    return alert("all field required!!");
+  if ($(".modal-content .modal-body #password").val() != $(".modal-content .modal-body #password_confirm").val()) return alert('wrong password')
+  let xhr = new XMLHttpRequest();
+  xhr.open("post", "\\user");
+  xhr.onload=()=>{
+    console.log(xhr.response)
+    toggleModal()
+  }
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.send(JSON.stringify({
+    username:$(".modal-content .modal-body #username").val(),
+    email: $(".modal-content .modal-body #email").val(),
+    password: $(".modal-content .modal-body #password").val(),
+    nom: $(".modal-content .modal-body #nom").val(),
+    prenom: $(".modal-content .modal-body #prenom").val(),
+    activite: $(".modal-content .modal-body #activite").val(),
+    role: $(".modal-content .modal-body #role").val(),
+  }));
+};
 document.onkeydown = function (evt) {
   evt = evt || window.event;
   var isEscape = false;
@@ -146,7 +173,6 @@ document.onkeydown = function (evt) {
 };
 
 function toggleModal() {
-  console.log("cc");
   const body = document.querySelector("body");
   const modal = document.querySelector(".modal");
   modal.classList.toggle("opacity-0");
@@ -155,10 +181,13 @@ function toggleModal() {
 }
 $(document).on("click", (e) => {
   let data = $(e.target).data();
+  console.log(data)
   let row = table.row(e.target.parentElement.parentElement).data();
   if (data.toggle == "modal") {
+    console.log('model:')
     switch (data.target) {
       case "supprimer":
+        console.log(' supp')
         $(".modal-content .modal-title").text("Supprimer un utilisateur");
         $(".modal-content .modal-body").html(
           `<p>etes vous sur de vouloir supprimer <span class="font-semibold user-name">${row.nom.toUpperCase()} ${
@@ -175,46 +204,103 @@ $(document).on("click", (e) => {
         $(".modal-content .cancel").click(toggleModal);
         toggleModal();
         break;
-
-      default:
+      case "creer":
+        console.log(' creer')
         $(".modal-content .modal-title").text("Modifier un utilisateur");
         $(".modal-content .modal-body").html(`
         <div class="flex flex-row space-x-2">
                                 
         <input
             class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-100 placeholder-atgreen bg-gray-100'
-            type="text" name="nom" id="nom" placeholder="Nom" value="${row.nom.toUpperCase()}">
+            type="text" name="nom" id="nom" placeholder="Nom" >
+    </div>
+        <div class="flex flex-row space-x-2">
+                                
+        <input
+            class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-100 placeholder-atgreen bg-gray-100'
+            type="text" name="username" id="username" placeholder="username" >
+    </div>
+    <div class="flex flex-row">
+
+        <input
+            class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
+            type="text" name="prenom" id="prenom" placeholder="Prenom" >
+    </div>
+    <div class="flex flex-row">
+        <input
+            class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
+            type="email" name="email" id="email" placeholder="Email" >
+    </div>
+    <div class="flex flex-row">
+        <input
+            class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
+            type="password" name="password" id="password" placeholder="password" >
+    </div>
+    <div class="flex flex-row">
+        <input
+            class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
+            type="password" name="password_confirm" id="password_confirm" placeholder="password_confirm" >
+    </div>
+    <div class="flex flex-row">
+        <input
+            class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
+            type="text" name="role" id="role" placeholder="Role">
+    </div>
+    <div class="flex flex-row mb-2">
+        <input
+            class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
+            type="text" name="activite" id="activite" placeholder="Activite" >
+    </div>
+        `);
+        $(".modal-content .action")
+          .text("Ajouter")
+          .removeClass("bg-red-600 hover:bg-red-700")
+          .addClass("bg-atblue hover:bg-atblue-dark")
+          .on("click", () => {
+            creer();
+          });
+        $(".modal-content .cancel").click(toggleModal);
+        toggleModal();
+        break;
+      case 'modifier':
+        console.log(' mod')
+        $(".modal-content .modal-title").text("Modifier un utilisateur");
+        $(".modal-content .modal-body").html(`
+        <div class="flex flex-row space-x-2">
+                                
+        <input
+            class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-100 placeholder-atgreen bg-gray-100'
+            type="text" name="nom" id="nom" placeholder="Nom" value="${row?.nom.toUpperCase()}">
     </div>
     <div class="flex flex-row">
 
         <input
             class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
             type="text" name="prenom" id="prenom" placeholder="Prenom" value="${
-              row.prenom
+              row?.prenom
             }">
     </div>
     <div class="flex flex-row">
         <input
             class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
             type="email" name="email" id="email" placeholder="Email" value="${
-              row.email
+              row?.email
             }">
     </div>
     <div class="flex flex-row">
         <input
             class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
             type="text" name="role" id="role" placeholder="Role" value="${
-              row.role
+              row?.role
             }">
     </div>
     <div class="flex flex-row mb-2">
         <input
             class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
             type="text" name="activite" id="activite" placeholder="Activite" value="${
-              row.activite
+              row?.activite
             }">
     </div>
-    <input type="file" name="avatar" id="avatar"  class="outline-none">
         `);
         $(".modal-content .action")
           .text("Enregistrer")
