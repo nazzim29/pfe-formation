@@ -53,9 +53,4 @@
   tr td:last-child{
     @apply flex flex-row flex-wrap space-x-1;
   }
-<<<<<<< HEAD
 }
-=======
-  
-}
->>>>>>> 326ae4bbb840279bfc6cb6ecaadca18bcc0c666b
