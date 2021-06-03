@@ -110,8 +110,7 @@ const modifier = (f) => {
       $(".modal-content .modal-body #nom").val() &&
       $(".modal-content .modal-body #prenom").val() &&
       $(".modal-content .modal-body #activite").val() &&
-      $(".modal-content .modal-body #role").val() &&
-      $(".modal-content .modal-body #username").val()
+      $(".modal-content .modal-body #role").val()
     )
   )
     return console.log("all field required");
@@ -119,7 +118,6 @@ const modifier = (f) => {
   xhr.open("post", "\\user/" + f);
   console.log("sending");
   xhr.send({
-    username: $(".modal-content .modal-body #username").val(),
     email: $(".modal-content .modal-body #email").val(),
     nom: $(".modal-content .modal-body #nom").val(),
     prenom: $(".modal-content .modal-body #prenom").val(),
