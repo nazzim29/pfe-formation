@@ -26,6 +26,17 @@ exports.create = (req,res) =>{
   })
 
 }
+exports.update = (req,res=>{
+  let user = new User()
+  user.id = req.params?.id
+  if(req.body.email) return res.send('no email provided')
+  if(!req.body.password) return res.send('no password provided')
+  if(!req.body.nom) return res.send('no nom provided')
+  if(!req.body.prenom) return res.send('no prenom provided')
+  if(!req.body.role) return res.send('no role provided')
+  if(!req.body.activite) return res.send('no activite provided')
+  if(!req.body.username) return res.send('no displayName provided')
+})
 exports.delete = (req,res) =>{
 
 }
@@ -49,7 +60,9 @@ exports.read= (req,res) =>{
   }else{
     let user = new User(userid)
     user.read().then(()=>{
-      res.json(user)
+      res.render("pages/profil",{
+        user
+      })
     })
   }
 }

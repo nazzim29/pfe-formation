@@ -41,6 +41,7 @@ router.get('/',read)
 router.post('/',create)
 router.get('/photo', test)
 router.get('/:id',read)
+router.post('/:id',read)
 router.delete('/:id',(req,res)=>{
     console.log(req.params.id)
 })
