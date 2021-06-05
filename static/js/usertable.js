@@ -114,16 +114,23 @@ const modifier = (f) => {
     )
   )
     return console.log("all field required");
-  let xhr = new XMLHttpRequest();
-  xhr.open("post", "\\user/" + f);
-  console.log("sending");
-  xhr.send({
+
+  let form = {
     email: $(".modal-content .modal-body #email").val(),
     nom: $(".modal-content .modal-body #nom").val(),
     prenom: $(".modal-content .modal-body #prenom").val(),
     activite: $(".modal-content .modal-body #activite").val(),
     role: $(".modal-content .modal-body #role").val(),
-  });
+  };
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", "\\user/" + f);
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.onload = () => {
+    $('.modal-content .modal-loader').addClass('hidden')
+    toggleModal();
+  };
+  xhr.send(JSON.stringify(form));
+  $('.modal-content .modal-loader').removeClass('hidden')
 };
 const creer = (f) => {
   if (
@@ -139,23 +146,31 @@ const creer = (f) => {
     )
   )
     return alert("all field required!!");
-  if ($(".modal-content .modal-body #password").val() != $(".modal-content .modal-body #password_confirm").val()) return alert('wrong password')
+  if (
+    $(".modal-content .modal-body #password").val() !=
+    $(".modal-content .modal-body #password_confirm").val()
+  )
+    return alert("wrong password");
   let xhr = new XMLHttpRequest();
   xhr.open("post", "\\user");
-  xhr.onload=()=>{
-    console.log(xhr.response)
-    toggleModal()
-  }
-  xhr.setRequestHeader('Content-Type', 'application/json');
-  xhr.send(JSON.stringify({
-    username:$(".modal-content .modal-body #username").val(),
-    email: $(".modal-content .modal-body #email").val(),
-    password: $(".modal-content .modal-body #password").val(),
-    nom: $(".modal-content .modal-body #nom").val(),
-    prenom: $(".modal-content .modal-body #prenom").val(),
-    activite: $(".modal-content .modal-body #activite").val(),
-    role: $(".modal-content .modal-body #role").val(),
-  }));
+  xhr.onload = () => {
+    console.log(xhr.response);
+    $('.modal-content .modal-loader').addClass('hidden');
+    toggleModal();
+  };
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.send(
+    JSON.stringify({
+      username: $(".modal-content .modal-body #username").val(),
+      email: $(".modal-content .modal-body #email").val(),
+      password: $(".modal-content .modal-body #password").val(),
+      nom: $(".modal-content .modal-body #nom").val(),
+      prenom: $(".modal-content .modal-body #prenom").val(),
+      activite: $(".modal-content .modal-body #activite").val(),
+      role: $(".modal-content .modal-body #role").val(),
+    })
+  );
+  $('.modal-content .modal-loader').removeClass('hidden')
 };
 document.onkeydown = function (evt) {
   evt = evt || window.event;
@@ -179,31 +194,28 @@ function toggleModal() {
 }
 $(document).on("click", (e) => {
   let data = $(e.target).data();
-  console.log(data)
   let row = table.row(e.target.parentElement.parentElement).data();
   if (data.toggle == "modal") {
-    console.log('model:')
     switch (data.target) {
       case "supprimer":
-        console.log(' supp')
         $(".modal-content .modal-title").text("Supprimer un utilisateur");
         $(".modal-content .modal-body").html(
           `<p>etes vous sur de vouloir supprimer <span class="font-semibold user-name">${row.nom.toUpperCase()} ${
             row.prenom
           } (${row.role})</span></p>`
         );
+        $(".modal-content .modal-footer").html(`<button
+        class="px-4 bg-transparent p-3 rounded-lg hover:bg-gray-100 text-gray-500 hover:text-gray-700 mr-2 cancel">Annuler</button>
+    <button class="px-4  p-1.5 rounded-lg text-white bg-red-500 hover:bg-red-700 action">Supprimer</button>`);
         $(".modal-content .action")
           .text("Supprimer")
-          .removeClass("bg-atblue hover:bg-atblue-dark")
-          .addClass("bg-red-600 hover:bg-red-700")
-          .on("click", () => {
+          .on("click", (e) => {
             supprimer(row.id);
           });
         $(".modal-content .cancel").click(toggleModal);
         toggleModal();
         break;
       case "creer":
-        console.log(' creer')
         $(".modal-content .modal-title").text("Modifier un utilisateur");
         $(".modal-content .modal-body").html(`
         <div class="flex flex-row space-x-2">
@@ -250,18 +262,18 @@ $(document).on("click", (e) => {
             type="text" name="activite" id="activite" placeholder="Activite" >
     </div>
         `);
+        $(".modal-content .modal-footer").html(`<button
+        class="px-4 bg-transparent p-3 rounded-lg hover:bg-gray-100 text-gray-500 hover:text-gray-700 mr-2 cancel">Annuler</button>
+    <button class="px-4  p-1.5 rounded-lg text-white hover:bg-atblue-dark bg-atblue action">Supprimer</button>`);
         $(".modal-content .action")
           .text("Ajouter")
-          .removeClass("bg-red-600 hover:bg-red-700")
-          .addClass("bg-atblue hover:bg-atblue-dark")
-          .on("click", () => {
+          .on("click", (e) => {
             creer();
           });
         $(".modal-content .cancel").click(toggleModal);
         toggleModal();
         break;
-      case 'modifier':
-        console.log(' mod')
+      case "modifier":
         $(".modal-content .modal-title").text("Modifier un utilisateur");
         $(".modal-content .modal-body").html(`
         <div class="flex flex-row space-x-2">
@@ -300,12 +312,13 @@ $(document).on("click", (e) => {
             }">
     </div>
         `);
+        $(".modal-content .modal-footer").html(`<button
+        class="px-4 bg-transparent p-3 rounded-lg hover:bg-gray-100 text-gray-500 hover:text-gray-700 mr-2 cancel">Annuler</button>
+    <button class="px-4  p-1.5 rounded-lg text-white bg-atblue hover:bg-atblue-dark action">Supprimer</button>`);
         $(".modal-content .action")
           .text("Enregistrer")
-          .removeClass("bg-red-600 hover:bg-red-700")
-          .addClass("bg-atblue hover:bg-atblue-dark")
-          .on("click", () => {
-            modifier(row.id);
+          .on("click", (e) => {
+            supprimer(row.id);
           });
         $(".modal-content .cancel").click(toggleModal);
         toggleModal();

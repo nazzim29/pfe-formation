@@ -1,6 +1,6 @@
 const router = require("express").Router()
 const firebase = require('../utils/firebaseapp')
-const {read,create,test} = require('../Controllers/UserController')
+const {read,create,delet,test,update} = require('../Controllers/UserController')
 const multer = require('multer')
 const path = require('path')
 
@@ -41,10 +41,8 @@ router.get('/',read)
 router.post('/',create)
 router.get('/photo', test)
 router.get('/:id',read)
-router.post('/:id',read)
-router.delete('/:id',(req,res)=>{
-    console.log(req.params.id)
-})
+router.post('/:id',update)
+router.delete('/:id',delet)
 router.post('/:id',(req,res)=>{
     console.log(req.body)
     res.send('ok')

@@ -2,7 +2,6 @@ const firebase = require("../utils/firebaseapp")
 const firebaseadmin = require('../utils/firebaseadmin')
 const User = require('../models/User')
 exports.create = (req,res) =>{
-  console.log(req.body)
   if(!req.body.email) return res.send('no email provided')
   if(!req.body.password) return res.send('no password provided')
   if(!req.body.nom) return res.send('no nom provided')
@@ -26,19 +25,26 @@ exports.create = (req,res) =>{
   })
 
 }
-exports.update = (req,res=>{
-  let user = new User()
-  user.id = req.params?.id
-  if(req.body.email) return res.send('no email provided')
-  if(!req.body.password) return res.send('no password provided')
-  if(!req.body.nom) return res.send('no nom provided')
-  if(!req.body.prenom) return res.send('no prenom provided')
-  if(!req.body.role) return res.send('no role provided')
-  if(!req.body.activite) return res.send('no activite provided')
-  if(!req.body.username) return res.send('no displayName provided')
+exports.update = ((req,res)=>{
+  let user = new User(req.params?.id)
+  if(req.body.email) user.email = req.body.email
+  if(req.body.password && req.body.password == req.body.confirm_pass) user.password = req.body.password
+  if(req.body.nom) user.name = req.body.nom
+  if(req.body.prenom) user.prenom = req.body.prenom
+  if(req.body.role) user.role = req.body.role
+  if(req.body.activite) user.ectivite = req.body.activite
+  if(req.body.username) user.display_name = req.body.username
+  user.update().then(((p)=>{
+    res.send('ok')
+  })).catch((err)=>{
+    res.send(err)
+  })
 })
-exports.delete = (req,res) =>{
-
+exports.delet = (req,res) =>{
+  let user = new User(req.params.id)
+  user.delete().then((err)=>{
+    res.send(err)
+  })
 }
 exports.read= (req,res) =>{
   let userid = req.params?.id
@@ -56,7 +62,7 @@ exports.read= (req,res) =>{
       res.render('pages/users',{
         users
       })
-    })
+    }).catch((err)=>{console.log(err)})
   }else{
     let user = new User(userid)
     user.read().then(()=>{
@@ -71,21 +77,20 @@ exports.login = async (req,res) =>{
     if (user) {
       user.getIdToken(true).then(idToken => {
         req.session.authToken= idToken
-        req.session.redirecturl = undefined
-        req.session.uid = user.uid
-        req.session.displayname = user.displayName
-        req.session.photoURL = user.photoURL
-        req.session.email = user.email
-        console.log('redirected to: ', req.session.redirecturl )
-        res.redirect(req.session.redirecturl || '\/home');
+        req.session.currentUser = new User(user.uid)
+        req.session.currentUser.read().then(()=>{
+          let a = req.session.redirecturl 
+          req.session.redirecturl = undefined
+          res.redirect(a || '\/home');
+        })
+        if(req.body.remember_me){
+          res.cookie('email',req.body.email,{signed:true})
+          res.cookie('password',req.body.password,{signed:true})
+        }else{
+          res.clearCookie('email')
+          res.clearCookie('password')
+        }
       });
-      if(req.body.remember_me){
-        res.cookie('email',req.body.email,{signed:true})
-        res.cookie('password',req.body.password,{signed:true})
-      }else{
-        res.clearCookie('email')
-        res.clearCookie('password')
-      }
     }
   })
   firebase.auth().signInWithEmailAndPassword(req.body.email, req.body.password)
@@ -114,6 +119,7 @@ exports.login = async (req,res) =>{
   });
 }
 exports.logout = (req,res)=>{
+  res.redirect('/login')
 }
 
 exports.test = (req,res)=>{

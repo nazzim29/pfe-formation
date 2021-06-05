@@ -1,6 +1,7 @@
 const Model = require("./model");
 const fadmin = require("../utils/firebaseadmin");
 const firestore = require("firebase-admin").firestore;
+const { auth } = require("firebase-admin");
 module.exports = class User extends Model {
   static colref = this.db.collection("usertest");
   /**
@@ -14,6 +15,51 @@ module.exports = class User extends Model {
       this._id = id;
       this.docref = this.colref.doc(this._id);
     }
+  }
+
+  update() {
+    if (!this._id) throw new Error("Id not defined");
+    return (
+      this.docref.get().then((snapshot) => {
+        if (!snapshot.exists) throw new Error("User not found");
+        let d = snapshot.data();
+        this.date_modification = new Date();
+        if (!this.nom) this.nom = d.nom;
+        if (!this.prenom) this.prenom = d.prenom;
+        if (!this.role) this.role = d.role;
+        if (!this.activite) this.activite = d.activite;
+        return this.docref.update({
+          nom: this.nom,
+          prenom: this.prenom,
+          role: this.role,
+          activite: this.activite,
+          date_modification: firestore.Timestamp.fromMillis(
+            new Date(this.date_modification).getTime()
+          ),
+        });
+      }),
+      fadmin
+        .auth()
+        .getUser(this._id)
+        .then((currentUser) => {
+          if (!this.email) this.email = currentUser.email;
+          if (!this.display_name) this.display_name = currentUser.displayName;
+          if (!this.avatar)
+            this.avatar =
+              currentUser.photoURL ||
+              "https://firebasestorage.googleapis.com/v0/b/at-formation-353d2.appspot.com/o/Avatar%2Fdefault.jpg?alt=media&token=250482c6-75ad-44af-8153-7022eaa6ba36";
+          return fadmin
+            .auth()
+            .updateUser(this._id, {
+              email: this.email,
+              displayName: this.display_name,
+              photoURL: this.avatar,
+            })
+            .catch((err) => {
+              throw new Error("erreur lors de la mise a jour du profil");
+            });
+        })
+    );
   }
 
   /**
@@ -35,21 +81,20 @@ module.exports = class User extends Model {
             .auth()
             .getUser(this._id)
             .then((userrecord) => {
-              console.log("ha nktb wsh b9a");
               this.date_creation = Date(userrecord.creationTime);
               this.email = userrecord.email;
               this.derniere_connexion = Date(userrecord.lastSignInTime);
               this.avatar = userrecord.photoURL;
             })
             .catch((error) => {
-              console.log("error");
+              throw new Error(error);
             });
         } else {
           throw new Error("user not found");
         }
       })
       .catch((error) => {
-        console.log("error", error.message);
+        throw new Error(error);
       });
   }
   /**
@@ -60,32 +105,36 @@ module.exports = class User extends Model {
     return this.colref
       .get()
       .then((snapshot) => {
-        let p =[];
+        let p = [];
         let users = [];
         snapshot.forEach((doc) => {
-            let f = doc.data();
-            f.id= doc.id
-            f.date_modification = f.date_modification.toDate()
-            var  getinfo = (x)=>{
-                return fadmin.auth().getUser(x).then((userRecord)=>{
-                    f.email = userRecord.email
-                    f.displayName = userRecord.displayName
-                    f.date_creation = userRecord.metadata.creationTime
-                    f.derniere_connexion = userRecord.metadata.lastSignInTime
-                    f.avatar = userRecord.photoURL
-                    users.push(f)
-                })
-            }
-            p.push(getinfo(doc.id))
+          let f = doc.data();
+          f.id = doc.id;
+          f.date_modification = f.date_modification;
+          var getinfo = (x) => {
+            return fadmin
+              .auth()
+              .getUser(x)
+              .then((userRecord) => {
+                f.email = userRecord.email;
+                f.displayName = userRecord.displayName;
+                f.date_creation = userRecord.metadata.creationTime;
+                f.derniere_connexion = userRecord.metadata.lastSignInTime;
+                f.avatar = userRecord.photoURL;
+                users.push(f);
+              });
+          };
+          p.push(getinfo(doc.id));
         });
-        return Promise.all(p).then(()=>{
-            return users;
-        })
+        return Promise.all(p).then(() => {
+          return users;
+        });
       })
       .catch((error) => {
         throw new Error(error.message);
       });
   }
+
   create() {
     return fadmin
       .auth()
@@ -106,16 +155,30 @@ module.exports = class User extends Model {
             role: this.role,
             activite: this.activite,
             date_modification: firestore.Timestamp.fromMillis(
-              new Date(this.date_modification).getTime()
-            ),
+              new Date().getTime()
+            )
           })
           .catch((error) => {
-            fadmin.deleteUser(userRecord.uid);
-            return error.code;
+            fadmin.deleteUser(userRecord.uid).then(()=>{
+              throw new Error(error)
+            });
           });
       })
       .catch((error) => {
-        return error.code;
+        throw new Error(error)
+      });
+  }
+  delete() {
+    return fadmin
+      .auth()
+      .deleteUser(this._id)
+      .then((f) => {
+        return this.docref.delete().catch((err) => {
+          throw new Error(err);
+        });
+      })
+      .catch((err) => {
+        throw new Error(err);
       });
   }
   /**
@@ -220,7 +283,7 @@ module.exports = class User extends Model {
    * @returns {Date} date_modification
    */
   get date_modification() {
-    return this._date_modification?.toDate() || new Date();
+    return this._date_modification;
   }
 
   /**

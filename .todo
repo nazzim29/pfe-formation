@@ -1,0 +1,45 @@
+models:
+    |___[]formation
+    |___[]seminaire
+    |___[]fiche evaluation
+    |___[]documentation formation
+    |___[]partenaire
+    |       |___[]type
+    |       |___[]nom
+    |       |___[]description
+    |___[]projet DF
+    |___[]formateur
+    |       |___[]nom et prenom
+    |       |___[]etablissement
+    |       |___[]age
+    |       |___[]sexe
+    |       |___[]domaine
+    |___[]notation formateur
+    |       |___[]id_user
+    |       |___[]id_formateur
+    |       |___[]note
+    |       |___[]remarque
+    |___[]notation lieu
+    |       |___[]id_lieu
+    |       |___[]id_utilisateur
+    |       |___[]note
+    |       |___[]remarque
+    |___[]lieu de formation
+    |___[]utilisateur
+            |___[x]role
+            |___[x]nom
+            |___[x]prenom
+            |___[x]activite
+            |___[]bio
+CRUD:
+    |___[x]utilisateur
+    |___[]formation
+    |___[]seminaire
+    |___[]fiche evaluation
+    |___[]documentation
+    |___[]partenaire
+    |___[]projet df
+    |___[]formateur
+    |___[]lieu de formation
+Stat:
+    |___[]faire une liste des stats a proposer

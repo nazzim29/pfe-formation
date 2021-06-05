@@ -69,7 +69,9 @@
             </div>
             <div class="flex items-center">
               <input type="checkbox" name="remember_me" id="remember_me"
-                class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"<% if (locals.password && locals.email) { %>
+                 checked
+                <% } %>>
               <label for="remember_me" class="ml-2 block text-sm text-gray-900">Remember me</label>
             </div>
             <div>

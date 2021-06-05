@@ -19,13 +19,15 @@
         <div class="flex w-full flex-col h-full overflow-hidden">
             <div class="flex flex-row items-center w-full mx-1 align-middle justify-center">
                 <div class="flex px-1 h-full items-center sm:mt-5 sm:mr-2.5 sm:flex-1 sm:justify-end ">
-                    <button class="text-atgreen-dark rounded-md outline-none hover:bg-gray-200 focus:outline-none" ><i class=" align-middle material-icons" data-toggle='modal' data-target='creer'>add</i></button>
+                    <button class="text-atgreen-dark rounded-md outline-none hover:bg-gray-200 focus:outline-none"><i
+                            class=" align-middle material-icons" data-toggle='modal'
+                            data-target='creer'>add</i></button>
 
                 </div>
                 <div class="mr-2 search-bar sm:ml-auto  sm:mt-10 w-max my-6 mx-auto">
                     <input class="rounded-l-full w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none"
                         id="search" type="text" placeholder="Search">
-    
+
                     <div class=" bg-white py-0.5 pr-0.5 rounded-r-full ">
                         <button
                             class="bg-blue-500 text-white rounded-full p-2 hover:bg-blue-400 focus:outline-none w-12 h-12 flex items-center justify-center">
@@ -79,14 +81,70 @@
                                 </svg>
                             </div>
                         </div>
-
+                        <div class="modal-loader relative h-full w-full hidden">
+                            <div class="absolute h-full w-full justify-center items-center flex">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    style="" class="w-60 self-center justify-self-center m-auto"
+                                    viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+                                    <defs>
+                                        <path id="path" d="M50 15A14 35 0 0 1 50 85A14 35 0 0 1 50 15" fill="none">
+                                        </path>
+                                        <path id="patha" d="M0 0A14 35 0 0 1 0 70A14 35 0 0 1 0 0" fill="none"></path>
+                                    </defs>
+                                    <g transform="rotate(0 50 50)">
+                                        <use xlink:href="#path" stroke="#20b471" stroke-width="1"></use>
+                                    </g>
+                                    <g transform="rotate(45 50 50)">
+                                        <use xlink:href="#path" stroke="#20b471" stroke-width="1"></use>
+                                    </g>
+                                    <g transform="rotate(90 50 50)">
+                                        <use xlink:href="#path" stroke="#20b471" stroke-width="1"></use>
+                                    </g>
+                                    <g transform="rotate(135 50 50)">
+                                        <use xlink:href="#path" stroke="#20b471" stroke-width="1"></use>
+                                    </g>
+                                    <g transform="rotate(0 50 50)">
+                                        <circle cx="50" cy="15" r="2" fill="#2c5eaa">
+                                            <animateMotion dur="3.4482758620689653s" repeatCount="indefinite"
+                                                begin="0s">
+                                                <mpath xlink:href="#patha"></mpath>
+                                            </animateMotion>
+                                        </circle>
+                                    </g>
+                                    <g transform="rotate(45 50 50)">
+                                        <circle cx="50" cy="15" r="2" fill="#2c5eaa">
+                                            <animateMotion dur="3.4482758620689653s" repeatCount="indefinite"
+                                                begin="-0.125s">
+                                                <mpath xlink:href="#patha"></mpath>
+                                            </animateMotion>
+                                        </circle>
+                                    </g>
+                                    <g transform="rotate(90 50 50)">
+                                        <circle cx="50" cy="15" r="2" fill="#2c5eaa">
+                                            <animateMotion dur="3.4482758620689653s" repeatCount="indefinite"
+                                                begin="-0.25s">
+                                                <mpath xlink:href="#patha"></mpath>
+                                            </animateMotion>
+                                        </circle>
+                                    </g>
+                                    <g transform="rotate(135 50 50)">
+                                        <circle cx="50" cy="15" r="2" fill="#2c5eaa">
+                                            <animateMotion dur="3.4482758620689653s" repeatCount="indefinite"
+                                                begin="-0.375s">
+                                                <mpath xlink:href="#patha"></mpath>
+                                            </animateMotion>
+                                        </circle>
+                                    </g>
+                                </svg>
+                            </div>
+                        </div>
                         <!--Body-->
                         <div class="modal-body flex flex-col space-y-2 justify-center items-center">
-                            
+
                         </div>
 
                         <!--Footer-->
-                        <div class="flex justify-end pt-3">
+                        <div class="modal-footer flex justify-end pt-3">
                             <button
                                 class="px-4 bg-transparent p-3 rounded-lg hover:bg-gray-100 text-gray-500 hover:text-gray-700 mr-2 cancel">Annuler</button>
                             <button class="px-4  p-1.5 rounded-lg text-white  action">Supprimer</button>
@@ -98,30 +156,34 @@
         </div>
         <style>
             @media (min-width : 640px) {
-                .dataTables_wrapper{
+                .dataTables_wrapper {
                     display: flex;
                     flex-direction: column;
                     justify-content: space-between;
                     align-items: center;
                 }
             }
-            .dataTables_wrapper{
+
+            .dataTables_wrapper {
                 width: 100%;
                 height: 100%;
                 overflow-y: scroll;
                 overflow-x: hidden;
             }
-            .dataTables_wrapper table{
+
+            .dataTables_wrapper table {
                 width: auto;
                 overflow-y: scroll;
             }
-            .dtr-details li:last-child .dtr-data{
-                display:flex;
+
+            .dtr-details li:last-child .dtr-data {
+                display: flex;
                 flex-direction: row;
                 flex-grow: 0;
                 flex-shrink: 1;
                 margin-top: 0.25rem;
             }
+
             .modal {
                 transition: opacity 0.25s ease;
             }

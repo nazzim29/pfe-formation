@@ -1,6 +1,7 @@
 require('dotenv').config()
 global.XMLHttpRequest = require("xhr2")
 const express = require('express')
+const {isAuth} = require('./middleware/Auth')
 const session = require("./middleware/sessionstore")
 const ejsSession = require('./middleware/ejs-session')
 const cookieparser = require('cookie-parser')
@@ -36,7 +37,7 @@ app.get('/', (req, res) => {
  * login, logout & home route
 */
 app.use('', routes.baseRoute)
-app.use('/user',routes.userRoute)
+app.use('/user',isAuth,routes.userRoute)
 
 /**
  * launch the server
