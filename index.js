@@ -38,6 +38,7 @@ app.get('/', (req, res) => {
 */
 app.use('', routes.baseRoute)
 app.use('/user',isAuth,routes.userRoute)
+app.use('/partenaire',isAuth,routes.partenaireRoute)
 
 /**
  * launch the server
