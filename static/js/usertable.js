@@ -56,9 +56,8 @@ table = $("#example")
           return `
                     <img class="avatar-sm" src="${row.avatar}">
                     <div class="flex flex-col">
-                        <a href="\\user/${row.id}" target="_blank">${
-            row.nom.toUpperCase() + " " + row.prenom
-          }</a>
+                        <a href="\\user/${row.id}" target="_blank">${row.nom.toUpperCase() + " " + row.prenom
+            }</a>
                         <span>${row.email}</span>
                         
                     </div>
@@ -83,8 +82,8 @@ table = $("#example")
         targets: 3,
         data: null,
         render: function (data, type, row, meta) {
-          return `<button class="button bg-yellow-500 hover:bg-yellow-600" data-toggle='modal' data-target='modifier'>Modifier</button>
-                  <button class="button  bg-red-500 hover:bg-red-600" data-toggle='modal' data-target='supprimer'>Supprimer</button>`;
+          return `<button class="button" data-toggle='modal' data-target='modifier'> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill:rgba(0, 0, 0, 1);transform:;-ms-filter:"><path d="M8.707 19.707L18 10.414 13.586 6l-9.293 9.293c-.128.128-.219.289-.263.464L3 21l5.242-1.03C8.418 19.926 8.579 19.835 8.707 19.707zM21 7.414c.781-.781.781-2.047 0-2.828L19.414 3c-.781-.781-2.047-.781-2.828 0L15 4.586 19.414 9 21 7.414z"></path></svg> </button>
+                  <button class="button" data-toggle='modal' data-target='supprimer'><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill:rgba(0, 0, 0, 1);transform:;-ms-filter:"><path d="M6 7C5.447 7 5 7 5 7v13c0 1.104.896 2 2 2h10c1.104 0 2-.896 2-2V7c0 0-.447 0-1 0H6zM16.618 4L15 2 9 2 7.382 4 3 4 3 6 8 6 16 6 21 6 21 4z"></path></svg></button>`;
         },
       },
     ],
@@ -200,8 +199,7 @@ $(document).on("click", (e) => {
       case "supprimer":
         $(".modal-content .modal-title").text("Supprimer un utilisateur");
         $(".modal-content .modal-body").html(
-          `<p>etes vous sur de vouloir supprimer <span class="font-semibold user-name">${row.nom.toUpperCase()} ${
-            row.prenom
+          `<p>etes vous sur de vouloir supprimer <span class="font-semibold user-name">${row.nom.toUpperCase()} ${row.prenom
           } (${row.role})</span></p>`
         );
         $(".modal-content .modal-footer").html(`<button
@@ -286,30 +284,26 @@ $(document).on("click", (e) => {
 
         <input
             class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
-            type="text" name="prenom" id="prenom" placeholder="Prenom" value="${
-              row?.prenom
-            }">
+            type="text" name="prenom" id="prenom" placeholder="Prenom" value="${row?.prenom
+          }">
     </div>
     <div class="flex flex-row">
         <input
             class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
-            type="email" name="email" id="email" placeholder="Email" value="${
-              row?.email
-            }">
+            type="email" name="email" id="email" placeholder="Email" value="${row?.email
+          }">
     </div>
     <div class="flex flex-row">
         <input
             class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
-            type="text" name="role" id="role" placeholder="Role" value="${
-              row?.role
-            }">
+            type="text" name="role" id="role" placeholder="Role" value="${row?.role
+          }">
     </div>
     <div class="flex flex-row mb-2">
         <input
             class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
-            type="text" name="activite" id="activite" placeholder="Activite" value="${
-              row?.activite
-            }">
+            type="text" name="activite" id="activite" placeholder="Activite" value="${row?.activite
+          }">
     </div>
         `);
         $(".modal-content .modal-footer").html(`<button
