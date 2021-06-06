@@ -1,7 +1,6 @@
 const firebase = require("../utils/firebaseapp")
 const firebaseadmin = require('../utils/firebaseadmin')
 const User = require('../models/User')
-<<<<<<< HEAD
 exports.create = (req,res) =>{
   if(!req.body.email) return res.send('no email provided')
   if(!req.body.password) return res.send('no password provided')
@@ -10,17 +9,6 @@ exports.create = (req,res) =>{
   if(!req.body.role) return res.send('no role provided')
   if(!req.body.activite) return res.send('no activite provided')
   if(!req.body.username) return res.send('no displayName provided')
-=======
-exports.create = (req, res) => {
-  console.log(req.body)
-  if (!req.body.email) return res.send('no email provided')
-  if (!req.body.password) return res.send('no password provided')
-  if (!req.body.nom) return res.send('no nom provided')
-  if (!req.body.prenom) return res.send('no prenom provided')
-  if (!req.body.role) return res.send('no role provided')
-  if (!req.body.activite) return res.send('no activite provided')
-  if (!req.body.username) return res.send('no displayName provided')
->>>>>>> befcd787dffad3d4d4fa92fabdd99be0a979fd11
   let newUser = new User()
   newUser.nom = req.body.nom
   newUser.prenom = req.body.prenom
@@ -37,7 +25,6 @@ exports.create = (req, res) => {
   })
 
 }
-<<<<<<< HEAD
 exports.update = ((req,res)=>{
   let user = new User(req.params?.id)
   if(req.body.email) user.email = req.body.email
@@ -58,21 +45,6 @@ exports.delet = (req,res) =>{
   user.delete().then((err)=>{
     res.send(err)
   })
-=======
-exports.update = ((req, res) => {
-  let user = new User()
-  user.id = req.params?.id
-  if (req.body.email) return res.send('no email provided')
-  if (!req.body.password) return res.send('no password provided')
-  if (!req.body.nom) return res.send('no nom provided')
-  if (!req.body.prenom) return res.send('no prenom provided')
-  if (!req.body.role) return res.send('no role provided')
-  if (!req.body.activite) return res.send('no activite provided')
-  if (!req.body.username) return res.send('no displayName provided')
-})
-exports.delete = (req, res) => {
-
->>>>>>> befcd787dffad3d4d4fa92fabdd99be0a979fd11
 }
 exports.read = (req, res) => {
   let userid = req.params?.id
@@ -90,13 +62,8 @@ exports.read = (req, res) => {
       res.render('pages/users', {
         users
       })
-<<<<<<< HEAD
     }).catch((err)=>{console.log(err)})
   }else{
-=======
-    })
-  } else {
->>>>>>> befcd787dffad3d4d4fa92fabdd99be0a979fd11
     let user = new User(userid)
     user.read().then(() => {
       res.render("pages/profil", {
@@ -109,7 +76,6 @@ exports.login = async (req, res) => {
   firebase.auth().onAuthStateChanged(user => {
     if (user) {
       user.getIdToken(true).then(idToken => {
-<<<<<<< HEAD
         req.session.authToken= idToken
         req.session.currentUser = new User(user.uid)
         req.session.currentUser.read().then(()=>{
@@ -125,24 +91,6 @@ exports.login = async (req, res) => {
           res.clearCookie('password')
         }
       });
-=======
-        req.session.authToken = idToken
-        req.session.redirecturl = undefined
-        req.session.uid = user.uid
-        req.session.displayname = user.displayName
-        req.session.photoURL = user.photoURL
-        req.session.email = user.email
-        console.log('redirected to: ', req.session.redirecturl)
-        res.redirect(req.session.redirecturl || '\/home');
-      });
-      if (req.body.remember_me) {
-        res.cookie('email', req.body.email, { signed: true })
-        res.cookie('password', req.body.password, { signed: true })
-      } else {
-        res.clearCookie('email')
-        res.clearCookie('password')
-      }
->>>>>>> befcd787dffad3d4d4fa92fabdd99be0a979fd11
     }
   })
   firebase.auth().signInWithEmailAndPassword(req.body.email, req.body.password)
@@ -170,12 +118,8 @@ exports.login = async (req, res) => {
       }
     });
 }
-<<<<<<< HEAD
 exports.logout = (req,res)=>{
   res.redirect('/login')
-=======
-exports.logout = (req, res) => {
->>>>>>> befcd787dffad3d4d4fa92fabdd99be0a979fd11
 }
 
 exports.test = (req, res) => {
