@@ -12,7 +12,7 @@ module.exports = class User extends Model {
     }
   }
   create() {
-      return this.colref.doc().set({
+      return this.colref.add({
           nom: this.nom,
           type: this.type,
           description: this.description
