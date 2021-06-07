@@ -12,10 +12,11 @@
 <body class="h-screen overflow-hidden flex flex-row items-center justify-center bg-atblue-light">
     <%- include('../navbar',{partenaire:true}) %>
         <div class="flex w-full flex-col h-full overflow-hidden">
-            <form method="post">
+            <form method="post" action="partenaire/1ewTn469nkwyn8vqVuyW" enctype="multipart/form-data">
                 <input type="text" name="nom" id="nom" placeholder="nom">
                 <input type="text" name="type" id="type" placeholder="type">
                 <textarea name="description" id="description" cols="30" rows="10"></textarea>
+                <input type="file" name="logo" id="logo">
                 <input type="submit" value="confirm">
             </form>
         </div>

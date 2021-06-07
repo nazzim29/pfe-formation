@@ -1,11 +1,13 @@
 const router = require("express").Router()
-const {create,read,update,delet} = require('../Controllers/PartenaireContreoller')
+const {create,read,update,delet} = require('../Controllers/PartenaireController')
+const {partenaireLogoStorage,uploadImage,patchbody} = require('../middleware/multer')
 
 
 
 router.get('/',read)
-router.post('/',create)
-router.post('/:id',update)
+router.get('/:id',read)
+router.post('/',partenaireLogoStorage,uploadImage.single('logo'),create)
+router.post('/:id',partenaireLogoStorage,uploadImage.single('logo'),update)
 router.delete('/:id',delet)
 
 

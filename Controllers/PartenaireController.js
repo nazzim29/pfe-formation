@@ -55,7 +55,7 @@ exports.update = (req, res) => {
         snapshot = snapshot[1];
         let u = new URL(partenaire.logo)
         u = u.pathname.split('/')
-        s
+        storage.ref(decodeURIComponent(u[u.length-1])).delete()
         partenaire.nom = req.body.nom;
         partenaire.type = req.body.type;
         partenaire.description = req.body.description;

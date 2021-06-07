@@ -12,15 +12,19 @@ module.exports = class User extends Model {
     }
   }
   create() {
-      return this.colref.add({
-          nom: this.nom,
-          type: this.type,
-          description: this.description
-      }).then((doc)=>{
-          
-      }).catch((err)=>{
-          throw new Error(err)
+    return this.colref
+      .add({
+        nom: this.nom,
+        type: this.type,
+        description: this.description,
+        logo: this.logo,
       })
+      .then((doc) => {
+        this._id = doc.id;
+      })
+      .catch((err) => {
+        throw new Error(err);
+      });
   }
   delete() {
     return this.docref.delete().catch((err) => {
@@ -36,6 +40,7 @@ module.exports = class User extends Model {
           this.description = f.description;
           this.nom = f.nom;
           this.type = f.type;
+          this.logo = f.logo;
         } else {
           throw new Error("Partenaire not found");
         }
@@ -51,6 +56,7 @@ module.exports = class User extends Model {
         type: this.type,
         nom: this.nom,
         description: this.description,
+        logo: this.logo,
       })
       .catch((err) => {
         throw new Error(err);
@@ -59,10 +65,27 @@ module.exports = class User extends Model {
   static getAll() {
     return this.colref.get().then((snapshot) => {
       let partenaires = [];
-      snapshot.foreach((doc) => {
-        partenaires.push(doc.data());
+      snapshot.forEach((doc) => {
+        let t = doc.data()
+        t.id = doc.id
+        partenaires.push(t);
       });
+      return partenaires
     });
+  }
+  /**
+   * @param {void}
+   * @returns {string} logo
+   */
+  get logo() {
+    return this._logo;
+  }
+  /**
+   * @param {string} value
+   * @returns {void}
+   */
+  set logo(value) {
+    this._logo = value;
   }
   /**
    * @parm {void}
