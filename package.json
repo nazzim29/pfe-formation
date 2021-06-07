@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js && postcss static/css/tailwind.css -o static/css/style.css -w",
     "tailwind:css": "postcss static/css/tailwind.css -o static/css/style.css -w"

@@ -43,7 +43,6 @@ exports.read = (req, res) => {
 };
 exports.update = (req, res) => {
   let partenaire = new Partenaire(req.params.id);
-
   if (req.file) {
     fs.readFile(req.file.path, (err, file) => {
       if (err) console.log(err);
@@ -53,20 +52,31 @@ exports.update = (req, res) => {
         ref.put(file, { contentType: "image/jpeg" }),
       ]).then((snapshot) => {
         snapshot = snapshot[1];
-        let u = new URL(partenaire.logo)
-        u = u.pathname.split('/')
-        storage.ref(decodeURIComponent(u[u.length-1])).delete()
+        let u = new URL(partenaire.logo);
+        u = u.pathname.split("/");
+        storage.ref(decodeURIComponent(u[u.length - 1])).delete();
         partenaire.nom = req.body.nom;
         partenaire.type = req.body.type;
         partenaire.description = req.body.description;
         snapshot.ref.getDownloadURL().then((url) => {
           partenaire.logo = url;
-          res.json(partenaire);
+          partenaire.update().then(() => {
+            res.json(partenaire);
+          });
         });
       });
       fs.rm(req.file.path, (err) => {
         if (err) return console.log(err);
         return console.log("file removed");
+      });
+    });
+  } else {
+    partenaire.read().then(() => {
+      partenaire.nom = req.body.nom;
+      partenaire.type = req.body.type;
+      partenaire.description = req.body.description;
+      partenaire.update().then(() => {
+        res.json(partenaire);
       });
     });
   }
