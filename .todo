@@ -3,10 +3,11 @@ models:
     |___[]seminaire
     |___[]fiche evaluation
     |___[]documentation formation
-    |___[]partenaire
-    |       |___[]type
-    |       |___[]nom
-    |       |___[]description
+    |___[x]partenaire
+    |       |___[x]type
+    |       |___[x]nom
+    |       |___[x]description
+    |       |___[x]logo
     |___[]projet DF
     |___[]formateur
     |       |___[]nom et prenom
@@ -37,9 +38,13 @@ CRUD:
     |___[]seminaire
     |___[]fiche evaluation
     |___[]documentation
-    |___[]partenaire
+    |___[x]partenaire
     |___[]projet df
     |___[]formateur
     |___[]lieu de formation
 Stat:
     |___[]faire une liste des stats a proposer
+autre:
+    |___[] favicon
+    |___[] pwa
+    
