@@ -23,6 +23,7 @@ search.on("keyup", (r) => {
 table = $("#example")
   .DataTable({
     initComplete: function () {
+      $('#example_filter').hide()
       var cols = [this.api().columns(1), this.api().columns(2)];
       cols.forEach((col) => {
         let select = $('<select> <option value=""></option> </select>')
@@ -44,9 +45,9 @@ table = $("#example")
       });
     },
     processing: true,
-    serverSide: true,
     ajax: {
       url: "/user?json=true",
+      dataSrc:""
     },
     columnDefs: [
       {
@@ -56,8 +57,9 @@ table = $("#example")
           return `
                     <img class="avatar-sm" src="${row.avatar}">
                     <div class="flex flex-col">
-                        <a href="\\user/${row.id}" target="_blank">${row.nom.toUpperCase() + " " + row.prenom
-            }</a>
+                        <a href="\\user/${row.id}" target="_blank">${
+            row.nom.toUpperCase() + " " + row.prenom
+          }</a>
                         <span>${row.email}</span>
                         
                     </div>
@@ -87,9 +89,11 @@ table = $("#example")
         },
       },
     ],
-    bFilter: false,
+    bFilter: true,
     api: true,
     responsive: true,
+    autoWidth:false,
+    dom:"<'h-full w-full flex flex-col'<'overflow-y-scroll flex-1 h-full't>r <'flex flex-row flex-wrap w-full space-y-2 content-center justify-center sm:justify-evenly bottom-0'il<'self-center'p>>>"
   })
   .columns.adjust()
   .responsive.recalc();
@@ -125,11 +129,11 @@ const modifier = (f) => {
   xhr.open("POST", "\\user/" + f);
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.onload = () => {
-    $('.modal-content .modal-loader').addClass('hidden')
+    $(".modal-content .modal-loader").addClass("hidden");
     toggleModal();
   };
   xhr.send(JSON.stringify(form));
-  $('.modal-content .modal-loader').removeClass('hidden')
+  $(".modal-content .modal-loader").removeClass("hidden");
 };
 const creer = (f) => {
   if (
@@ -154,7 +158,7 @@ const creer = (f) => {
   xhr.open("post", "\\user");
   xhr.onload = () => {
     console.log(xhr.response);
-    $('.modal-content .modal-loader').addClass('hidden');
+    $(".modal-content .modal-loader").addClass("hidden");
     toggleModal();
   };
   xhr.setRequestHeader("Content-Type", "application/json");
@@ -169,7 +173,7 @@ const creer = (f) => {
       role: $(".modal-content .modal-body #role").val(),
     })
   );
-  $('.modal-content .modal-loader').removeClass('hidden')
+  $(".modal-content .modal-loader").removeClass("hidden");
 };
 document.onkeydown = function (evt) {
   evt = evt || window.event;
@@ -199,7 +203,8 @@ $(document).on("click", (e) => {
       case "supprimer":
         $(".modal-content .modal-title").text("Supprimer un utilisateur");
         $(".modal-content .modal-body").html(
-          `<p>etes vous sur de vouloir supprimer <span class="font-semibold user-name">${row.nom.toUpperCase()} ${row.prenom
+          `<p>etes vous sur de vouloir supprimer <span class="font-semibold user-name">${row.nom.toUpperCase()} ${
+            row.prenom
           } (${row.role})</span></p>`
         );
         $(".modal-content .modal-footer").html(`<button
@@ -284,26 +289,30 @@ $(document).on("click", (e) => {
 
         <input
             class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
-            type="text" name="prenom" id="prenom" placeholder="Prenom" value="${row?.prenom
-          }">
+            type="text" name="prenom" id="prenom" placeholder="Prenom" value="${
+              row?.prenom
+            }">
     </div>
     <div class="flex flex-row">
         <input
             class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
-            type="email" name="email" id="email" placeholder="Email" value="${row?.email
-          }">
+            type="email" name="email" id="email" placeholder="Email" value="${
+              row?.email
+            }">
     </div>
     <div class="flex flex-row">
         <input
             class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
-            type="text" name="role" id="role" placeholder="Role" value="${row?.role
-          }">
+            type="text" name="role" id="role" placeholder="Role" value="${
+              row?.role
+            }">
     </div>
     <div class="flex flex-row mb-2">
         <input
             class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
-            type="text" name="activite" id="activite" placeholder="Activite" value="${row?.activite
-          }">
+            type="text" name="activite" id="activite" placeholder="Activite" value="${
+              row?.activite
+            }">
     </div>
         `);
         $(".modal-content .modal-footer").html(`<button
