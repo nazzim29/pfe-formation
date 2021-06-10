@@ -219,7 +219,7 @@ $(document).on("click", (e) => {
         toggleModal();
         break;
       case "creer":
-        $(".modal-content .modal-title").text("Modifier un utilisateur");
+        $(".modal-content .modal-title").text("Creer un utilisateur");
         $(".modal-content .modal-body").html(
           `
             <div class="flex flex-row space-x-2">                      

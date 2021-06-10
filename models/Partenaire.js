@@ -73,6 +73,12 @@ module.exports = class User extends Model {
       return partenaires
     });
   }
+  get site() {
+    return this._site;
+  }
+  set site(value) {
+    this._site = value;
+  }
   /**
    * @param {void}
    * @returns {string} logo
