@@ -84,8 +84,8 @@ table = $("#example")
         targets: 3,
         data: null,
         render: function (data, type, row, meta) {
-          return `<button class="button focus:outline-none" data-toggle='modal' data-target='modifier'> <svg  class="fill-current text-atgreen hover:text-atgreen-dark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="transform:;-ms-filter:"><path d="M8.707 19.707L18 10.414 13.586 6l-9.293 9.293c-.128.128-.219.289-.263.464L3 21l5.242-1.03C8.418 19.926 8.579 19.835 8.707 19.707zM21 7.414c.781-.781.781-2.047 0-2.828L19.414 3c-.781-.781-2.047-.781-2.828 0L15 4.586 19.414 9 21 7.414z"></path></svg> </button>
-                  <button class="button focus:outline-none" data-toggle='modal' data-target='supprimer'><svg  class="fill-current text-red-600 hover:text-red-700" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="transform:;-ms-filter:"><path d="M6 7C5.447 7 5 7 5 7v13c0 1.104.896 2 2 2h10c1.104 0 2-.896 2-2V7c0 0-.447 0-1 0H6zM16.618 4L15 2 9 2 7.382 4 3 4 3 6 8 6 16 6 21 6 21 4z"></path></svg></button>`;
+          return `<button class="button focus:outline-none"> <svg data-toggle='modal' data-target='modifier' class="fill-current text-atgreen hover:text-atgreen-dark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="transform:;-ms-filter:"><path d="M8.707 19.707L18 10.414 13.586 6l-9.293 9.293c-.128.128-.219.289-.263.464L3 21l5.242-1.03C8.418 19.926 8.579 19.835 8.707 19.707zM21 7.414c.781-.781.781-2.047 0-2.828L19.414 3c-.781-.781-2.047-.781-2.828 0L15 4.586 19.414 9 21 7.414z"></path></svg> </button>
+                  <button class="button focus:outline-none"><svg data-toggle='modal' data-target='supprimer' class="fill-current text-red-600 hover:text-red-700" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="transform:;-ms-filter:"><path d="M6 7C5.447 7 5 7 5 7v13c0 1.104.896 2 2 2h10c1.104 0 2-.896 2-2V7c0 0-.447 0-1 0H6zM16.618 4L15 2 9 2 7.382 4 3 4 3 6 8 6 16 6 21 6 21 4z"></path></svg></button>`;
         },
       },
     ],
@@ -220,51 +220,40 @@ $(document).on("click", (e) => {
         break;
       case "creer":
         $(".modal-content .modal-title").text("Modifier un utilisateur");
-        $(".modal-content .modal-body").html(`
-        <div class="flex flex-row space-x-2">
-                                
-        <input
-            class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-100 placeholder-atgreen bg-gray-100'
-            type="text" name="nom" id="nom" placeholder="Nom" >
-    </div>
-        <div class="flex flex-row space-x-2">
-                                
-        <input
-            class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-100 placeholder-atgreen bg-gray-100'
-            type="text" name="username" id="username" placeholder="username" >
-    </div>
-    <div class="flex flex-row">
-
-        <input
-            class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
-            type="text" name="prenom" id="prenom" placeholder="Prenom" >
-    </div>
-    <div class="flex flex-row">
-        <input
-            class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
-            type="email" name="email" id="email" placeholder="Email" >
-    </div>
-    <div class="flex flex-row">
-        <input
-            class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
-            type="password" name="password" id="password" placeholder="password" >
-    </div>
-    <div class="flex flex-row">
-        <input
-            class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
-            type="password" name="password_confirm" id="password_confirm" placeholder="password_confirm" >
-    </div>
-    <div class="flex flex-row">
-        <input
-            class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
-            type="text" name="role" id="role" placeholder="Role">
-    </div>
-    <div class="flex flex-row mb-2">
-        <input
-            class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
-            type="text" name="activite" id="activite" placeholder="Activite" >
-    </div>
-        `);
+        $(".modal-content .modal-body").html(
+          `
+            <div class="flex flex-row space-x-2">                      
+              <input
+                  class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-100 placeholder-atgreen bg-gray-100'
+                  type="text" name="nom" id="nom" placeholder="Nom" value="${row?.nom.toUpperCase()}">
+            </div>
+            <div class="flex flex-row">
+              <input
+                class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
+                type="text" name="prenom" id="prenom" placeholder="Prenom" value="${row?.prenom}"
+              >
+            </div>
+            <div class="flex flex-row">
+              <input
+                class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
+                type="email" name="email" id="email" placeholder="Email" value="${row?.email}"
+              >
+            </div>
+            <div class="flex flex-row">
+              <input
+                class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
+                type="text" name="role" id="role" placeholder="Role" value="${row?.role}"
+              >
+            </div>
+            <div class="flex flex-row mb-2">
+                <input
+                    class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
+                    type="text" name="activite" id="activite" placeholder="Activite" value="${
+                      row?.activite
+                    }">
+            </div>
+          `
+        );
         $(".modal-content .modal-footer").html(`<button
         class="px-4 bg-transparent p-3 rounded-lg hover:bg-gray-100 text-gray-500 hover:text-gray-700 mr-2 cancel">Annuler</button>
     <button class="px-4  p-1.5 rounded-lg text-white hover:bg-atblue-dark bg-atblue action">Supprimer</button>`);

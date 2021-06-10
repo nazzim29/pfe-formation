@@ -76,7 +76,7 @@ exports.read = (req, res) => {
             recordsTotal: users.length,
           });
         }
-        res.render("pages/users", {
+        res.render("pages/admin/users", {
           users,
         });
       })
@@ -99,7 +99,7 @@ exports.login = async (req, res) => {
         req.session.authToken = idToken;
         req.session.currentUser = new User(user.uid);
         req.session.currentUser.read().then(() => {
-          let a = req.session.redirecturl;
+          let a = req.session.redirecturl=='/'?null:req.session.redirecturl;
           req.session.redirecturl = undefined;
           res.redirect(a || "/home");
         });
