@@ -15,7 +15,7 @@
 
 <body class="h-screen overflow-hidden flex flex-row items-center justify-center bg-atblue-light">
 
-    <%- include('../navbar',{user:true}) %>
+    <%- include('../../navbar',{user:true}) %>
         <div class="flex w-full flex-col h-full overflow-hidden">
             <div class="flex flex-row items-center w-full mx-1 align-middle justify-center">
                 <div class="flex px-1 h-full items-center sm:mt-5 sm:mr-2.5 sm:flex-1 sm:justify-end ">
@@ -38,7 +38,7 @@
             </div>
 
             <div style="max-height: 100%;"
-                class="bg-white h-full py-4 mx-3 sm:mx-auto sm:w-11/12 overflow-hidden justify-center items-center flex rounded-xl mb-10 shadow-xl">
+                class="bg-white h-full py-4 mx-3 sm:mx-auto sm:w-11/12 justify-center items-center flex rounded-xl mb-10 shadow-xl">
                 <table id="example" class="stripe ">
                     <thead class="bg-gray-50">
                         <tr>
@@ -155,9 +155,10 @@
             </div>
         </div>
         <style>
-            #example_filter{
+            #example_filter {
                 display: hidden;
             }
+
             @media (min-width : 640px) {
                 .dataTables_wrapper {
                     display: flex;
@@ -170,14 +171,8 @@
             .dataTables_wrapper {
                 width: 100%;
                 height: 100%;
-                overflow-y: scroll;
-                overflow-x: hidden;
             }
 
-            .dataTables_wrapper table {
-
-                overflow-y: scroll;
-            }
 
             .dtr-details li:last-child .dtr-data {
                 display: flex;
@@ -290,9 +285,7 @@
         <script src="\public/js/Jquery/jquery.dataTables.min.js"></script>
         <script src="\public/js/Jquery/dataTables.responsive.min.js"></script>
         <script src="\public/js/user.js"></script>
-        <script>
 
-        </script>
 </body>
 
 </html>

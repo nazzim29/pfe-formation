@@ -18,7 +18,7 @@ router.get('/login',(req,res)=>{
     })
 })
 router.get('/home',isAuth,(req,res)=>{
-    res.render('pages/home')
+    res.render('pages/admin/home')
 })
 router.post('/login',login)
 
