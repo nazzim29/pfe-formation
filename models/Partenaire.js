@@ -16,6 +16,7 @@ module.exports = class User extends Model {
       .add({
         nom: this.nom,
         type: this.type,
+        site: this.site,
         description: this.description,
         logo: this.logo,
       })
@@ -41,6 +42,7 @@ module.exports = class User extends Model {
           this.nom = f.nom;
           this.type = f.type;
           this.logo = f.logo;
+          this.site =f.site
         } else {
           throw new Error("Partenaire not found");
         }
@@ -54,6 +56,7 @@ module.exports = class User extends Model {
       .doc(this._id)
       .set({
         type: this.type,
+        site: this.site,
         nom: this.nom,
         description: this.description,
         logo: this.logo,

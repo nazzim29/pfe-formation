@@ -225,32 +225,30 @@ $(document).on("click", (e) => {
             <div class="flex flex-row space-x-2">                      
               <input
                   class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-100 placeholder-atgreen bg-gray-100'
-                  type="text" name="nom" id="nom" placeholder="Nom" value="${row?.nom.toUpperCase()}">
+                  type="text" name="nom" id="nom" placeholder="Nom" value="">
             </div>
             <div class="flex flex-row">
               <input
                 class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
-                type="text" name="prenom" id="prenom" placeholder="Prenom" value="${row?.prenom}"
+                type="text" name="prenom" id="prenom" placeholder="Prenom" value=""
               >
             </div>
             <div class="flex flex-row">
               <input
                 class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
-                type="email" name="email" id="email" placeholder="Email" value="${row?.email}"
+                type="email" name="email" id="email" placeholder="Email" value=""
               >
             </div>
             <div class="flex flex-row">
               <input
                 class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
-                type="text" name="role" id="role" placeholder="Role" value="${row?.role}"
+                type="text" name="role" id="role" placeholder="Role" value=""
               >
             </div>
             <div class="flex flex-row mb-2">
                 <input
                     class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
-                    type="text" name="activite" id="activite" placeholder="Activite" value="${
-                      row?.activite
-                    }">
+                    type="text" name="activite" id="activite" placeholder="Activite" value="">
             </div>
           `
         );

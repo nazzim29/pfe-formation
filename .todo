@@ -8,6 +8,7 @@ models:
     |       |___[x]nom
     |       |___[x]description
     |       |___[x]logo
+    |       |___[x]site
     |___[]projet DF
     |___[]formateur
     |       |___[]nom et prenom
@@ -47,4 +48,6 @@ Stat:
 autre:
     |___[] favicon
     |___[] pwa
+    |___[] calendrier
+    
     
