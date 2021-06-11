@@ -18,7 +18,10 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      flexGrow: ['hover'],
+      width: ['hover'],
+    },
   },
   plugins: [],
 }

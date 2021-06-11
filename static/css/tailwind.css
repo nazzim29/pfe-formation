@@ -4,6 +4,31 @@
 
 
 @layer components{
+  .partenaire-card{
+    transition: all ease 0.3s;
+    @apply bg-atgreen-light w-32 rounded-md m-1 overflow-hidden hover:w-48 flex flex-col;
+  }
+  .card-content{
+    @apply hidden  p-1 transition-all;
+
+  }
+  .card-content:active>p{
+    white-space: unset;
+    height: fit-content;
+  }
+  .partenaire-card:hover>.card-content{
+    @apply flex-1 w-full h-full block;
+  }
+  .card-content>p{
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    @apply h-10 text-xs;
+  }
+  .card-content>h1{
+    @apply text-lg;
+  }
   .login-input{
     @apply appearance-none;
     @apply rounded-none;
