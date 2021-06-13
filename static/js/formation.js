@@ -308,7 +308,8 @@ $(document).on("click", (e) => {
                 class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-100 placeholder-atgreen bg-gray-100'
                 type="number" name="place" id="place" placeholder="place" >
             </div>
-            <div class="flex flex-row space-x-2">                      
+            <div class="flex flex-row space-x-2">
+              <label for="debut">date debut</label>                  
               <input
                 class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-100 placeholder-atgreen bg-gray-100'
                 type="date" name="debut" id="debut" placeholder="debut" >
