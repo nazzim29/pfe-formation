@@ -39,6 +39,8 @@ app.get('/', (req, res) => {
 app.use('', routes.baseRoute)
 app.use('/user',isAuth,routes.userRoute)
 app.use('/partenaire',isAuth,routes.partenaireRoute)
+app.use('/formation',isAuth,routes.formationRoute)
+app.use('/formateur',isAuth,routes.formateurRoute)
 
 /**
  * launch the server

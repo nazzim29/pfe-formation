@@ -10,7 +10,7 @@ exports.isAuth = (req,res,next) => {
         if(uid) next()
     })
     .catch((error) => {
-        req.session.redirecturl = req.url
+        req.session.redirecturl = req.originalUrl
         res.redirect("\/login")
     });
 }

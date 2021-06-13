@@ -30,8 +30,8 @@ exports.read = (req, res) => {
   if (req.query.json)
     return Partenaire.getAll().then((partenaire) => res.json(partenaire));
   let id = req.params?.id;
-  if (!id && req.session.currentUser.role == "admin") return res.render("pages/admin/partenaire");
-  if (!id && req.session.currentUser.role != "admin") return Partenaire.getAll().then(e=> res.render("pages/partenaire",{partenaires:e}));
+  if (!id && req.session.currentUser._role == "admin") return res.render("pages/admin/partenaire");
+  if (!id && req.session.currentUser._role != "admin") return Partenaire.getAll().then(e=> res.render("pages/partenaire",{partenaires:e}));
   let partenaire = new Partenaire(id);
   partenaire
     .read()

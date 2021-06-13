@@ -4,6 +4,33 @@
 
 
 @layer components{
+  .tokenize>.tokens-container>.placeholder{
+    @apply text-atgreen;
+  }
+  .tokenize>.tokens-container>.token{
+    @apply bg-atgreen-light border-2 border-atblue;
+  }
+  .tokenize>.tokens-container>.token, .tokenize>.tokens-container>.placeholder, .tokenize>.tokens-container>.token-search{
+    @apply border-none;
+  }
+  .tokenize.focus{
+    @apply border-atblue shadow-none;
+  }
+  .tokenize>.tokens-container>.token-search>input{
+    @apply border-none bg-gray-100;
+  }
+  .tokenize>.tokens-container{
+    @apply bg-gray-100 rounded-lg;
+  }
+  .tokenize.focus>.tokens-container{
+    @apply shadow-none border border-atblue;
+  }
+  .dropdown-menu{
+    @apply bg-gray-100;
+  }
+  .dropdow-item.active{
+    @apply  bg-gray-400;
+  }
   .partenaire-card{
     transition: all ease 0.3s;
     @apply bg-atgreen-light w-32 rounded-md m-1 overflow-hidden hover:w-48 flex flex-col;
