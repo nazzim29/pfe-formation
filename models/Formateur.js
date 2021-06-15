@@ -11,7 +11,29 @@ module.exports = class Formateur extends Model {
     }
   }
   creat() {}
-  read() {}
+  read() {
+    return this.docref
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          let f = doc.data();
+          this.nom = f.nom
+          this.prenom = f.prenom
+          // this.type = f.type;
+          // this.date_debut = f.date_debut;
+          // this.date_fin = f.date_fin;
+          // this.activite = f.activite;
+          // this.place = f.place;
+          // this.lieu = f.lieu;
+          // this.formateur = f.formateur;
+        } else {
+          throw new Error("Partenaire not found");
+        }
+      })
+      .catch((err) => {
+        throw new Error(err);
+      });
+  }
   update() {}
   delete() {}
   static getAll() {

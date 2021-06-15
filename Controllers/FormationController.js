@@ -1,7 +1,9 @@
 const Formation = require("../models/Formation");
+const Formateur = require("../models/Formateur");
+const Lieu = require("../models/Lieu");
 
 exports.create = (req, res) => {
-  return console.log(req.body)
+  console.log(req.body);
   if (!req.body.type) return res.send("type manquant");
   if (!req.body.titre) return res.send("titre manquant");
   if (!req.body.description) return res.send("description manquante");
@@ -31,7 +33,29 @@ exports.read = (req, res) => {
   if (req.session.currentUser._role == "admin") {
     if (req.query.json)
       return Formation.getAll().then((f) => {
-        res.json(f);
+        let c = [];
+        f.forEach((element) => {
+          let lieu = new Lieu(element.lieu);
+          c.push(
+            lieu.read().then(() => {
+              element.lieu = {
+                id: lieu._id,
+                nom: lieu.nom,
+              };
+            })
+          );
+          let formateur = new Formateur(element.formateur);
+          c.push(
+            formateur.read().then(()=>{
+              element.formateur = {
+                id: formateur._id,
+                nom: formateur.nom,
+                prenom: formateur.prenom
+              }
+            })
+          )
+        });
+        Promise.all(c).then(()=>{console.log(f);return res.json(f)})
       });
     if (!id) return res.render("pages/admin/formation");
   }
@@ -42,28 +66,27 @@ exports.read = (req, res) => {
   });
 };
 exports.update = (req, res) => {
-    if(req.session.currentUser.role != "admin") return res.status(403).send('Unauthorized')
-    let formation = new Formation(req.params.id)
-    formation.read().then(()=>{
-        if (req.body.type) formation.type = req.body.type
-        if (req.body.date_fin) formation.date_fin = req.body.date_fin
-        if (req.body.date_debut) formation.date_debut = req.body.date_debut
-        if (req.body.activite) formation.activite = req.body.activite
-        if (req.body.place) formation.place = req.body.place
-        if (req.body.lieu) formation.lieu = req.body.lieu
-        if (req.body.formateur) formation.formateur = req.body.formateur
-        if (req.body.titre) formation.titre = req.body.titre
-        if (req.body.description) formation.description = req.body.description
-        formation.update().then((err)=>{
-            if(err) return res.send(err)
-            res.send('ok')
-        })
-    })
+  let formation = new Formation(req.params.id);
+  formation.read().then(() => {
+    if (req.body.type) formation.type = req.body.type;
+    if (req.body.date_fin) formation.date_fin = req.body.date_fin;
+    if (req.body.date_debut) formation.date_debut = req.body.date_debut;
+    if (req.body.activite) formation.activite = req.body.activite;
+    if (req.body.place) formation.place = req.body.place;
+    if (req.body.lieu) formation.lieu = req.body.lieu;
+    if (req.body.formateur) formation.formateur = req.body.formateur;
+    if (req.body.titre) formation.titre = req.body.titre;
+    if (req.body.description) formation.description = req.body.description;
+    formation.update().then((err) => {
+      if (err) return res.send(err);
+      res.send("ok");
+    });
+  });
 };
 exports.delet = (req, res) => {
-    new Partenaire(req.params.id).delete().then(err=>{
-        if(err) return res.send(err)
-        return res.send('ok')
-    })
+  new Formation(req.params.id).delete().then((err) => {
+    if (err) return res.send(err);
+    return res.send("ok");
+  });
 };
 exports.subscribe = (req, res) => {};
