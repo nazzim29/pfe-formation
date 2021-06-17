@@ -41,6 +41,7 @@ app.use('/user',isAuth,routes.userRoute)
 app.use('/partenaire',isAuth,routes.partenaireRoute)
 app.use('/formation',isAuth,routes.formationRoute)
 app.use('/formateur',isAuth,routes.formateurRoute)
+app.use('/lieu',isAuth,routes.lieuRoute)
 
 /**
  * launch the server
