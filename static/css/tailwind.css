@@ -203,7 +203,7 @@
   height: 44px;
   line-height: 44px;
 }
-label {
+.label {
   position: absolute;
   top: 0;
   left: 0;
@@ -225,13 +225,13 @@ input:invalid {
   color: #2c5eaa;
   border-color: #2c5eaa;
 }
-input:focus,
-input:valid {
+.input:focus,
+.input:valid {
   border-color: #13b86e;
 }
 input:focus~label,
 input:valid~label {
   font-size: 14px;
   top: -24px;
-  color: #17d37e;
+  color: black;
 }
