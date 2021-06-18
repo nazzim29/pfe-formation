@@ -134,7 +134,11 @@ exports.login = async (req, res) => {
           password: req.body.password,
         });
       } else {
-        res.send(error.code);
+        res.render("pages/login", {
+					error: error.code,
+					email: req.body.email,
+					password: req.body.password,
+				});
       }
     });
 };
