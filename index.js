@@ -42,6 +42,7 @@ app.use('/partenaire',isAuth,routes.partenaireRoute)
 app.use('/formation',isAuth,routes.formationRoute)
 app.use('/formateur',isAuth,routes.formateurRoute)
 app.use('/lieu',isAuth,routes.lieuRoute)
+app.use('/postulation',isAuth,routes.postulationRoute)
 
 /**
  * launch the server

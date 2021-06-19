@@ -101,15 +101,15 @@ exports.login = async (req, res) => {
         req.session.currentUser.read().then(() => {
           let a = req.session.redirecturl=='/' || req.session.redirecturl == '/login'?null:req.session.redirecturl;
           req.session.redirecturl = undefined;
+          if (req.body.remember_me) {
+						res.cookie("email", req.body.email, { signed: true });
+						res.cookie("password", req.body.password, { signed: true });
+					} else {
+						res.clearCookie("email");
+						res.clearCookie("password");
+					}
           res.redirect(a || "/home");
         });
-        if (req.body.remember_me) {
-          res.cookie("email", req.body.email, { signed: true });
-          res.cookie("password", req.body.password, { signed: true });
-        } else {
-          res.clearCookie("email");
-          res.clearCookie("password");
-        }
       });
     }
   });
