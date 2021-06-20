@@ -4,6 +4,7 @@ const partenaireRoute = require('./partenaire');
 const formationRoute = require('./formation');
 const formateurRoute = require('./formateur');
 const lieuRoute = require('./lieu');
+const postulationRoute = require('./postulation');
 
 
 module.exports = {
@@ -12,5 +13,6 @@ module.exports = {
     partenaireRoute,
     formateurRoute,
     lieuRoute,
-    formationRoute
+    formationRoute,
+    postulationRoute
 }
