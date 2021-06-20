@@ -69,7 +69,7 @@ exports.read = (req, res) => {
 			});
 			Promise.all(c).then(() => {
 				console.log(f);
-				f=f.filter((o) => {
+				if(req.session.currentUser._role != "admin") f=f.filter((o) => {
 					o.activite.some((e)=>e===req.session.currentUser._activite)
 				})
 				return res.json(f);
