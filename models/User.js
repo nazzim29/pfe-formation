@@ -160,7 +160,7 @@ module.exports = class User extends Model {
           })
           .catch((error) => {
             fadmin.deleteUser(userRecord.uid).then(()=>{
-              throw new Error(error)
+              return new Error(error)
             });
           });
       })
@@ -174,7 +174,7 @@ module.exports = class User extends Model {
       .deleteUser(this._id)
       .then((f) => {
         return this.docref.delete().catch((err) => {
-          throw new Error(err);
+          return new Error(err);
         });
       })
       .catch((err) => {

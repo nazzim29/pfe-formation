@@ -46,15 +46,24 @@ module.exports = class Formateur extends Model {
     }
 	static getAll() {
 		return this.colref.get().then((snapshot) => {
-			let formateur = [];
+			let postulation = [];
 			snapshot.forEach((doc) => {
 				let t = doc.data();
 				t.id = doc.id;
 				postulation.push(t);
 			});
-			return formateur;
+			return postulation;
 		});
-	}
+    }
+    static async validPostulationByFormation(id) {
+        return await this.getAll().then((f) => {
+            let i = 0
+            f.forEach((element) => {
+                if(element.id.split("_")[1] == id) i++
+            })
+            return i
+        })
+    }
     get user() {
         return this._user;
     }
