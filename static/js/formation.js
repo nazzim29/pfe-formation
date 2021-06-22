@@ -558,14 +558,16 @@ table = $("#example")
         targets: 6,
         data: "date_debut",
         render: function (data, type, row, meta) {
-          return `${row.date_debut}`;
+          let e = new Date(row.date_debut);
+          return `${e.toLocaleDateString('fr-FR')}`;
         },
       },
       {
         targets: 7,
         data: "date_fin",
         render: function (data, type, row, meta) {
-          return `${row.date_fin}`;
+          let e = new Date(row.date_fin)
+          return `${e.toLocaleDateString('fr-FR')}`;
         },
       },
       {

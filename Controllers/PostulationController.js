@@ -45,8 +45,8 @@ exports.read = (req, res) => {
 							titre: f.titre,
 							activite: f.activite,
 							type: f.type,
-							date_debut: f.date_debut,
-							date_fin: f.date_fin,
+							date_debut: f.date_debut.toDate(),
+							date_fin: f.date_fin.toDate(),
 							place: f.place,
 							participant: await Postuler.validPostulationByFormation(f._id),
 						};
