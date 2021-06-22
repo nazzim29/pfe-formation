@@ -86,7 +86,7 @@ table = $("#example")
 			},
 			{
 				targets: 3,
-				data: "participant",
+				data: "debut formation",
 				render: function (data, type, row, meta) {
 					if(moment(row.formation.date_debut).diff(moment())<0) return `${moment(row.formation.date_debut).fromNow()}`;
 					return `${moment(row.formation.date_debut).toNow()}`;
@@ -94,9 +94,9 @@ table = $("#example")
 			},
 			{
 				targets: 3,
-				data: "participant",
+				data: "duree",
 				render: function (data, type, row, meta) {
-					return `${moment.duration(moment(row.formation.date_debut).diff(moment(row.formation.date_fin))).humanize()}`;
+					return `${moment.duration(moment(row.formation.date_debut).diff(moment(row.formation.date_fin))).humanize}`;
 				},
 			},
 			{
