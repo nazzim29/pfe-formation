@@ -93,6 +93,13 @@ table = $("#example")
 				},
 			},
 			{
+				targets: 3,
+				data: "participant",
+				render: function (data, type, row, meta) {
+					return `${moment.duration(moment(row.formation.date_debut).diff(moment(row.formation.date_fin))).humanize()}`;
+				},
+			},
+			{
 				targets: 4,
 				data: null,
 				render: function (data, type, row, meta) {
