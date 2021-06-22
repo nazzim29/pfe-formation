@@ -24,7 +24,7 @@ table = $("#example")
 	.DataTable({
 		initComplete: function () {
 			$("#example_filter").hide();
-			var cols = [this.api().columns(1), this.api().columns(2)];
+			var cols = [this.api().columns(1), this.api().columns(6)];
 			cols.forEach((col) => {
 				let select = $('<select> <option value=""></option> </select>')
 					.appendTo($(col.footer()).empty())
@@ -113,7 +113,7 @@ table = $("#example")
 				data: 'validation_df',
 				render: function (data, type, row, meta) {
 					if (row.valider_df === false) {
-						return `<div class="flex flex-row justify-center items-center">
+						return `<div class="flex flex-row justify-center items-center space-x-1">
 							<button data-toggle="valider" data-target="validation"><i class="material-icons">check</i></button>
 							<button data-toggle="refuser" data-target="validation"><i class="material-icons">clear</i></button>
 						</div>`

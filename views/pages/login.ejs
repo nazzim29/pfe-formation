@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Se Connecter</title>
+  <title>Login</title>
   <!-- <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-auth.js"></script>
   <script src="\public/js/login.js"></script> -->
   <link rel="stylesheet" href="\public/css/style.css">
   <link rel="stylesheet" href="\public/css/tailwind.css">
-  <link rel="icon" type="image/svg+xml" sizes="16x16" href="\public/image/ATHEAD.png">
 </head>
 
 <body class="flex items-center justify-center w-full h-screen">
@@ -42,51 +41,53 @@
       </svg>
       <h1 class="text-center font-extrabold text-grey-900 "></h1>
     </div>
-    <div class="flex flex-col items-center shadow-2xl justify-center w-full h-full mb-4 py-5 rounded-lg bordure box">
+    <div id="class-border"
+      class="flex flex-col items-center shadow-2xl justify-center w-full h-full mb-4 py-5 rounded-lg bordure box">
 
       <span></span>
       <span></span>
       <span></span>
       <span></span>
 
-      <h1 class="text-center px-10 font-extrabold mb-5">Connexion</h1>
-      <% if (locals.error) { %>
-        <div class="error-message" id="error-message">
-          <%- locals.error %>
+
+      <div class="container">
+        <div class="background-img">
+
+          <h1 class="text-center px-10 font-extrabold mb-5">Login</h1>
+          <% if (locals.error) { %>
+            <div class="error-message" id="error-message">
+              <%- locals.error %>
+            </div>
+            <% } %>
+              <form action="/login" method="post" id="frm" class="mt-8 space-y-6 w-full px-10">
+                <div>
+                  <div class="input-container ">
+                    <label for="email" class="sr-only">Email</label>
+                    <input type="email" name="email" id="email" placeholder="Email adress" <% if (locals.email) { %>
+                    value = "<%= locals.email %>"<% } %> required>
+                  </div>
+                  <br>
+                  <div class="input-container">
+                    <label for="password" class="sr-only">Password</label>
+                    <input type="password" name="password" id="password" placeholder="password" <% if (locals.password)
+                      { %>value = "<%= locals.password %>"<% } %> required>
+                  </div>
+                </div>
+                <div class="flex items-center">
+                  <input type="checkbox" name="remember_me" id="remember_me"
+                    class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" <% if (locals.password
+                    && locals.email) { %>checked<% } %>>
+                    <label for="remember_me" class="ml-2 block text-sm text-gray-900">Remember me</label>
+                </div>
+                <div>
+                  <button type="submit"
+                    class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-atblue hover:bg-atblue-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Login</button>
+                </div>
+              </form>
+
         </div>
-        <% } %>
-          <form action="/login" method="post" id="frm" class="mt-8 space-y-6 w-full h-full px-10">
-            <div class="input-container">
-              <div class="input-container ">
-                <label for="email" class="sr-only login-label">Adresse e-mail</label>
-                <input type="email" name="email" id="email" placeholder="Email adress" <% if (locals.email) { %>
-                value = "<%= locals.email %>"<% } %> required>
-              </div>
-              
-              <div class="input-container">
-                <label for="password" class="sr-only login-label">Mot de passe</label>
-                <input type="password" name="password" id="password" placeholder="password" <% if (locals.password) {
-                  %>value = "<%= locals.password %>"<% } %> required>
-              </div>
-              <br>
-              <div class="flex items-center">
-                <input type="checkbox" name="remember_me" id="remember_me"
-                  class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" <% if (locals.password
-                  && locals.email) { %>checked<% } %>>
-                  <label for="remember_me" class="ml-2 block text-sm" style="color: gray;">Se souvenir de
-                    moi</label>
-              </div>
-              <br>
-              <div>
-                <button type="submit"
-                  class="group relative w-full flex justify-center py-2 px-4  border-transparent text-sm font-medium rounded-md text-white bg-atblue hover:bg-atblue-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Se connecter</button>
-              </div>
-          </form>
-
-
-
+      </div>
     </div>
-  </div>
   </div>
 </body>
 
