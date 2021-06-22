@@ -96,7 +96,7 @@ table = $("#example")
 				targets: 4,
 				data: "duree",
 				render: function (data, type, row, meta) {
-					return `${moment.duration(moment(row.formation.date_debut).diff(moment(row.formation.date_fin))).humanize}`;
+					return `${moment.duration(moment(row.formation.date_debut).diff(moment(row.formation.date_fin))).humanize()}`;
 				},
 			},
 			{
