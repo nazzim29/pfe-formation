@@ -55,33 +55,45 @@ table = $("#example")
 				data: null,
 				render: function (data, type, row, meta) {
 					return `
-                    <img class="avatar-sm" src="${row.avatar}">
+                    <img class="avatar-sm" src="${row.user.avatar}">
                     <div class="flex flex-col">
-                        <a href="\\user/${row.id}" target="_blank">${
-						row.nom.toUpperCase() + " " + row.prenom
-					}</a>
-                        <span>${row.email}</span>
-                        
+                        <a href="\\user/${row.user.id}" target="_blank">${row.user.nom} ${row.user.prenom}</a>
+                        <span class="w-max inline-block px-2 py-1 leading-none bg-yellow-400 text-yellow-600 rounded-full font-semibold uppercase tracking-wide text-xs">${row.user.activite}</span>
                     </div>
                     `;
 				},
 			},
 			{
 				targets: 1,
-				data: "role",
+				data: "formation",
 				render: function (data, type, row, meta) {
-					return `<span class="${row.role}">${row.role}</span>`;
+					return `
+                        <div class="flex flex-col">
+                            <h1>${row.formation.titre}</h1>
+                            <div class="flex flex-row flex-nowrap overflow-x-auto w-full">
+                            ${row.formation.activite.map((e) => {return `<span class="inline-block px-2 py-1 leading-none bg-yellow-400 text-yellow-600 rounded-full font-semibold uppercase tracking-wide text-xs">${e}</span>`;}).join(" ")}
+                        </div>
+                        </div>
+                        `;
 				},
 			},
 			{
 				targets: 2,
-				data: "activite",
+				data: "participant",
 				render: function (data, type, row, meta) {
-					return `${row}`;
+					return `<span class="text-semibold">${row.formation.participant}/${row.formation.place}</span>`;
 				},
 			},
 			{
 				targets: 3,
+				data: "participant",
+				render: function (data, type, row, meta) {
+					if(moment(row.formation.date_debut).diff(moment())<0) return `${moment(row.formation.date_debut).fromNow()}`;
+					return `${moment(row.formation.date_debut).toNow()}`;
+				},
+			},
+			{
+				targets: 4,
 				data: null,
 				render: function (data, type, row, meta) {
 					return `<button class="button focus:outline-none"> <svg data-toggle='modal' data-target='modifier' class="fill-current text-atgreen hover:text-atgreen-dark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="transform:;-ms-filter:"><path d="M8.707 19.707L18 10.414 13.586 6l-9.293 9.293c-.128.128-.219.289-.263.464L3 21l5.242-1.03C8.418 19.926 8.579 19.835 8.707 19.707zM21 7.414c.781-.781.781-2.047 0-2.828L19.414 3c-.781-.781-2.047-.781-2.828 0L15 4.586 19.414 9 21 7.414z"></path></svg> </button>

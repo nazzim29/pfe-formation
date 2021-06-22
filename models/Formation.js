@@ -1,5 +1,5 @@
 const Model = require("./model");
-
+const firebase = require('firebase')
 module.exports = class Formation extends Model {
   static colref = this.db.collection("formationtest");
   constructor(id) {
@@ -56,23 +56,24 @@ module.exports = class Formation extends Model {
       });
   }
   update() {
+    console.log();
     return this.colref
-      .doc(this._id)
-      .set({
-        titre: this.titre,
-        description: this.description,
-        type: this.type,
-        date_debut: this.date_debut,
-        date_fin: this.date_fin,
-        activite: this.activite,
-        place: this.place,
-        lieu: this.lieu,
-        formateur: this.formateur,
-        views: this.views
-      })
-      .catch((err) => {
-        throw new Error(err);
-      });
+			.doc(this._id)
+			.set({
+				titre: this.titre,
+				description: this.description,
+				type: this.type,
+				date_debut: this.date_debut, //,
+				date_fin: this.date_fin,
+				activite: this.activite,
+				place: this.place,
+				lieu: this.lieu,
+				formateur: this.formateur,
+				views: this.views,
+			})
+			.catch((err) => {
+				throw new Error(err);
+			});
   }
   delete() {
     return this.docref.delete().catch((err) => {
@@ -85,6 +86,8 @@ module.exports = class Formation extends Model {
         snapshot.forEach((doc) => {
           let t = doc.data()
           t.id = doc.id
+          t.date_fin = t.date_fin.toDate()
+          t.date_debut = t.date_debut.toDate()
           formations.push(t);
         });
         return formations
@@ -115,15 +118,18 @@ module.exports = class Formation extends Model {
     this._type = value;
   }
   get date_debut() {
+
     return this._date_debut;
   }
   set date_debut(value) {
+    if(typeof value ==  "Timestamp") return this._date_debut = value.toDate()
     this._date_debut = value;
   }
   get date_fin() {
     return this._date_fin;
   }
   set date_fin(value) {
+    if (typeof value == "Timestamp") return (this._date_fin = value.toDate());
     this._date_fin = value;
   }
   get activite() {

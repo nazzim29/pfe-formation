@@ -19,8 +19,8 @@ exports.create = (req, res) => {
 	formation.type = req.body.type;
 	formation.titre = req.body.titre;
 	formation.description = req.body.description;
-	formation.date_fin = req.body.date_fin;
-	formation.date_debut = req.body.date_debut;
+	formation.date_fin = new Date(req.body.date_fin)
+	formation.date_debut = new Date(req.body.date_debut)
 	formation.activite = req.body.activite;
 	formation.place = req.body.place;
 	formation.lieu = req.body.lieu;
@@ -80,18 +80,18 @@ exports.read = (req, res) => {
 	if (!id && req.session.currentUser._role != "admin")
 		return res.render("pages/formation");
 	let formation = new Formation(id);
-	formation.read().then(() => {
+	return formation.read().then(() => {
 		res.render("pages/formationprofile");
+		formation.views++
+		formation.update()
 	});
-	formation.views++
-	formation.update()
 };
 exports.update = (req, res) => {
 	let formation = new Formation(req.params.id);
 	formation.read().then(() => {
 		if (req.body.type) formation.type = req.body.type;
-		if (req.body.date_fin) formation.date_fin = req.body.date_fin;
-		if (req.body.date_debut) formation.date_debut = req.body.date_debut;
+		if (req.body.date_fin) formation.date_fin = new Date(req.body.date_fin);
+		if (req.body.date_debut) formation.date_debut = new Date(req.body.date_debut);
 		if (req.body.activite) formation.activite = req.body.activite;
 		if (req.body.place) formation.place = req.body.place;
 		if (req.body.lieu) formation.lieu = req.body.lieu;
