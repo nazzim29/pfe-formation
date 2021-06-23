@@ -50,7 +50,7 @@ table = $("#example")
 					this.api().columns(6).search(val ? '^' + val + "$" : "", true,false).draw()
 				})
 			this.api().columns(6).data().eq(0).unique().sort().each((value) => {
-				console.log(this.api().columns(6).data());
+				console.log(this.api().data());
 			})
 			
 		},
