@@ -43,15 +43,18 @@ table = $("#example")
 						);
 					});
 			});
-			let select = $('<select> <option value=""></option> </select>')
+			let select = $(
+				'<select> <option value="en attente">en attente</option> <option value="refusé">refusé</option><option value="accepter">accepter</option> </select>'
+			)
 				.appendTo($(this.api().columns(6).footer()).empty())
-				.on('change', () => {
-					let val = $.fn.dataTable.util.escapeRegex($(select).val())
-					this.api().columns(6).search(val ? '^' + val + "$" : "", true,false).draw()
-				})
-			this.api().columns(6).data().eq(0).unique().sort().each((value) => {
-				console.log(this.api().data());
-			})
+				.on("change", () => {
+					let val = $.fn.dataTable.util.escapeRegex($(select).val());
+					console.log(val)
+					this.api()
+						.columns(6)
+						.search(val ? "^" + val + "$" : "", true, false)
+						.draw();
+				});
 			
 		},
 		processing: true,
