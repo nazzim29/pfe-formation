@@ -10,7 +10,6 @@
   <script src="https://www.gstatic.com/firebasejs/8.6.2/firebase-auth.js"></script>
   <script src="\public/js/login.js"></script> -->
   <link rel="stylesheet" href="\public/css/style.css">
-  <link rel="stylesheet" href="\public/css/tailwind.css">
 </head>
 
 <body class="flex items-center justify-center w-full h-screen">
@@ -41,53 +40,32 @@
       </svg>
       <h1 class="text-center font-extrabold text-grey-900 "></h1>
     </div>
-    <div id="class-border"
-      class="flex flex-col items-center shadow-2xl justify-center w-full h-full mb-4 py-5 rounded-lg bordure box">
-
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-
-
-      <div class="container">
-        <div class="background-img">
-
-          <h1 class="text-center px-10 font-extrabold mb-5">Login</h1>
-          <div class="error-message hidden" id="error-message">
-          </div>
-          <form action="/login" method="post" id="frm" class="mt-8 space-y-6 w-full px-10">
-            <div>
-              <div class="input-container ">
-                <label for="email" class="sr-only">Email</label>
-                <input type="email" name="email" id="email" placeholder="Email adress" <% if (locals.email) { %>
-                value = "<%= locals.email %> "
-                  <% } %> required>
-              </div>
-              <br>
-              <div class="input-container">
-                <label for="password" class="sr-only">Password</label>
-                <input type="password" name="password" id="password" placeholder="password" <% if (locals.password) { %>
-                value = "<%= locals.password %>"
-                  <% } %> required>
-              </div>
-            </div>
-            <div class="flex items-center">
-              <input type="checkbox" name="remember_me" id="remember_me"
-                class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" <% if (locals.password &&
-                locals.email) { %>
-              checked
-              <% } %>>
-                <label for="remember_me" class="ml-2 block text-sm text-gray-900">Remember me</label>
-            </div>
-            <div>
-              <button type="submit"
-                class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-atblue hover:bg-atblue-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Login</button>
-            </div>
-          </form>
-
-        </div>
+    <div class="flex flex-col items-center shadow-2xl justify-center w-full h-full mb-4 py-5 rounded-lg">
+      <h1 class="text-center px-10 font-extrabold mb-5">Login</h1>
+      <div class="error-message hidden" id="error-message">
       </div>
+      <form action="/login" method="post" id="frm" class="mt-8 space-y-6 w-full px-10">
+        <div>
+          <div class="input-container ">
+            <label for="email" class="sr-only">Email</label>
+            <input type="email" name="email" id="email" class="login-input rounded-t-md " placeholder="Email adress">
+          </div>
+          <div class="input-container">
+            <label for="password" class="sr-only">Password</label>
+            <input type="password" name="password" id="password" class="login-input rounded-b-md"
+              placeholder="password">
+          </div>
+        </div>
+        <div class="flex items-center">
+          <input type="checkbox" name="remember_me" id="remember_me"
+            class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+          <label for="remember_me" class="ml-2 block text-sm text-gray-900">Remember me</label>
+        </div>
+        <div>
+          <button type="submit"
+            class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-atblue hover:bg-atblue-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Login</button>
+        </div>
+      </form>
     </div>
   </div>
 </body>

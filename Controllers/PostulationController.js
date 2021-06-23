@@ -25,6 +25,7 @@ exports.read = (req, res) => {
 		Postuler.getAll().then((d) => {
 			let c = new Array();
 			d.forEach((element) => {
+				element.date = element.date.toDate()
 				let u = new User(element.id.split("_")[0]);
 				c.push(
 					u.read().then(() => {
