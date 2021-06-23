@@ -24,7 +24,7 @@ table = $("#example")
 	.DataTable({
 		initComplete: function () {
 			$("#example_filter").hide();
-			var cols = [this.api().columns(1), this.api().columns(6)];
+			var cols = [this.api().columns(1)];
 			cols.forEach((col) => {
 				let select = $('<select> <option value=""></option> </select>')
 					.appendTo($(col.footer()).empty())
@@ -43,6 +43,16 @@ table = $("#example")
 						);
 					});
 			});
+			let select = $('<select> <option value=""></option> </select>')
+				.appendTo($(this.api().columns(6).footer()).empty())
+				.on('change', () => {
+					let val = $.fn.dataTable.util.escapeRegex($(select).val())
+					this.api().columns(6).search(val ? '^' + val + "$" : "", true,false).draw()
+				})
+			this.api().columns(6).data().eq(0).unique().sort().each((value) => {
+				console.log(this.api().columns(6).data());
+			})
+			
 		},
 		processing: true,
 		ajax: {
@@ -113,9 +123,9 @@ table = $("#example")
 				data: 'validation_df',
 				render: function (data, type, row, meta) {
 					if (row.valider_df === false) {
-						return `<div class="flex flex-row justify-center items-center space-x-1">
-							<button data-toggle="valider" data-target="validation"><i class="material-icons">check</i></button>
-							<button data-toggle="refuser" data-target="validation"><i class="material-icons">clear</i></button>
+						return `<div class="flex flex-row justify-center items-center">
+							<button class="button" data-toggle="valider" data-target="validation"><i class="material-icons text-green-600">check</i></button>
+							<button class="button" data-toggle="refuser" data-target="validation"><i class="material-icons text-red-500">clear</i></button>
 						</div>`
 					} else {
 						return `${row.valider_df}`
