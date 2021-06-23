@@ -1,54 +1,52 @@
 models:
-    |___[]formation
-    |___[]seminaire
-    |___[]fiche evaluation
-    |___[]documentation formation
-    |___[x]partenaire
+    |___[x]formation => mehdi 
+    |___[]seminaire => nazim
+    |___[]fiche evaluation => mehdi
+    |___[]documentation formation =>nazim
+    |___[x]partenaire => nazim
     |       |___[x]type
     |       |___[x]nom
     |       |___[x]description
     |       |___[x]logo
     |       |___[x]site
-    |___[]projet DF
-    |___[]formateur
+    |___[]projet DF =>nazim
+    |___[]formateur => mehdi
     |       |___[]nom et prenom
     |       |___[]etablissement
     |       |___[]age
     |       |___[]sexe
     |       |___[]domaine
-    |___[]notation formateur
+    |___[]notation formateur => mehdi
     |       |___[]id_user
     |       |___[]id_formateur
     |       |___[]note
     |       |___[]remarque
-    |___[]notation lieu
+    |___[]notation lieu => nazim
     |       |___[]id_lieu
     |       |___[]id_utilisateur
     |       |___[]note
     |       |___[]remarque
-    |___[]lieu de formation
-    |___[]utilisateur
+    |___[]lieu de formation => nazim
+    |___[]utilisateur => mehdi
             |___[x]role
             |___[x]nom
             |___[x]prenom
             |___[x]activite
             |___[]bio
 CRUD:
-    |___[x]utilisateur
-    |___[]formation
-    |___[]seminaire
-    |___[]fiche evaluation
-    |___[]documentation
-    |___[x]partenaire
-    |___[]projet df
-    |___[]formateur
-    |___[]lieu de formation
+    |___[x]utilisateur => mehdi
+    |___[x]formation => mehdi
+    |___[]seminaire => nazim
+    |___[]fiche evaluation => mehdi
+    |___[]document => nazim 
+    |___[x]partenaire => nazim
+    |___[]projet df => nazim
+    |___[]formateur =>mehdi 
+        |___[x]read
+    |___[]lieu de formation => nazim
+        |___[x] read
 Stat:
-    |___[]faire une liste des stats a proposer
+    |___[]faire une liste des stats a proposer => nazim
 autre:
-    |___[] favicon
-    |___[] pwa
-    |___[] calendrier
-    
-    color : 2ddd8e
-    
+    |___[] pwa => mehdi
+    |___[] calendrier => mehdi
