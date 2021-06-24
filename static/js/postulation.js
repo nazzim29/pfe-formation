@@ -49,6 +49,7 @@ table = $("#example")
 				.appendTo($(this.api().columns(6).footer()).empty())
 				.on("change", () => {
 					let val = $.fn.dataTable.util.escapeRegex($(select).val());
+					console.log(val)
 					if (val == 'en attente') {
 						val = `<div class="flex flex-row justify-center items-center">
 							<button class="button" data-toggle="valider" data-target="validation"><i class="material-icons text-green-600">check</i></button>
