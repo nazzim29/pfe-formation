@@ -77,6 +77,7 @@ module.exports = class User extends Model {
           this.role = f.role;
           this.activite = f.activite;
           this.date_modification = f.date_modification;
+          this.direction = f.direction
           return fadmin
             .auth()
             .getUser(this._id)
@@ -156,7 +157,8 @@ module.exports = class User extends Model {
             activite: this.activite,
             date_modification: firestore.Timestamp.fromMillis(
               new Date().getTime()
-            )
+            ),
+            direction:this.direction
           })
           .catch((error) => {
             fadmin.deleteUser(userRecord.uid).then(()=>{
@@ -180,6 +182,12 @@ module.exports = class User extends Model {
       .catch((err) => {
         throw new Error(err);
       });
+  }
+  get direction() {
+    return this._direction;
+  }
+  set direction(value) {
+    this._direction = value;
   }
   /**
    * @param {void}

@@ -177,7 +177,8 @@ const postuler = (id) => {
   xhr.open("post", "\\postulation");
   xhr.setRequestHeader("Content-Type", "application/json");
   xhr.onload = () => {
-    console.log(xhr.response)
+      console.log(xhr.response)
+      getFormation()
   };
 	xhr.send(
 		JSON.stringify({

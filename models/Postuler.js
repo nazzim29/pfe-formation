@@ -39,10 +39,16 @@ module.exports = class Formateur extends Model {
 			});
 	}
     update() {
-        
+        return this.docref.set({
+            date: this.date,
+            valider_df:this.valider_df,
+            valider_superieur:this.valider_superieur
+       }) 
     }
     delete() {
-        
+        return this.docref.delete().catch((err) => {
+            return new Error(err)
+        })
     }
 	static getAll() {
 		return this.colref.get().then((snapshot) => {
@@ -59,7 +65,7 @@ module.exports = class Formateur extends Model {
         return await this.getAll().then((f) => {
             let i = 0
             f.forEach((element) => {
-                if(element.id.split("_")[1] == id) i++
+                if(element.id.split("_")[1] == id && element.valider_df == "accepté" && element.valider_superieur == "accepté") i++
             })
             return i
         })
