@@ -10,12 +10,12 @@ models:
     |       |___[x]logo
     |       |___[x]site
     |___[]projet DF =>nazim
-    |___[]formateur => mehdi
-    |       |___[]nom et prenom
-    |       |___[]etablissement
-    |       |___[]age
-    |       |___[]sexe
-    |       |___[]domaine
+    |___[x]formateur => mehdi
+    |       |___[x]nom et prenom
+    |       |___[x]etablissement
+    |       |___[x]age
+    |       |___[x]sexe
+    |       |___[x]domaine
     |___[]notation formateur => mehdi
     |       |___[]id_user
     |       |___[]id_formateur
@@ -26,7 +26,7 @@ models:
     |       |___[]id_utilisateur
     |       |___[]note
     |       |___[]remarque
-    |___[]lieu de formation => nazim
+    |___[x]lieu de formation => nazim
     |___[]utilisateur => mehdi
             |___[x]role
             |___[x]nom
