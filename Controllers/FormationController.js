@@ -68,10 +68,11 @@ exports.read = (req, res) => {
 				}
 			});
 			Promise.all(c).then(() => {
-				console.log(f);
-				if(req.session.currentUser._role != "admin") f=f.filter((o) => {
-					o.activite.some((e)=>e===req.session.currentUser._activite)
+				console.log(req.session.currentUser._activite);
+				if (req.session.currentUser._role != "admin") f = f.filter((o) => {
+					return o.activite.includes(req.session.currentUser._activite);
 				})
+				console.log(f);
 				return res.json(f);
 			});
 		});

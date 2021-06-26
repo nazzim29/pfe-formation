@@ -287,7 +287,13 @@
         <script src="\public/js/Jquery/jquery.dataTables.min.js"></script>
         <script src="\public/js/Jquery/dataTables.responsive.min.js"></script>
         <script src="\public/js/tokenize2.min.js"></script>
-        <script src="\public/js/postulation.js"></script>
+        <%if (locals.session.currentUser._role=="admin" ) {%>
+            <script src="\public/js/postulation.js"></script>
+        <% } %>
+        <%if (locals.session.currentUser._role=="directeur" ) {%>
+            <script src="\public/js/postulation_directeur.js"></script>
+        <% } %>
+
 
 </body>
 
