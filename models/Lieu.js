@@ -10,7 +10,15 @@ module.exports = class Lieu extends Model {
       this.docref = this.colref.doc(this._id);
     }
   }
-  create() {}
+  create() {
+    return this.colref.add({
+      nom: this.nom
+    }).then(doc => {
+      this._id  = doc.id
+    }).catch(err => {
+      return new Error(err)
+    })
+  }
   read() {
     return this.docref
       .get()
@@ -18,14 +26,6 @@ module.exports = class Lieu extends Model {
         if (doc.exists) {
           let f = doc.data();
           this.nom = f.nom
-          // this.titre = f.titre
-          // this.type = f.type;
-          // this.date_debut = f.date_debut;
-          // this.date_fin = f.date_fin;
-          // this.activite = f.activite;
-          // this.place = f.place;
-          // this.lieu = f.lieu;
-          // this.formateur = f.formateur;
         } else {
           throw new Error("lieu not found");
         }
@@ -34,7 +34,13 @@ module.exports = class Lieu extends Model {
         throw new Error(err);
       });
   }
-  update() {}
+  update() {
+    return this.docref.set({
+      nom:this.nom
+    }).catch(err => {
+      return new Error(err)
+    })
+  }
   delete() {}
   static getAll() {
     return this.colref.get().then((snapshot) => {
@@ -46,5 +52,11 @@ module.exports = class Lieu extends Model {
       });
       return lieu;
     });
+  }
+  get nom() {
+    return this._nom;
+  }
+  set nom(value) {
+    this._nom = value;
   }
 };

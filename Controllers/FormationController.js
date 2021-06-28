@@ -77,6 +77,7 @@ exports.read = (req, res) => {
 			});
 		});
 	if (!id && req.session.currentUser._role == "admin")
+		
 		return res.render("pages/admin/formation");
 	if (!id && req.session.currentUser._role != "admin")
 		return res.render("pages/formation");

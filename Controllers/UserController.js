@@ -9,6 +9,7 @@ exports.create = (req, res) => {
   if (!req.body.role) return res.send("no role provided");
   if (!req.body.activite) return res.send("no activite provided");
   if (!req.body.username) return res.send("no displayName provided");
+  if (!req.body.direction) return res.send("no direction provided");
   let newUser = new User();
   newUser.nom = req.body.nom;
   newUser.prenom = req.body.prenom;
@@ -16,6 +17,7 @@ exports.create = (req, res) => {
   newUser.password = req.body.password;
   newUser.role = req.body.role;
   newUser.activite = req.body.activite;
+  newUser.direction = req.body.direction;
   newUser.display_name = req.body.nom_utilisateur;
   newUser.create().then((error) => {
     if (error) {
@@ -34,6 +36,7 @@ exports.update = (req, res) => {
   if (req.body.role) user.role = req.body.role;
   if (req.body.activite) user.ectivite = req.body.activite;
   if (req.body.username) user.display_name = req.body.username;
+  if (req.body.direction) user.display_name = req.body.direction;
   user
     .update()
     .then((p) => {
@@ -76,7 +79,7 @@ exports.read = (req, res) => {
             recordsTotal: users.length,
           });
         }
-        res.render("pages/admin/users", {
+        return res.render("pages/admin/users", {
           users,
         });
       })

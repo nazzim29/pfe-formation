@@ -173,13 +173,14 @@ const afficher = (e) => {
 getFormation();
 
 const postuler = (id) => {
+    if(!id) return 
 	let xhr = new XMLHttpRequest();
   xhr.open("post", "\\postulation");
   xhr.setRequestHeader("Content-Type", "application/json");
-  xhr.onload = () => {
-      console.log(xhr.response)
-      getFormation()
-  };
+    xhr.onload = () => {
+        console.log(xhr.response)
+        getFormation()
+    };
 	xhr.send(
 		JSON.stringify({
 			id_formation: id,
