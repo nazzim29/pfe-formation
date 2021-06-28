@@ -147,10 +147,9 @@ $(document).on("click", (e) => {
             <p>
               etes vous sur de vouloir supprimer
               <span class="font-semibold user-name">
-                ${
-                  row.titre.charAt(0).toUpperCase() +
-                  row.titre.slice(1).toLowerCase()
-                } (${row.type})
+                ${row.titre.charAt(0).toUpperCase() +
+          row.titre.slice(1).toLowerCase()
+          } (${row.type})
               </span>
             </p>
           `
@@ -257,24 +256,22 @@ $(document).on("click", (e) => {
             <div class="flex flex-row space-x-2">                    
               <input
               class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-100 placeholder-atgreen bg-gray-100'
-              type="text" name="titre" id="titre" placeholder="titre" value="${
-                row.titre
-              }" >
+              type="text" name="titre" id="titre" placeholder="titre" value="${row.titre
+          }" >
             </div>
             <div class="flex flex-row space-x-2">                    
               <select
               class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-100 placeholder-atgreen bg-gray-100'
               name="type" id="type" placeholder="type" value="${row.type}" >
-                <option value="interne" ${row.type=="interne"?"selected":""}>interne</option>
-                <option value="externe"${row.type=="externe"?"selected":""}>externe</option>
+                <option value="interne" ${row.type == "interne" ? "selected" : ""}>interne</option>
+                <option value="externe"${row.type == "externe" ? "selected" : ""}>externe</option>
               </select>
             </div>
             <div class="flex flex-row space-x-2">
               <select
               class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-100 placeholder-atgreen bg-gray-100'
-              name="activite" id="activite" placeholder="activite" style="display:none" multiple value="${
-                row.activite
-              }"></select>
+              name="activite" id="activite" placeholder="activite" style="display:none" multiple value="${row.activite
+          }"></select>
             </div>
             <div class="flex flex-row space-x-2">                      
               <select
@@ -295,32 +292,28 @@ $(document).on("click", (e) => {
             <div class="flex flex-row space-x-2">                      
               <input
                 class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-100 placeholder-atgreen bg-gray-100'
-                type="number" name="place" id="place" placeholder="place" value="${
-                  row.place
-                }" >
+                type="number" name="place" id="place" placeholder="place" value="${row.place
+          }" >
             </div>
             <div class="flex flex-row space-x-2">
               <label for="date_debut">date debut</label>                  
               <input
                 class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-100 placeholder-atgreen bg-gray-100'
-                type="date" name="date_debut" id="date_debut" placeholder="date_debut" value="${
-                  row.date_debut
-                }" >
+                type="date" name="date_debut" id="date_debut" placeholder="date_debut" value="${row.date_debut
+          }" >
             </div>
             <div class="flex flex-row space-x-2"> 
               <label for="date_fin">date fin</label>                     
               <input
                 class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-100 placeholder-atgreen bg-gray-100'
-                type="date" name="date_fin" id="date_fin" placeholder="date_fin" value="${
-                  row.date_fin
-                }" >
+                type="date" name="date_fin" id="date_fin" placeholder="date_fin" value="${row.date_fin
+          }" >
             </div>
             <div class="flex flex-row">
               <textarea
                 class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
-                name="description" id="description" placeholder="description" >${
-                  row.description
-                }</textarea>
+                name="description" id="description" placeholder="description" >${row.description
+          }</textarea>
             </div>
           `
         );
@@ -358,9 +351,8 @@ const getFormateur = (d) => {
     $("#formateur").html(`
       ${xhr.response
         .map((v) => {
-          return `<option value="${v.id}">${v.nom.toUpperCase()} ${
-            v.prenom.charAt(0).toUpperCase() + v.prenom.slice(1).toLowerCase()
-          }</option>`;
+          return `<option value="${v.id}">${v.nom.toUpperCase()} ${v.prenom.charAt(0).toUpperCase() + v.prenom.slice(1).toLowerCase()
+            }</option>`;
         })
         .join("")}
     `);
@@ -382,10 +374,10 @@ const getActivite = (d) => {
     $("#activite").html(
       `
         ${Array.from(activites)
-          .map((v) => {
-            return `<option value="${v}">${v}</option>`;
-          })
-          .join("")}
+        .map((v) => {
+          return `<option value="${v}">${v}</option>`;
+        })
+        .join("")}
       `
     );
     if (d) {
@@ -395,8 +387,8 @@ const getActivite = (d) => {
         dropdownMaxItems: 3,
         searchHighlight: false,
       })
-      d.forEach((e)=>{
-        t.trigger('tokenize:tokens:add',[e,e,true]);
+      d.forEach((e) => {
+        t.trigger('tokenize:tokens:add', [e, e, true]);
       })
       return
     }
@@ -465,12 +457,10 @@ table = $("#example")
         .sort()
         .each((value) => {
           select.append(
-            `<option value="${value.nom.toUpperCase()} ${
-              value.prenom.charAt(0).toUpperCase() +
-              value.prenom.slice(1).toLowerCase()
-            }">${value.nom.toUpperCase()} ${
-              value.prenom.charAt(0).toUpperCase() +
-              value.prenom.slice(1).toLowerCase()
+            `<option value="${value.nom.toUpperCase()} ${value.prenom.charAt(0).toUpperCase() +
+            value.prenom.slice(1).toLowerCase()
+            }">${value.nom.toUpperCase()} ${value.prenom.charAt(0).toUpperCase() +
+            value.prenom.slice(1).toLowerCase()
             }</option>`
           );
         });
@@ -506,9 +496,8 @@ table = $("#example")
         data: "titre",
         render: function (data, type, row, meta) {
           return `
-                <a href="\\formation/${row.id}" target="_blank">${
-            row.titre.charAt(0).toUpperCase() + row.titre.slice(1).toLowerCase()
-          }</a>
+                <a class="hover:text-atgreen hover:underline" href="\\formation/${row.id}" target="_blank">${row.titre.charAt(0).toUpperCase() + row.titre.slice(1).toLowerCase()
+            }</a>
             `;
         },
       },
@@ -534,10 +523,9 @@ table = $("#example")
         targets: 3,
         data: "formateur",
         render: function (data, type, row, meta) {
-          return `${row.formateur.nom.toUpperCase()} ${
-            row.formateur.prenom.charAt(0).toUpperCase() +
+          return `${row.formateur.nom.toUpperCase()} ${row.formateur.prenom.charAt(0).toUpperCase() +
             row.formateur.prenom.slice(1).toLowerCase()
-          }`;
+            }`;
         },
       },
       {
