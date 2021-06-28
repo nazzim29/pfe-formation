@@ -15,7 +15,6 @@ router.get("/logout", (req, res) => {
 });
 
 router.get("/login", (req, res) => {
-	console.log(req.session.redirecturl);
 	res.render("pages/login", {
 		email: req.signedCookies?.email,
 		password: req.signedCookies?.password,

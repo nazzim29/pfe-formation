@@ -1,6 +1,7 @@
 const Formation = require("../models/Formation");
 const Postuler = require("../models/Postuler");
 const User = require("../models/User");
+const Direction = require("../models/Direction");
 
 exports.create = (req, res) => {
 	let postulation = new Postuler(
@@ -28,7 +29,7 @@ exports.read = (req, res) => {
 				element.date = element.date.toDate();
 				let u = new User(element.id.split("_")[0]);
 				c.push(
-					u.read().then(() => {
+					u.read().then(async () => {
 						element.user = {
 							id: u._id,
 							nom: u.nom,
@@ -36,6 +37,13 @@ exports.read = (req, res) => {
 							activite: u.activite,
 							avatar: u.avatar,
 							direction: u.direction,
+						};
+						let d = new Direction(element.user.direction);
+						await d.read();
+						element.user.direction = {
+							id: d._id,
+							nom: d.nom,
+							directeur: d.directeur,
 						};
 					})
 				);
@@ -57,21 +65,24 @@ exports.read = (req, res) => {
 			});
 			Promise.all(c).then(() => {
 				if (req.session.currentUser._role == "directeur") {
+					console.log(d)
 					d = d.filter((e) => {
-						return req.session.currentUser._direction == e.user.direction;
+						return req.session.currentUser._id === e.user.direction.directeur;
 					});
 				}
 				if (req.session.currentUser._role == "utilisateur") {
 					d = d.filter((e) => {
-						return e.user.id === req.session.currentUser._id
-					})
+						return e.user.id === req.session.currentUser._id;
+					});
 				}
 				return res.json(d);
 			});
 		});
 	} else {
-		if (!pid && req.session.currentUser._role != "utilisateur") return res.render("pages/admin/postulation");
-		if (!pid && req.session.currentUser._role == "utilisateur") return res.render("pages/postulation");
+		if (!pid && req.session.currentUser._role != "utilisateur")
+			return res.render("pages/admin/postulation");
+		if (!pid && req.session.currentUser._role == "utilisateur")
+			return res.render("pages/postulation");
 		if (pid) {
 			return res.redirect("\\formation/" + pid.split("_")[1]);
 		}
@@ -108,10 +119,10 @@ exports.update = (req, res) => {
 };
 
 exports.delet = (req, res) => {
-	let id = req.params?.id
-	if (!id) return res.status(404).send('erreur')
-	let p = new Postuler(id)
+	let id = req.params?.id;
+	if (!id) return res.status(404).send("erreur");
+	let p = new Postuler(id);
 	p.delete().then(() => {
-		return res.send('ok')
-	})
+		return res.send("ok");
+	});
 };

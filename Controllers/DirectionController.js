@@ -2,10 +2,28 @@ const Direction = require("../models/Direction");
 const User = require('../models/User')
 
 exports.create = (req, res) => {
+    if(!req.body.nom) return res.send('nom manquant')
+    if (!req.body.directeur) return res.send('directeur manquant')
+    if (req.session.currentUser._role != "admin") return res.status(403).send('unauthorized')
+    let d = new Direction()
+    d.nom = req.body.nom
+    d.directeur = req.body.directeur
+    d.creat().then(() => {
+        res.send('ok')
+    })
     
 };
-exports.update = (req,res)=>{
-    
+exports.update = (req, res) => {
+    if(req.session.currentUser._role != "admin") return res.status(403).send('unauthorized')
+    let id = req.params.id
+    let d = new Direction(id)
+    d.read().then(() => {
+        d.nom = req.body.nom
+        d.directeur = req.body.directeur
+        d.update().then(() => {
+            res.send('ok')
+        })
+    })
 }
 exports.read = (req, res) => {
     let id = req.params.id
@@ -29,6 +47,7 @@ exports.read = (req, res) => {
                     a.push(
                         u.read().then(() => {
                             element.directeur = {
+                                id: u._id,
                                 nom: u.nom,
                                 prenom: u.prenom,
                                 avatar: u.avatar,
@@ -49,6 +68,6 @@ exports.read = (req, res) => {
 };
 exports.delet = (req, res) => {
     let id = req.params.id
-    
+
 };
 
