@@ -2,7 +2,7 @@
     "name": "3ALAMNI",
     "short_name": "3ALAMNI",
     "start_url": "/home",
-    "display":"standalone",
+    "display": "standalone",
     "icons": [
         {
             "sizes": "114x114",
@@ -44,6 +44,12 @@
             "src": "https://github.githubassets.com/app-icon-192.png",
             "type": "image/png",
             "sizes": "192x192"
+        },
+        {
+            "src": "path/to/maskable_icon.png",
+            "sizes": "196x196",
+            "type": "image/png",
+            "purpose": "any maskable"
         },
         {
             "src": "https://github.githubassets.com/app-icon-512.png",
