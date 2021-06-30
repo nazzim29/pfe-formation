@@ -3,7 +3,7 @@
     padding: 0;
 }
 body{
-    font-family: sans-serif;
+    font-family: "Helvitca Neue", Arial, Helvetica, sans-serif;
 }
 
 .navbar{
@@ -34,11 +34,11 @@ body{
     font-family: 'Nunito', sans-serif;
 }
 .nom{
-    font-family: cursive;
+    font-family: Philosopher;
     font-size: 250%;
 }
 .nom1{
-    font-family: cursive;
+    font-family:Philosopher ;
     font-size: 100%;
 }
 .title{
