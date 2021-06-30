@@ -17,6 +17,10 @@ app.use(express.json());
 app.use(logger("dev"));
 app.use(cookieparser(process.env.COOKIE_SECRET));
 app.use("/public", express.static("./static"));
+app.use("/sw.js", express.static("./sw.js"))
+app.get("/manifest.json", (req, res) => {
+	res.sendFile(__dirname + '/manifest.json')
+})
 
 /**
  * session middleware

@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="\public/css/accueil.css">
     <title>Page d'acceuil</title>
     <link rel="icon" type="image/svg+xml" sizes="16x16" href="\public/image/ATHEAD.png">
+    <link rel="manifest" href="manifest.json">
 
 </head>
 
@@ -274,6 +275,14 @@
                     });
             });
         }
+    </script>
+    <script>
+        let script= document.createElement("script")
+        script.src= 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate'
+        document.head.appendChild(script)
+const el = document.createElement('pwa-update');
+document.body.appendChild(el);
+
     </script>
 </body>
 
