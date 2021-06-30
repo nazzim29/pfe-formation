@@ -113,7 +113,7 @@
         <div id="un" class="container">
             <div class="row">
                 <div class="col-md-6" data-aos="fade-right">
-                    <img id="provisoire2" src="/static/image/FAT.svg" alt="">
+                    <img id="provisoire2" src="public/image/FAT.jpg" alt="">
                 </div>
                 <div class="col-md-6" data-aos="fade-left">
                     <h3 style=" padding-left: 15%; padding-right: 15%; margin: 20% 0;">Si vous êtes empathique,
@@ -128,7 +128,7 @@
         <div id="deux" class="container">
             <div class="row">
                 <div class="col-md-6" data-aos="fade-right">
-                    <img id="provisoire3" src="\/punlic/image/sAT.svg" alt="">
+                    <img id="provisoire3" src="\public/image/sAT.jpg" alt="">
                 </div>
                 <div class="col-md-6" style="display: table-cell;
                 vertical-align: middle; min-height: 10em;">
@@ -142,7 +142,7 @@
         <div id="trois" class="container">
             <div class="row">
                 <div class="col-md-6" data-aos="fade-right">
-                    <img id="provisoire1" src="/static/image/SAT2.svg" alt="">
+                    <img id="provisoire1" src="public/image/SAT2.jpg" alt="">
                 </div>
                 <div class="col-md-6" data-aos="fade-left">
                     <h3 style="padding-left: 15%; padding-right: 15%; margin: 17% 0;"><span class="nom1"> 3ALAMNI</span>
@@ -162,26 +162,13 @@
             <path fill="#fff" d="M0,128L480,64L960,0L1440,224L1440,0L960,0L480,0L0,0Z"></path>
         </svg>
         <h1 id="titre" data-aos="fade-up">Nos entreprises partenaires</h1>
-        <div class=" carousel container" data-aos="fade-up">
-            <div class="row carousel-inner relative overflow-hidden w-2/3">
-                <div class="col-lg-2 col-md-4 col-sm-6 partenaire">
-                    <img src="Image/logo1.png" alt="" class="logos">
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-6 partenaire">
-                    <img src="Image/logo2.png" alt="" class="logos">
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-6 partenaire">
-                    <img src="Image/logo3.png" alt="" class="logos">
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-6 partenaire">
-                    <img src="Image/logo4.png" alt="" class="logos">
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-6 partenaire">
-                    <img src="Image/logo5.png" alt="" class="logos">
-                </div>
-                <div class="col-lg-2 col-md-4 col-sm-6 partenaire">
-                    <img src="Image/logo6.png" alt="" class="logos">
-                </div>
+        <div class=" carousel container"  data-aos="fade-up">
+            <div class="row carousel-inner relative overflow-hidden w-2/3 flex flex-row overflow-y-auto flex-nowrap items-center justify-center" >
+                <%partenaires.forEach(element => {%>
+                    <div class="col-lg-2 col-md-4 col-sm-6 partenaire">
+                        <img <%= `src=${element.logo} alt=${element.nom}` %> class="logos">
+                    </div>
+                <%});%>
             </div>
         </div>
     </section>

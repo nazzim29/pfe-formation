@@ -33,9 +33,28 @@ app.use(ejsSession);
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-	res.render("pages/accueil");
+	require('./models/Partenaire').getAll().then((partenaires) => res.render("pages/accueil",{partenaires}));
 });
 app.get('/calendrier', (req, res) => {
+	if(req.query.json) return res.json([
+		{
+			event_date: new Date(2021, 6, 29),
+			event_title: "April Fool's Day",
+			event_theme: "blue",
+		},
+
+		{
+			event_date: new Date(2020, 3, 10),
+			event_title: "Birthday",
+			event_theme: "red",
+		},
+
+		{
+			event_date: new Date(2020, 3, 16),
+			event_title: "Upcoming Event",
+			event_theme: "green",
+		},
+	]);
 	res.render('pages/calendrier')
 })
 /**
