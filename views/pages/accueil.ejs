@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
     <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Philosopher:ital@1&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -21,6 +22,7 @@
     <link rel="stylesheet" href="\public/css/accueil.css">
     <title>Page d'acceuil</title>
     <link rel="icon" type="image/svg+xml" sizes="16x16" href="\public/image/ATHEAD.png">
+    <link rel="manifest" href="manifest.json">
 
 </head>
 
@@ -58,7 +60,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto" id="couleur-nav">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">ACCEUIL<span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="#">ACCUEIL<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#banner">A PROPOS</a>
@@ -69,7 +71,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#footer">NOUS CONTACTER</a>
                     </li>
-                    <!--<li class="nav-item dropdown">
+                    <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Dropdown
@@ -80,7 +82,7 @@
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item" href="#">Something else here</a>
                                 </div>
-                            </li> -->
+                            </li>
                 </ul>
                 <a id="sn" class="d-inline btn btn-outline-light btn-rounded" href="/login"
                     style="text-decoration: none;">SE CONNECTER </a>
@@ -91,13 +93,11 @@
     <section id="banner">
         <div class="container" style="padding-top: 8%; padding-bottom: 5%;">
             <div class="row text-center">
-                <div style="width:100%">
+                <div style="width:150%">
                     <h1 class="nom" data-aos="fade-down">3ALAMNI</h1>
-                    <h2 class="title" data-aos="fade-down">L'endroit pour trouver votre formation</h2>
+                    <h2 class="title" data-aos="fade-down">L'endroit pour trouver votre formation.</h2>
                     <p class="description" data-aos="fade-up">Vous êtes en manque d'apprentissage ? vous êtes à la
-                        recherche d'un
-                        séminaire ou d'une
-                        formation ? Algérie télécom a élaboré la platforme idéale pour vous.
+                        recherche d'unséminaire ou d'une formation ? Algérie télécom a élaboré la plateforme idéale pour vous.
                         <span class="nom1"> 3ALAMNI</span> est l'endroit qui vous conviendra le mieux.
                 </div>
             </div>
@@ -115,10 +115,9 @@
                     <img id="provisoire2" src="public/image/FAT.jpg" alt="">
                 </div>
                 <div class="col-md-6" data-aos="fade-left">
-                    <h3 style=" padding-left: 15%; padding-right: 15%; margin: 20% 0;">Si vous êtes empathique,
+                    <h3 style=" padding-left: 15%; padding-right: 15%; margin: 20% 0;">Si vous êtes
                         curieux et créatif; désireux de faire de petits pas ainsi que de grands sauts; prêt à poser
-                        beaucoup
-                        de questions et de trouver autant de réponses, nous aimerions vous avoir avec nous!
+                        des questions et de trouver autant de réponses, nous aimerions vous avoir avec nous!
                     </h3>
                 </div>
             </div>
@@ -132,7 +131,7 @@
                 <div class="col-md-6" style="display: table-cell;
                 vertical-align: middle; min-height: 10em;">
                     <h3 style=" padding-left: 15%; padding-right: 15%; margin: 20% 0;" data-aos="fade-left">Un espace
-                        réserver aux assoifés de l'apprentissage!
+                        réserver à l'apprentissage!
                     </h3>
                 </div>
             </div>
@@ -147,7 +146,7 @@
                     <h3 style="padding-left: 15%; padding-right: 15%; margin: 17% 0;"><span class="nom1"> 3ALAMNI</span>
                         offre
                         un
-                        environnement hautement novateur et collaboratif engagé à transformer l’éducation pour
+                        environnement novateur et collaboratif engagé à transformer l’éducation pour
                         l’épanouissement humain.
                     </h3>
                 </div>
@@ -161,13 +160,14 @@
             <path fill="#fff" d="M0,128L480,64L960,0L1440,224L1440,0L960,0L480,0L0,0Z"></path>
         </svg>
         <h1 id="titre" data-aos="fade-up">Nos entreprises partenaires</h1>
-        <div class=" carousel container"  data-aos="fade-up">
-            <div class="row carousel-inner relative overflow-hidden w-2/3 flex flex-row overflow-y-auto flex-nowrap items-center justify-center" >
-                <%partenaires.forEach(element => {%>
+        <div class=" carousel container" data-aos="fade-up">
+            <div
+                class="row carousel-inner relative overflow-hidden w-2/3 flex flex-row overflow-y-auto flex-nowrap items-center justify-center">
+                <%partenaires.forEach(element=> {%>
                     <div class="col-lg-2 col-md-4 col-sm-6 partenaire">
-                        <img <%= `src=${element.logo} alt=${element.nom}` %> class="logos">
+                        <img <%=`src=${element.logo} alt=${element.nom}` %> class="logos">
                     </div>
-                <%});%>
+                    <%});%>
             </div>
         </div>
     </section>
@@ -261,6 +261,14 @@
                     });
             });
         }
+    </script>
+    <script>
+        let script = document.createElement("script")
+        script.src = 'https://cdn.jsdelivr.net/npm/@pwabuilder/pwaupdate'
+        document.head.appendChild(script)
+        const el = document.createElement('pwa-update');
+        document.body.appendChild(el);
+
     </script>
 </body>
 
