@@ -83,7 +83,7 @@ exports.read = (req, res) => {
 		return res.render("pages/formation");
 	let formation = new Formation(id);
 	return formation.read().then(() => {
-		res.render("pages/formationprofile");
+		res.render("pages/formationprofile",{formation});
 		formation.views++
 		formation.update()
 	});

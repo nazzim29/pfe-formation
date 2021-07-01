@@ -74,13 +74,20 @@ table = $("#example")
 			},
 			{
 				targets: 2,
-				data: "activite",
+				data: null,
 				render: function (data, type, row, meta) {
 					return `${row.activite}`;
 				},
 			},
 			{
 				targets: 3,
+				data: "direction.nom",
+				render: function (data, type, row, meta) {
+					return `${row.direction.nom}`;
+				},
+			},
+			{
+				targets: 4,
 				data: null,
 				render: function (data, type, row, meta) {
 					return `<button class="button focus:outline-none"> <svg data-toggle='modal' data-target='modifier' class="fill-current text-atgreen hover:text-atgreen-dark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="transform:;-ms-filter:"><path d="M8.707 19.707L18 10.414 13.586 6l-9.293 9.293c-.128.128-.219.289-.263.464L3 21l5.242-1.03C8.418 19.926 8.579 19.835 8.707 19.707zM21 7.414c.781-.781.781-2.047 0-2.828L19.414 3c-.781-.781-2.047-.781-2.828 0L15 4.586 19.414 9 21 7.414z"></path></svg> </button>
@@ -95,14 +102,14 @@ table = $("#example")
 		dom: "<'h-full w-full flex flex-col'<'overflow-y-scroll flex-1 h-full't>r <'flex flex-row flex-wrap w-full space-y-2 content-center justify-center sm:justify-evenly bottom-0'il<'self-center'p>>>",
 	})
 	.columns.adjust()
-  .responsive.recalc();
-const getdirection = () => {
+	.responsive.recalc();
+const getdirection = (row) => {
   let xhr = new XMLHttpRequest()
   xhr.open('get', "\\direction?json=true")
   xhr.responseType = 'json'
   xhr.onload = () => {
-    $('#direction').html(xhr.response.map((v) => {
-      return `<option value="${v.id}"> ${v.nom} </option>`
+	  $('#direction').html(xhr.response.map((v) => {
+      return `<option value="${v.id}" ${row == v.id?'selected':''}> ${v.nom} </option>`
     }).join(''))
   }
   xhr.send()
@@ -142,6 +149,7 @@ const modifier = (f) => {
 	xhr.setRequestHeader("Content-Type", "application/json");
 	xhr.onload = () => {
 		$(".modal-content .modal-loader").addClass("hidden");
+		table.ajax.reload()
 		toggleModal();
 	};
 	xhr.send(JSON.stringify(form));
@@ -345,12 +353,11 @@ $(document).on("click", (e) => {
 						}">
     </div>
         <div class="flex flex-row">
-        <select class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100' name="direction" id="direction" value="${
-					row?.direction
-				}">
+        <select class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100' name="direction" id="direction" >
         </select>
     </div>
         `);
+				
 				$(".modal-content .modal-footer").html(`<button
         class="px-4 bg-transparent p-3 rounded-lg hover:bg-gray-100 text-gray-500 hover:text-gray-700 mr-2 cancel">Annuler</button>
     <button class="px-4  p-1.5 rounded-lg text-white bg-atblue hover:bg-atblue-dark action">Supprimer</button>`);
@@ -360,7 +367,7 @@ $(document).on("click", (e) => {
 					.on("click", (e) => {
 						modifier(row.id);
           });
-        getdirection()
+        getdirection(row.direction.id)
 				$(".modal-content .cancel").click(toggleModal);
 				toggleModal();
 				break;

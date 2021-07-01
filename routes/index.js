@@ -6,6 +6,7 @@ const formateurRoute = require('./formateur');
 const lieuRoute = require('./lieu');
 const postulationRoute = require('./postulation');
 const directionRoute = require('./direction');
+const calendrierRoute = require('./calendrier');
 
 
 module.exports = {
@@ -15,6 +16,7 @@ module.exports = {
 	formateurRoute,
 	lieuRoute,
 	formationRoute,
+	calendrierRoute,
 	directionRoute,
 	postulationRoute,
 };

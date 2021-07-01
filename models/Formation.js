@@ -56,7 +56,6 @@ module.exports = class Formation extends Model {
       });
   }
   update() {
-    console.log();
     return this.colref
 			.doc(this._id)
 			.set({
