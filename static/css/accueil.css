@@ -95,10 +95,11 @@ h2{
     margin-right: auto
 }
 #provisoire1{
-    height: 300px;
+    width: 80%;
+    height: 200px;
     display: block;
     margin-left: auto;
-    margin-right: auto
+    margin-right: auto;
 }
 #partenaires{
     background-image:linear-gradient(to right, #20b471, #086139) ;
