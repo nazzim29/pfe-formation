@@ -74,7 +74,7 @@ module.exports = class Formation extends Model {
         files: this.files
 			})
 			.catch((err) => {
-				throw new Error(err);
+				return new Error(err);
 			});
   }
   delete() {

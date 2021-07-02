@@ -4,4 +4,5 @@ firebaseadmin = admin.initializeApp({
     databaseURL: "https://at-formation-353d2.firebaseio.com"
 })
 
+firebaseadmin.firestore().settings({ ignoreUndefinedProperties: true });
 module.exports = firebaseadmin

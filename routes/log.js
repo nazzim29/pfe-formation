@@ -59,6 +59,8 @@ router.get("/home", isAuth, (req, res) => {
 				parlen: homeobj.par.length,
 			});
 		});
+	} else {
+		return res.render("pages/home")
 	}
 });
 router.post("/login", login);
