@@ -43,10 +43,10 @@ CRUD:
     |___[]projet df => nazim
     |___[]formateur =>mehdi 
         |___[x]read
-    |___[]lieu de formation => nazim
+    |___[]lieu de formation =>mehdi
         |___[x] read
 Stat:
     |___[]faire une liste des stats a proposer => nazim
 autre:
-    |___[] pwa => mehdi
-    |___[] calendrier => mehdi
+    |___[x] pwa => mehdi
+    |___[x] calendrier => mehdi
