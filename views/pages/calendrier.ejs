@@ -14,9 +14,9 @@
 
 <body class="h-screen overflow-hidden flex items-center justify-center bg-atblue-light">
     <%- include('../navbar',{calendrier:true}) %>
-        <div class="flex w-full flex-col h-full overflow-hidden justify-center">
+        <div class="flex w-full flex-col h-full justify-center">
 
-            <div class="bg-white rounded-lg shadow overflow-hidden">
+            <div class="bg-white rounded-lg shadow overflow-hidden mx-3 my-5">
                 <div class="flex items-center justify-between py-2 px-6">
                     <div>
                         <span class="text-lg font-bold text-gray-800" id="month"></span>
@@ -42,39 +42,39 @@
                         </button>
                     </div>
                 </div>
-                <div class="-mx-1 -mb-1">
-                    <div class="flex flex-wrap" style="margin-bottom: -40px;">
-                        <div style="width: 14.26%" class="px-2 py-2">
+                <div class="-mx-1 -mb-1 overflow-x-auto">
+                    <div class="flex flex-nowrap " style="margin-bottom: -40px;">
+                        <div style="width: 28.52%;"  class="px-2 py-2">
                             <div x-text="day"
                                 class="text-gray-600 text-sm uppercase tracking-wide font-bold text-center">Dimanche</div>
                         </div>
 
-                        <div style="width: 14.26%" class="px-2 py-2">
+                        <div style="width: 28.52%;" class="px-2 py-2 w-44">
                             <div x-text="day"
                                 class="text-gray-600 text-sm uppercase tracking-wide font-bold text-center">Lundi</div>
                         </div>
 
-                        <div style="width: 14.26%" class="px-2 py-2">
+                        <div style="width: 28.52%;" class="px-2 py-2 w-44">
                             <div x-text="day"
                                 class="text-gray-600 text-sm uppercase tracking-wide font-bold text-center">Mardi</div>
                         </div>
 
-                        <div style="width: 14.26%" class="px-2 py-2">
+                        <div style="width: 28.52%" class="px-2 py-2 w-44">
                             <div x-text="day"
                                 class="text-gray-600 text-sm uppercase tracking-wide font-bold text-center">Mercredi</div>
                         </div>
 
-                        <div style="width: 14.26%" class="px-2 py-2">
+                        <div style="width: 28.52%" class="px-2 py-2 w-44">
                             <div x-text="day"
                                 class="text-gray-600 text-sm uppercase tracking-wide font-bold text-center">Jeudi</div>
                         </div>
 
-                        <div style="width: 14.26%" class="px-2 py-2">
+                        <div style="width: 28.52%" class="px-2 py-2 w-44">
                             <div x-text="day"
                                 class="text-gray-600 text-sm uppercase tracking-wide font-bold text-center">Vendredi</div>
                         </div>
 
-                        <div style="width: 14.26%" class="px-2 py-2">
+                        <div style="width: 28.52%" class="px-2 py-2 w-44">
                             <div x-text="day"
                                 class="text-gray-600 text-sm uppercase tracking-wide font-bold text-center">Samedi</div>
                         </div>

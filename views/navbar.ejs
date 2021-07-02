@@ -138,7 +138,9 @@
             </a>
         </li>
         <li class="hover:bg-gray-200">
-            <a href="/calendrier" class="nav-link">
+            <a href="/calendrier" class="nav-link <% if (locals.calendrier) { %>
+         active
+        <% } %>">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000">
                     <path d="M0 0h24v24H0V0z" fill="none" />
                     <path

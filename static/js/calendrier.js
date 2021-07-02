@@ -62,7 +62,7 @@ const drawCalendrier = () => {
 					${
 						isToday(i)
 							? "bg-atblue text-white"
-							: "text-gray-700 hover:bg-blue-200"
+							: "text-gray-700 hover:bg-blsue-200"
 					}">${i}
 				</div>
 				<div style="height: 80px;" class="overflow-y-auto mt-1">
