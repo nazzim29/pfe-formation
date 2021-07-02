@@ -50,7 +50,7 @@ module.exports = class Formation extends Model {
           this.views = f.views;
           this.files = f.files;
         } else {
-          throw new Error("Formation not found");
+          return new Error("Formation not found");
         }
       })
       .catch((err) => {

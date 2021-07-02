@@ -9,6 +9,11 @@ exports.partenaireLogoStorage = (req,res,cb)=>{
     req.filedestination = 'uploads/logoPartenaire'
     cb()
 }
+exports.formationDocsStorage = (req,res,cb)=>{
+    req.filedestination = 'uploads/formationdocs'
+    cb()
+}
+
 
 
 exports.uploadImage = multer({
@@ -30,6 +35,19 @@ exports.uploadImage = multer({
         }
         cb(null, true);
     }
+})
+exports.uploaddocs = multer({
+    storage: multer.diskStorage({
+        destination: function(req, file, cb) {
+            cb(null, req.filedestination);
+        },
+    
+        // By default, multer removes file extensions so let's add them back
+        filename: function(req, file, cb) {
+
+            cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+        }
+    }),
 })
 
 exports.patchbody= (req,res,cb)=>{
