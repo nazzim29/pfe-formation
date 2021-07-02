@@ -22,7 +22,8 @@ module.exports = class Formation extends Model {
         place: this.place,
         lieu: this.lieu,
         formateur: this.formateur,
-        views:0,
+        views: 0,
+        files:this.files
       })
       .then((doc) => {
         this._id = doc.id;
@@ -47,8 +48,9 @@ module.exports = class Formation extends Model {
           this.lieu = f.lieu;
           this.formateur = f.formateur;
           this.views = f.views;
+          this.files = f.files;
         } else {
-          throw new Error("Formation not found");
+          return new Error("Formation not found");
         }
       })
       .catch((err) => {
@@ -68,7 +70,8 @@ module.exports = class Formation extends Model {
 				place: this.place,
 				lieu: this.lieu,
 				formateur: this.formateur,
-				views: this.views,
+        views: this.views,
+        files: this.files
 			})
 			.catch((err) => {
 				throw new Error(err);
@@ -91,6 +94,12 @@ module.exports = class Formation extends Model {
         });
         return formations
       });
+  }
+  get files() {
+    return this._files;
+  }
+  set files(value) {
+    this._files = value;
   }
   get views() {
     return this._views;
