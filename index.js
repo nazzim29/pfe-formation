@@ -49,6 +49,7 @@ app.use("/lieu", isAuth, routes.lieuRoute);
 app.use("/postulation", isAuth, routes.postulationRoute);
 app.use("/direction", isAuth, routes.directionRoute);
 app.use("/calendrier", isAuth, routes.calendrierRoute);
+app.use("/files", isAuth, routes.filesRoute);
 
 /**
  * launch the server

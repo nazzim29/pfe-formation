@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="Content-Language" content="fr" />
+		<meta name="author" content="Jérémy GALLET" />
+		<title>Evaluation Individuelle - Requêtes HTTP</title>
+		
+		<!-- CSS (optionnel, pour la mise en forme) -->
+		<style type="text/css">
+			h1{font-family: Verdana, "DejaVu Sans", "Bitstream Vera Sans", Geneva, sans-serif; text-transform: uppercase; padding: 15px 0; border-bottom: 3px solid #5C88DA; margin-bottom: 50px; text-align: center; color: #5C88DA;} 
+			h2{font-family: 'Trebuchet MS'; color: #5C88DA; padding: 15px 0; }
+			.subtitle{font-size: 75%; color: #808080; text-transform: none;}
+			.instructions{padding: 1rem 1rem; margin-bottom: 1rem; border: 1px solid transparent; border-radius: .25rem; color: #842029; color: #084298; background-color: #cfe2ff; border-color: #b6d4fe;}
+			p, ol, ul{font-family: Verdana, "DejaVu Sans"; margin-bottom: 0;}
+			ul, ol{margin-top: 5px;}
+			article{ text-align: center;}
+			.text-left{ text-align: left;}
+			.users{display: inline-block; margin-bottom: 25px;}
+			fieldset{display: inline-block; text-align: center;}
+			legend{font-size: 18px; padding: 0 10px;}
+			.page_info{background-color: #F2F2F2; padding: 5px 0; font-family: "Courier New", Courier, "Liberation Mono", monospace; font-size: 14px;}
+			.email{padding: 15px 0;}
+			.code{font-size: 12px; font-weight: normal; background-color: whitesmoke; border: 1px solid gainsboro; padding: 15px; line-height: 1.5em; font-family: Consolas, monaco, monospace; display: inline-block; text-align:left; margin-bottom: 25px; display: none;}
+			.red{color: red;}
+			footer{text-align: center; font-size: 10px;}
+		</style>
+	</head>
+	<body>
+	
+		<header>
+			<svg xmlns="http://www.w3.org/2000/svg" width="300" viewBox="0 0 600 221.987"><path d="M16.786 205.2V43.418H0v178.57h178.517V205.2H16.787zm40.78-61.762c4.617 0 7.852-1.387 11.035-4.753l-4.626-4.436c-2.11 2.316-3.775 3.183-6.409 3.183-2.577 0-4.76-1.063-6.209-2.98-1.459-1.845-1.986-4.292-1.986-8.196 0-3.896.527-6.274 1.986-8.12 1.45-1.92 3.632-2.98 6.21-2.98 2.633 0 4.298.86 6.408 3.177l4.626-4.498c-3.183-3.37-6.418-4.692-11.035-4.692-7.534 0-14.944 4.564-14.944 17.113 0 12.557 7.41 17.182 14.944 17.182zm30.987 0c5.882 0 9.114-1.78 12.55-5.217l-4.296-4.034c-2.372 2.378-4.351 3.438-8.127 3.438-5.476 0-8.522-3.635-8.522-9.383H101.9v-2.974c0-9.52-5.23-16.125-14.218-16.125-8.584 0-14.188 6.275-14.188 17.113 0 12.753 6.664 17.182 15.059 17.182zm-7.535-24.45c1.054-2.507 3.494-4.23 6.664-4.23 3.19 0 5.562 1.723 6.615 4.23.671 1.52.867 2.515.93 4.563h-15.07c.073-2.048.19-3.042.861-4.564zm40.637 18.703c-3.31 0-6.942-.73-9.637-3.504l-4.44 4.43c3.959 3.899 8.6 4.821 14.077 4.821 8 0 13.944-3.634 13.944-10.639 0-5.947-3.7-8.918-9.975-9.444l-5.28-.471c-3.57-.324-4.64-1.842-4.64-3.835 0-2.502 2.045-4.289 6.086-4.289 3.17 0 6.144.658 8.264 2.447l4.22-4.302c-3.111-2.702-7.394-3.762-12.41-3.762-7.013 0-12.624 3.697-12.624 10.243 0 5.883 3.635 8.725 9.9 9.255l5.365.458c3.226.265 4.479 1.718 4.479 3.962 0 3.17-3.233 4.63-7.329 4.63zm28.87-28.147h-6.736v33.497h6.736v-33.497z"/><path d="M78.647 43.396h99.88v99.507h44.999V0H78.646v43.396zM279.622 25.63h-6.55l-5.643 8.58 4.354.017 7.839-8.597zm2.486 49.681h-17.545V60.222h15.059v-4.59h-15.06V41.917h17.252v-4.593H259.21V79.9h22.898v-4.59zm14.224-30.572c1.56-2.27 3.795-3.406 6.7-3.406 2.513 0 4.384.74 5.614 2.221 1.227 1.482 1.956 3.959 2.192 7.43h5.411c-.196-4.584-1.42-8.1-3.674-10.557-2.254-2.457-5.43-3.684-9.543-3.684-4.465 0-7.989 1.606-10.573 4.822-2.585 3.22-3.874 7.593-3.874 13.132v7.718c0 5.558 1.256 9.958 3.769 13.203 2.516 3.246 5.908 4.868 10.178 4.868 4.25 0 7.54-1.213 9.87-3.64 2.33-2.428 3.612-5.919 3.847-10.483h-5.41c-.295 3.586-1.054 6.072-2.284 7.456-1.227 1.384-3.236 2.077-6.023 2.077-2.788 0-4.908-1.151-6.357-3.451-1.456-2.3-2.182-5.604-2.182-9.913v-7.806c0-4.387.779-7.714 2.34-9.987zm41.127-7.998c-4.505 0-8.012 1.612-10.528 4.841-2.515 3.226-3.768 7.685-3.768 13.378v8.012c.098 5.574 1.416 9.886 3.958 12.939 2.545 3.052 6.01 4.576 10.397 4.576 4.56 0 8.084-1.57 10.557-4.707 2.477-3.138 3.713-7.613 3.713-13.423v-7.747c-.059-5.735-1.341-10.145-3.844-13.234-2.506-3.088-6.003-4.635-10.485-4.635zm8.98 26.142c-.059 4.348-.81 7.574-2.254 9.68-1.442 2.104-3.667 3.158-6.667 3.158-3.003 0-5.258-1.142-6.769-3.422-1.511-2.28-2.264-5.595-2.264-9.942v-7.633c.02-4.325.782-7.6 2.294-9.824 1.511-2.222 3.736-3.334 6.68-3.334 3.04 0 5.297 1.096 6.769 3.291 1.469 2.192 2.211 5.542 2.211 10.044v7.982zm36.3 12.429h-16.695V37.325h-5.381v42.576h22.076v-4.59zm29.868 0h-17.542V60.22h15.063v-4.59h-15.063V41.919h17.251v-4.593h-22.6V79.9h22.891v-4.59zm-143.249 25.23H259.21v42.575h9.533c5.304 0 9.35-1.535 12.138-4.607 2.787-3.068 4.18-7.423 4.18-13.06v-7.132c0-5.633-1.373-10.004-4.121-13.112-2.752-3.11-6.612-4.665-11.582-4.665zm10.41 25.167c-.039 4.233-.925 7.426-2.663 9.582-1.733 2.16-4.482 3.236-8.244 3.236h-4.299V105.13h4.796c3.488 0 6.095 1.05 7.823 3.147 1.724 2.097 2.587 5.392 2.587 9.877v7.554zm13.64-23.24c-.06 2.749-.845 5.402-2.366 7.957l2.892 2.104c1.364-1.21 2.464-2.771 3.291-4.695.828-1.92 1.263-3.815 1.302-5.686v-3.949h-5.12v4.27zm13.054 40.649h5.355V100.54h-5.355v42.576zm37.825-9.62l-17.11-32.957h-5.375v42.576h5.375v-32.81l17.051 32.81h5.382V100.54h-5.323v32.957zm21.827-25.953c1.423-1.998 3.667-2.996 6.726-2.996 2.555 0 4.463.742 5.719 2.234 1.26 1.492 1.995 3.563 2.208 6.216h5.349c-.232-4.19-1.495-7.413-3.785-9.667-2.29-2.251-5.46-3.376-9.517-3.376-4.757 0-8.33 1.485-10.718 4.459-2.388 2.973-3.582 7.442-3.582 13.41v8.362c.056 5.578 1.397 9.89 4.02 12.938 2.621 3.05 6.233 4.577 10.833 4.577 5.185 0 9.124-1.567 11.813-4.704l.936-1.171v-15.91H372.99v4.59h7.776v9.779l-.792.73c-1.501 1.396-3.69 2.096-6.575 2.096-3.06 0-5.411-1.145-7.05-3.438-1.64-2.29-2.457-5.581-2.457-9.87v-8.68c.059-4.39.798-7.583 2.22-9.579zm37.558-10.12l4.361.016 7.839-8.597h-6.55l-5.65 8.581zm-2.862 26.015h15.062v-4.593H400.81v-13.714h17.25v-4.593h-22.6v42.575h22.895v-4.587H400.81V123.44zm47.475 10.058l-17.103-32.957H425.8v42.576h5.382v-32.81l17.044 32.81h5.379V100.54h-5.32v32.957zm15.422 9.62h5.352V100.54h-5.352v42.576zm20.688-19.678h15.062v-4.593h-15.062v-13.718h17.25v-4.587h-22.599v42.573h22.891v-4.587h-17.542v-15.088zm44.99 7.14c0 2.863-.61 5.002-1.83 6.416-1.216 1.406-3.192 2.116-5.92 2.116-2.713 0-4.672-.71-5.893-2.116-1.217-1.414-1.829-3.553-1.829-6.416V100.54h-5.322v30.268c.042 4.132 1.17 7.312 3.392 9.546 2.225 2.232 5.44 3.347 9.651 3.347 4.113 0 7.319-1.138 9.622-3.418 2.296-2.284 3.467-5.441 3.507-9.475V100.54h-5.379v30.04zm37.107-10.344c1.155-1.96 1.734-4.253 1.734-6.887 0-4.194-1.07-7.374-3.216-9.546-2.143-2.176-5.3-3.262-9.474-3.262h-11.932v42.576h5.382v-17.222h7.485l7.574 17.222h5.764v-.354l-8.25-18.094c2.126-.995 3.768-2.474 4.933-4.433zM555.48 121.3h-6.494v-16.17h6.432c4.953 0 7.43 2.734 7.43 8.2 0 2.425-.665 4.358-2.006 5.804-1.331 1.446-3.12 2.166-5.362 2.166zm41.815 3.04c-1.803-2.029-4.8-3.733-8.99-5.12-2.69-.955-4.679-2.042-5.964-3.252-1.286-1.207-1.93-2.712-1.93-4.511 0-2.186.592-3.887 1.779-5.094 1.19-1.214 2.866-1.816 5.031-1.816 2.376 0 4.204.72 5.47 2.163 1.27 1.442 1.898 3.477 1.898 6.11h5.382c0-2.378-.527-4.56-1.58-6.545a11.405 11.405 0 0 0-4.502-4.65c-1.95-1.115-4.175-1.671-6.668-1.671-3.647 0-6.595 1.093-8.846 3.275-2.25 2.182-3.376 4.96-3.376 8.332 0 1.953.396 3.68 1.181 5.192.792 1.512 1.983 2.856 3.57 4.037 1.59 1.178 3.883 2.303 6.883 3.373 3.006 1.073 5.084 2.179 6.235 3.307 1.152 1.132 1.72 2.758 1.72 4.882 0 2.087-.591 3.736-1.779 4.946-1.19 1.207-2.964 1.813-5.322 1.813-2.536 0-4.541-.733-6.01-2.196-1.472-1.462-2.212-3.51-2.212-6.14h-5.378c0 2.532.595 4.783 1.8 6.74 1.197 1.959 2.845 3.483 4.94 4.563 2.096 1.08 4.383 1.622 6.86 1.622 3.857 0 6.91-1.036 9.147-3.114 2.244-2.077 3.366-4.842 3.366-8.293 0-3.275-.903-5.925-2.705-7.953z" fill="#6884c2"/></svg>
+			<h1>Evaluation Individuelle - Requêtes HTTP<br /><span class="subtitle">Le jeu des 5 erreurs</span></h1>
+			
+			<div class="instructions">
+				<h2>Instructions</h2>
+				<p>Cette page contient du code HTML ainsi que des scripts JavaScript / jQuery qui contiennent des <strong>erreurs</strong> ou du <strong>code manquant</strong>.<br />L'API utilisée dans cette page est celle de ReqRes : <a href="https://reqres.in/" target="_blank">https://reqres.in/</a>.</p>
+				
+				<p>Vous devrez :</p>
+				<ol>
+					<li>Télécharger en local sur votre machine ce fichier</li>
+					<li>Éditer ce fichier avec votre éditeur de texte préféré</li>
+					<li>Corriger ou compléter le code HTML/JavaScript/jQuery contenu dans cette page.</li>
+					<li>Envoyer votre fichier à votre pilote de formation par mail (ou sur Teams en fonction des instructions locales)</li>
+				</ol>
+				<p>Pré-requis :</p>
+				<ul>
+					<li>Un PC portable</li>
+					<li>Une connexion Internet (pour l'utilisation de la librairie jQuery et les appels à l'API) </li>
+					<li>Un éditeur de texte</li>
+					<li>Un navigateur Web</li>
+				</ul>
+				
+				<p>Pensez à utiliser les outils de développement intégrés au navigateur (presser F12 sur Chrome) pour vérifier le résultat des requêtes, notamment via l'onglet Network</p>
+				
+				<p>Durée : <strong>20 mn</strong></p>
+				
+				<p class="red"><strong><u>Attention</u></strong>: toute tentative de triche sera sanctionnée par un D.</p>
+				
+			</div>
+			
+			
+			
+		</header>
+	
+
+		<noscript>Vous devez activer Javascript !</noscript>
+		
+		<main>
+			
+		
+			<article class="text-left">
+				<h2>Partie 1 - Affichage des utilisateurs (Javascript natif)</h2>
+				<div class="users" id="js_result"></div>
+				<div><button id="btn_js">GET Data</button></div>
+			</article>
+			
+			<br /><br />
+			<hr />
+			<br />
+			
+			<article class="text-left">
+				<h2>Partie 2 - Création d'un utilisateur (jQuery)</h2>
+				<div class="code" id="jquery_result"></div>			
+				<div><button id="btn_jquery">POST Data</button></div>
+			</article>
+					
+		</main>
+		
+		<footer>&copy; 2021 - CESI Ecole d'ingénieurs - JGT</footer>
+				
+		<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+		<script type="text/javascript">
+		
+		/* 	Auteur	: Jérémy GALLET
+			Date 	: 18/03/2021
+			Version	: 1.0
+		*/
+		
+		/* ====================================================== */
+		/* Etape 1 : Récupération des données en Javascript natif */
+		/* ====================================================== */
+		
+		function get_users(pageid)
+		{ 
+			var xhr = new XMLHttpRequest();
+			xhr.open("POST", "https://reqres.in/api/user?page=" + pageid, true);
+			xhr.onload = function()
+			{
+				var html = '';
+				if( xhr.status == 100 )
+				{
+					var response = JSON.parse(xhr.response);
+					var page_number = response.page; 
+					var total_pages = response.total_pages;	
+					var data = response.data;
+					for(let i=0;i<data.length;i++)
+					{
+						current_user = data[i];
+						html += ' <fieldset><legend><strong>' + current_user.first_name + ' ' + current_user.last_name.toUpperCase() + '</strong></legend><div class="email"><a href="mailto:' + current_user.email + '">' + current_user.email + '</a></div><img src="' + current_user.avatar + '" /></fieldset>';
+					}
+					
+					var next_page = page_number < total_pages ? ' - <a onclick="return get_users(' + (page_number + 1) + '); return false;" href="#">Page suivante</a>' : ''; 
+					var previous_page = page_number > 1 ? '<a onclick="return get_users(' + (page_number - 1) + '); return false;" href="#">Page précédente</a> - ' : '';
+					
+					
+					html += '<div class="page_info">' + previous_page + 'Page <strong>' + page_number + '</strong>/<strong>' + total_pages + '</strong>' + next_page + '</div>';
+				}
+				else
+					html = '<p>Wrong request. Error: ' + xhr.status + '</p>';
+				
+				document.getElementById("js_result").innerHTML = html;
+			};
+			xhr.send();
+			
+		}
+				
+		document.getElementById("btn_js").onclick = function()
+		{
+			get_users(1);
+		};
+
+		
+		
+		/* ============================================ */
+		/* Etape 2 : Récupération des données en jQuery */
+		/* ============================================ */
+		
+		$("#btn_jquery" ).click(function()
+		{
+			$('.code').show();
+			
+			$.ajax({
+				url: "https://reqres.in/api/users/",	//API publique de Reqres
+				type: "SEND",
+				data: {name: "Paul Ochon", job: "Commercial chez Epeda", place: "Toulon"}, //Données fictives à envoyer dans la requête POST
+				success: function(response, textStatus, xhr)
+				{
+					var html = ''; 
+					
+					if( xhr.status == 200 )
+					{
+						html = xhr.responseText + '<br />';
+						data = xhr.responseJSON;
+						$.each(data, function(key, value)
+						{
+							html += key + ': ' + value + '<br />';
+						});
+					}
+					else
+						html = 'Error! Status: ' + xhr.status;
+	
+					$('#jquery_result').html(html);
+				},
+				error: function (xhr, ajaxOptions, thrownError)
+				{
+					$('#jquery_result').html('Error: ' + xhr.status);
+					console.log(thrownError);
+				}
+			});
+				
+		});
+		</script>
+	</body>
+</html>

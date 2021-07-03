@@ -1,8 +1,11 @@
 const router = require("express").Router()
-const {create,read,update,delet} = require('../Controllers/FormationController')
+const { create, read, update, delet, addfile,deletefile } = require('../Controllers/FormationController')
+const { formationDocsStorage, uploaddocs } = require("../middleware/multer");
 
 
-router.get('/',read)
+router.get('/', read)
+router.post('/:id/files', formationDocsStorage, uploaddocs.any('docs'), addfile)
+router.delete('/:id/files/:fichier',deletefile)
 router.get('/:id',read)
 router.post('/',create)
 router.post('/:id',update)

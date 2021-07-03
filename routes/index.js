@@ -7,6 +7,7 @@ const lieuRoute = require('./lieu');
 const postulationRoute = require('./postulation');
 const directionRoute = require('./direction');
 const calendrierRoute = require('./calendrier');
+const filesRoute = require('./files');
 
 
 module.exports = {
@@ -16,6 +17,7 @@ module.exports = {
 	formateurRoute,
 	lieuRoute,
 	formationRoute,
+	filesRoute,
 	calendrierRoute,
 	directionRoute,
 	postulationRoute,

@@ -51,8 +51,8 @@ router.get("/home", isAuth, (req, res) => {
 				homeobj.par = par;
 			})
 		);
-		Promise.all(all).then(() => {
-			res.render("pages/admin/home", {
+		return Promise.all(all).then(() => {
+			return res.render("pages/admin/home", {
 				formation_mois: homeobj.f.length,
 				postulationlen: homeobj.p.length,
 				userlen: homeobj.u.length,
@@ -60,7 +60,14 @@ router.get("/home", isAuth, (req, res) => {
 			});
 		});
 	} else {
-		return res.render("pages/home")
+		c = []
+		c.push(Formation.getAll())
+		Promise.all(c).then((formations) => {
+			return res.render("pages/home", {
+				formation: formations.length
+			})
+			
+		})
 	}
 });
 router.post("/login", login);

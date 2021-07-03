@@ -20,7 +20,7 @@
     class="font-sans antialiased leading-normal tracking-wider bg-cover h-screen overflow-hidden flex flex-row bg-atblue-light">
     <%- include('../navbar',{formation:true}) %>
         <div class="flex w-full flex-col h-full overflow-hidden items-center justify-center">
-            <div class="max-w-4xl w-full flex items-center lg:h-screen flex-wrap">
+            <div class="max-w-4xl w-full flex items-center my-2 lg:h-screen flex-wrap">
 
                 <!--Main Col-->
                 <div id="profile"
@@ -28,20 +28,24 @@
                     <div class="p-7 text-center lg:text-left w-full">
                         <div class="flex flex-row justify-between mt-4">
                             <div class="flex flex-row justify-between">
-                                <h1 class="text-2xl whitespace-nowrap align-middle font-bold lg:pt-0 flex-1"><%= formation.titre %> 
+                                <h1 class="text-2xl whitespace-nowrap align-middle font-bold lg:pt-0 flex-1">
+                                    <%= formation.titre %>
                                 </h1>
                                 &emsp;
                                 <svg class="h-4 w-4 fill-current text-atgreen " xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 20 20">
+                                    viewBox="0 0 20 20">
                                     <path d="M0 0h24v24H0V0z" fill="none" />
                                     <path
                                         d="M12 6c3.79 0 7.17 2.13 8.82 5.5C19.17 14.87 15.79 17 12 17s-7.17-2.13-8.82-5.5C4.83 8.13 8.21 6 12 6m0-2C7 4 2.73 7.11 1 11.5 2.73 15.89 7 19 12 19s9.27-3.11 11-7.5C21.27 7.11 17 4 12 4zm0 5c1.38 0 2.5 1.12 2.5 2.5S13.38 14 12 14s-2.5-1.12-2.5-2.5S10.62 9 12 9m0-2c-2.48 0-4.5 2.02-4.5 4.5S9.52 16 12 16s4.5-2.02 4.5-4.5S14.48 7 12 7z" />
-                                </svg><%= formation.views %> 
+                                </svg>
+                                <%= formation.views %>
                             </div>
                             <div>
-                                <button
-                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                                    Postuler</button>
+                                <% if (locals.session.currentUser._role=="admin" ) { %>
+                                    <button data-toggle="modal" data-target="generateur"
+                                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                                        Formulaire</button>
+                                    <% } %>
                             </div>
                         </div>
                         <div class=" mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-atgreen opacity-25">
@@ -128,102 +132,129 @@
 
                         </p>
                         <p class="pt-8 text-sm">
-
                         </p>
-                        <li>
-                            <button class=" outline-none focus:outline-none px-2 hover:text-atgreen ">
-                                <span class="material-icons ml-64 ">file_download</span></button>
-                        </li>
+                        <button class="self-end outline-none focus:outline-none"><i data-toggle="modal"
+                                data-target="upload" class="material-icons">add</i></button>
+                        <ul class="overflow-y-auto h-52 justify-center items-center">
+                            <% files.forEach(element => {%>
+                                <li class="flex flex-row justify-around">
+                                    <h3><%= element.titre %> (<%= (element.taille/1024).toFixed(2) %> Ko  ) </h3>
+                                    <a href="<%= element.lien %> " class=" outline-none focus:outline-none px-2 hover:text-atgreen ">
+                                      <%= element.downloads %>   <span class="material-icons ml-64 ">file_download</span></a>
+                                    <button class=" outline-none focus:outline-none px-2 hover:text-atgreen ">
+                                      <span  data-toggle="delete_file" data-target="<%= element._id %> "  class="material-icons ml-64 ">delete</span></button>
+                                </li>
+                            <%});%>
+                        </ul>
+
                     </div>
                 </div>
             </div>
         </div>
-                    <div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
-                        <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
-                    
-                        <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded-md shadow-lg z-50 overflow-y-auto">
-                            <!-- Add margin if you want to see some of the overlay behind the modal-->
-                            <div class="modal-content py-4 text-left px-6">
-                                <!--Title-->
-                                <div class="flex justify-between items-center pb-3">
-                                    <p class="text-2xl font-bold modal-title">Supprimer</p>
-                                    <div class="modal-close cursor-pointer z-50">
-                                        <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                                            viewBox="0 0 18 18">
-                                            <path
-                                                d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
-                                            </path>
-                                        </svg>
-                                    </div>
-                                </div>
-                                <div class="modal-loader relative h-full w-full hidden">
-                                    <div class="absolute h-full w-full justify-center items-center flex z-50">
-                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                            class="w-60 self-center justify-self-center m-auto" viewBox="0 0 100 100"
-                                            preserveAspectRatio="xMidYMid">
-                                            <defs>
-                                                <path id="path" d="M50 15A14 35 0 0 1 50 85A14 35 0 0 1 50 15" fill="none">
-                                                </path>
-                                                <path id="patha" d="M0 0A14 35 0 0 1 0 70A14 35 0 0 1 0 0" fill="none"></path>
-                                            </defs>
-                                            <g transform="rotate(0 50 50)">
-                                                <use xlink:href="#path" stroke="#20b471" stroke-width="1"></use>
-                                            </g>
-                                            <g transform="rotate(45 50 50)">
-                                                <use xlink:href="#path" stroke="#20b471" stroke-width="1"></use>
-                                            </g>
-                                            <g transform="rotate(90 50 50)">
-                                                <use xlink:href="#path" stroke="#20b471" stroke-width="1"></use>
-                                            </g>
-                                            <g transform="rotate(135 50 50)">
-                                                <use xlink:href="#path" stroke="#20b471" stroke-width="1"></use>
-                                            </g>
-                                            <g transform="rotate(0 50 50)">
-                                                <circle cx="50" cy="15" r="2" fill="#2c5eaa">
-                                                    <animateMotion dur="3.4482758620689653s" repeatCount="indefinite" begin="0s">
-                                                        <mpath xlink:href="#patha"></mpath>
-                                                    </animateMotion>
-                                                </circle>
-                                            </g>
-                                            <g transform="rotate(45 50 50)">
-                                                <circle cx="50" cy="15" r="2" fill="#2c5eaa">
-                                                    <animateMotion dur="3.4482758620689653s" repeatCount="indefinite" begin="-0.125s">
-                                                        <mpath xlink:href="#patha"></mpath>
-                                                    </animateMotion>
-                                                </circle>
-                                            </g>
-                                            <g transform="rotate(90 50 50)">
-                                                <circle cx="50" cy="15" r="2" fill="#2c5eaa">
-                                                    <animateMotion dur="3.4482758620689653s" repeatCount="indefinite" begin="-0.25s">
-                                                        <mpath xlink:href="#patha"></mpath>
-                                                    </animateMotion>
-                                                </circle>
-                                            </g>
-                                            <g transform="rotate(135 50 50)">
-                                                <circle cx="50" cy="15" r="2" fill="#2c5eaa">
-                                                    <animateMotion dur="3.4482758620689653s" repeatCount="indefinite" begin="-0.375s">
-                                                        <mpath xlink:href="#patha"></mpath>
-                                                    </animateMotion>
-                                                </circle>
-                                            </g>
-                                        </svg>
-                                    </div>
-                                </div>
-                                <!--Body-->
-                                <div class="modal-body flex flex-col space-y-2 justify-center items-center">
-                                    div.flex.flex-col
-                                </div>
-                    
-                                <!--Footer-->
-                                <div class="modal-footer flex justify-end pt-3">
-                                    <button
-                                        class="px-4 bg-transparent p-3 rounded-lg hover:bg-gray-100 text-gray-500 hover:text-gray-700 mr-2 cancel">Annuler</button>
-                                    <button class="px-4  p-1.5 rounded-lg text-white  action">Supprimer</button>
-                                </div>
-                    
-                            </div>
+        <div
+            class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
+            <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+
+            <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded-md shadow-lg z-50 overflow-y-auto">
+                <!-- Add margin if you want to see some of the overlay behind the modal-->
+                <div class="modal-content py-4 text-left px-6">
+                    <!--Title-->
+                    <div class="flex justify-between items-center pb-3">
+                        <p class="text-2xl font-bold modal-title">Supprimer</p>
+                        <div class="modal-close cursor-pointer z-50">
+                            <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18"
+                                height="18" viewBox="0 0 18 18">
+                                <path
+                                    d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
+                                </path>
+                            </svg>
                         </div>
                     </div>
+                    <div class="modal-loader relative h-full w-full hidden">
+                        <div class="absolute h-full w-full justify-center items-center flex z-50">
+                            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                class="w-60 self-center justify-self-center m-auto" viewBox="0 0 100 100"
+                                preserveAspectRatio="xMidYMid">
+                                <defs>
+                                    <path id="path" d="M50 15A14 35 0 0 1 50 85A14 35 0 0 1 50 15" fill="none">
+                                    </path>
+                                    <path id="patha" d="M0 0A14 35 0 0 1 0 70A14 35 0 0 1 0 0" fill="none"></path>
+                                </defs>
+                                <g transform="rotate(0 50 50)">
+                                    <use xlink:href="#path" stroke="#20b471" stroke-width="1"></use>
+                                </g>
+                                <g transform="rotate(45 50 50)">
+                                    <use xlink:href="#path" stroke="#20b471" stroke-width="1"></use>
+                                </g>
+                                <g transform="rotate(90 50 50)">
+                                    <use xlink:href="#path" stroke="#20b471" stroke-width="1"></use>
+                                </g>
+                                <g transform="rotate(135 50 50)">
+                                    <use xlink:href="#path" stroke="#20b471" stroke-width="1"></use>
+                                </g>
+                                <g transform="rotate(0 50 50)">
+                                    <circle cx="50" cy="15" r="2" fill="#2c5eaa">
+                                        <animateMotion dur="3.4482758620689653s" repeatCount="indefinite" begin="0s">
+                                            <mpath xlink:href="#patha"></mpath>
+                                        </animateMotion>
+                                    </circle>
+                                </g>
+                                <g transform="rotate(45 50 50)">
+                                    <circle cx="50" cy="15" r="2" fill="#2c5eaa">
+                                        <animateMotion dur="3.4482758620689653s" repeatCount="indefinite"
+                                            begin="-0.125s">
+                                            <mpath xlink:href="#patha"></mpath>
+                                        </animateMotion>
+                                    </circle>
+                                </g>
+                                <g transform="rotate(90 50 50)">
+                                    <circle cx="50" cy="15" r="2" fill="#2c5eaa">
+                                        <animateMotion dur="3.4482758620689653s" repeatCount="indefinite"
+                                            begin="-0.25s">
+                                            <mpath xlink:href="#patha"></mpath>
+                                        </animateMotion>
+                                    </circle>
+                                </g>
+                                <g transform="rotate(135 50 50)">
+                                    <circle cx="50" cy="15" r="2" fill="#2c5eaa">
+                                        <animateMotion dur="3.4482758620689653s" repeatCount="indefinite"
+                                            begin="-0.375s">
+                                            <mpath xlink:href="#patha"></mpath>
+                                        </animateMotion>
+                                    </circle>
+                                </g>
+                            </svg>
+                        </div>
+                    </div>
+                    <!--Body-->
+                    <div class="modal-body flex flex-col space-y-2 justify-center items-center w-full">
+
+                        <!-- <div class="flex flex-col space-y-1 ">
+                            <p>introduisez votre question:</p>
+                            <textarea
+                                class="border border-atblue-dark focus:border-atgreen-dark bg-blue-300 focus:bg-green-300 text-atblue focus:text-atgreen resize-none outline-none focus:outline-none"></textarea>
+                            <button class="focus:outline-none align-middle self-end w-8 "><i
+                                    class="material-icons">add</I></button>
+                        </div>
+                        <div id='questions'>
+                            <div class="text-bold">
+                                salam ya zabiiii
+                            </div>
+                        </div> -->
+
+                    </div>
+
+                    <!--Footer-->
+                    <div class="modal-footer flex justify-end pt-3">
+                        <button
+                            class="px-4 bg-transparent p-3 rounded-lg hover:bg-gray-100 text-gray-500 hover:text-gray-700 mr-2 cancel">Annuler</button>
+                        <button class="px-4  p-1.5 rounded-lg text-white  action">Supprimer</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <script src="\public/js/Jquery/jquery-3.6.0.min.js"></script>
         <script src="https://unpkg.com/popper.js@1/dist/umd/popper.min.js"></script>
         <script src="https://unpkg.com/tippy.js@4"></script>
         <script>
