@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formation</title>
+    <link rel="stylesheet" href="\public/css/tables/datatables.css">
+    <link rel="stylesheet" href="\public/css/tables/responsive.dataTables.css">
+    <link rel="stylesheet" href="\public/css/iconfont/material-icons.css">
+    <link rel="stylesheet" href="\public/css/tokenize2.min.css">
+    <link rel="stylesheet" href="\public/css/style.css">
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="\public/image/ATHEAD.png">
+</head>
+
+<body class="h-screen overflow-hidden flex flex-row items-center justify-center bg-atblue-light">
+    <%- include('../../navbar',{formateur:true}) %>
+        <div class="flex w-full flex-col h-full overflow-hidden">
+            <div class="flex flex-row items-center w-full mx-1 align-middle justify-center">
+                <div class="flex px-1 h-full items-center sm:mt-5 sm:mr-2.5 sm:flex-1 sm:justify-end ">
+                    <button class="text-atgreen-dark rounded-md outline-none hover:bg-gray-200 focus:outline-none"><i
+                            class=" align-middle material-icons" data-toggle='modal'
+                            data-target='creer'>person_add</i></button>
+
+                </div>
+                <div class="mr-2 search-bar sm:ml-auto  sm:mt-10 w-max my-6 mx-auto">
+                    <input class="rounded-l-full w-full py-4 px-6 text-gray-700 leading-tight focus:outline-none"
+                        id="search" type="text" placeholder="Search">
+
+                    <div class=" bg-white py-0.5 pr-0.5 rounded-r-full ">
+                        <button
+                            class="bg-blue-500 text-white rounded-full p-2 hover:bg-blue-400 focus:outline-none w-12 h-12 flex items-center justify-center">
+                            <i class="material-icons ">search</i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div style="max-height: 100%;"
+                class="bg-white h-full py-4 mx-3 sm:mx-auto sm:w-11/12 justify-center items-center flex rounded-xl mb-10 shadow-xl">
+                <table id="example" class="stripe ">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th data-priority="1">nom</th>
+                            <th data-priority="2">prenom</th>
+                            <th data-priority="3">sexe</th>
+                            <th data-priority="4">etablissement</th>
+                            <th data-priority="5">age</th>
+                            <th data-priority="6">domaine</th>
+                            <th data-priority="9">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+
+                </table>
+            </div>
+            <div
+                class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
+                <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+
+                <div
+                    class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded-md shadow-lg z-50 overflow-y-auto">
+                    <!-- Add margin if you want to see some of the overlay behind the modal-->
+                    <div class="modal-content py-4 text-left px-6">
+                        <!--Title-->
+                        <div class="flex justify-between items-center pb-3">
+                            <p class="text-2xl font-bold modal-title">Supprimer</p>
+                            <div class="modal-close cursor-pointer z-50">
+                                <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18"
+                                    height="18" viewBox="0 0 18 18">
+                                    <path
+                                        d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
+                                    </path>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="modal-loader relative h-full w-full hidden">
+                            <div class="absolute h-full w-full justify-center items-center flex z-50">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    class="w-60 self-center justify-self-center m-auto" viewBox="0 0 100 100"
+                                    preserveAspectRatio="xMidYMid">
+                                    <defs>
+                                        <path id="path" d="M50 15A14 35 0 0 1 50 85A14 35 0 0 1 50 15" fill="none">
+                                        </path>
+                                        <path id="patha" d="M0 0A14 35 0 0 1 0 70A14 35 0 0 1 0 0" fill="none"></path>
+                                    </defs>
+                                    <g transform="rotate(0 50 50)">
+                                        <use xlink:href="#path" stroke="#20b471" stroke-width="1"></use>
+                                    </g>
+                                    <g transform="rotate(45 50 50)">
+                                        <use xlink:href="#path" stroke="#20b471" stroke-width="1"></use>
+                                    </g>
+                                    <g transform="rotate(90 50 50)">
+                                        <use xlink:href="#path" stroke="#20b471" stroke-width="1"></use>
+                                    </g>
+                                    <g transform="rotate(135 50 50)">
+                                        <use xlink:href="#path" stroke="#20b471" stroke-width="1"></use>
+                                    </g>
+                                    <g transform="rotate(0 50 50)">
+                                        <circle cx="50" cy="15" r="2" fill="#2c5eaa">
+                                            <animateMotion dur="3.4482758620689653s" repeatCount="indefinite"
+                                                begin="0s">
+                                                <mpath xlink:href="#patha"></mpath>
+                                            </animateMotion>
+                                        </circle>
+                                    </g>
+                                    <g transform="rotate(45 50 50)">
+                                        <circle cx="50" cy="15" r="2" fill="#2c5eaa">
+                                            <animateMotion dur="3.4482758620689653s" repeatCount="indefinite"
+                                                begin="-0.125s">
+                                                <mpath xlink:href="#patha"></mpath>
+                                            </animateMotion>
+                                        </circle>
+                                    </g>
+                                    <g transform="rotate(90 50 50)">
+                                        <circle cx="50" cy="15" r="2" fill="#2c5eaa">
+                                            <animateMotion dur="3.4482758620689653s" repeatCount="indefinite"
+                                                begin="-0.25s">
+                                                <mpath xlink:href="#patha"></mpath>
+                                            </animateMotion>
+                                        </circle>
+                                    </g>
+                                    <g transform="rotate(135 50 50)">
+                                        <circle cx="50" cy="15" r="2" fill="#2c5eaa">
+                                            <animateMotion dur="3.4482758620689653s" repeatCount="indefinite"
+                                                begin="-0.375s">
+                                                <mpath xlink:href="#patha"></mpath>
+                                            </animateMotion>
+                                        </circle>
+                                    </g>
+                                </svg>
+                            </div>
+                        </div>
+                        <!--Body-->
+                        <div class="modal-body flex flex-col space-y-2 justify-center items-center">
+
+                        </div>
+
+                        <!--Footer-->
+                        <div class="modal-footer flex justify-end pt-3">
+                            <button
+                                class="px-4 bg-transparent p-3 rounded-lg hover:bg-gray-100 text-gray-500 hover:text-gray-700 mr-2 cancel">Annuler</button>
+                            <button class="px-4  p-1.5 rounded-lg text-white  action">Supprimer</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <style>
+            #example_filter {
+                display: hidden;
+            }
+
+            @media (min-width : 640px) {
+                .dataTables_wrapper {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+            }
+
+            .dataTables_wrapper {
+                width: 100%;
+                height: 100%;
+            }
+
+
+            .dtr-details li:last-child .dtr-data {
+                display: flex;
+                flex-direction: row;
+                flex-grow: 0;
+                flex-shrink: 1;
+                margin-top: 0.25rem;
+            }
+
+            .modal {
+                transition: opacity 0.25s ease;
+            }
+
+            body.modal-active {
+                overflow-x: hidden;
+                overflow-y: visible !important;
+            }
+
+            /*Overrides for Tailwind CSS */
+
+            /*Form fields*/
+            .dataTables_wrapper select,
+            .dataTables_wrapper .dataTables_filter input {
+                color: #4a5568;
+                /*text-gray-700*/
+                padding-left: 1rem;
+                /*pl-4*/
+                padding-right: 1rem;
+                /*pl-4*/
+                padding-top: .5rem;
+                /*pl-2*/
+                padding-bottom: .5rem;
+                /*pl-2*/
+                line-height: 1.25;
+                /*leading-tight*/
+                border-width: 2px;
+                /*border-2*/
+                border-radius: .25rem;
+                border-color: #edf2f7;
+                /*border-gray-200*/
+                background-color: #edf2f7;
+                /*bg-gray-200*/
+            }
+
+            /*Row Hover*/
+            table.dataTable.hover tbody tr:hover,
+            table.dataTable.display tbody tr:hover {
+                background-color: #ebf4ff;
+                /*bg-indigo-100*/
+            }
+
+            /*Pagination Buttons*/
+            .dataTables_wrapper .dataTables_paginate .paginate_button {
+                font-weight: 700;
+                /*font-bold*/
+                border-radius: .25rem;
+                /*rounded*/
+                border: 1px solid transparent;
+                /*border border-transparent*/
+            }
+
+            /*Pagination Buttons - Current selected */
+            .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+                color: #fff !important;
+                /*text-white*/
+                box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+                /*shadow*/
+                font-weight: 700;
+                /*font-bold*/
+                border-radius: .25rem;
+                /*rounded*/
+                background: #667eea !important;
+                /*bg-indigo-500*/
+                border: 1px solid transparent;
+                /*border border-transparent*/
+            }
+
+            /*Pagination Buttons - Hover */
+            .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+                color: #fff !important;
+                /*text-white*/
+                box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
+                /*shadow*/
+                font-weight: 700;
+                /*font-bold*/
+                border-radius: .25rem;
+                /*rounded*/
+                background: #667eea !important;
+                /*bg-indigo-500*/
+                border: 1px solid transparent;
+                /*border border-transparent*/
+            }
+
+            /*Add padding to bottom border */
+            table.dataTable.no-footer {
+                border-bottom: 1px solid #e2e8f0;
+                /*border-b-1 border-gray-300*/
+                margin-top: 0.75em;
+                margin-bottom: 0.75em;
+            }
+
+            /*Change colour of responsive icon*/
+            table.dataTable.dtr-inline.collapsed>tbody>tr>td:first-child:before,
+            table.dataTable.dtr-inline.collapsed>tbody>tr>th:first-child:before {
+                background-color: #667eea !important;
+                /*bg-indigo-500*/
+            }
+        </style>
+        <script src="\public/js/Jquery/jquery-3.6.0.min.js"></script>
+        <script src="\public/js/Jquery/jquery.dataTables.min.js"></script>
+        <script src="\public/js/Jquery/dataTables.responsive.min.js"></script>
+        <script src="\public/js/tokenize2.min.js"></script>
+        <script src="\public/js/formateur.js"></script>
+
+</body>
+
+</html>
