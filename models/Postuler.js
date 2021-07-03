@@ -25,8 +25,8 @@ module.exports = class Formateur extends Model {
 			.then((doc) => {
 				if (doc.exists) {
 					let f = doc.data();
-					this.user = doc.id.split("_")[0];
-					this.formation = doc.id.split("_")[1];
+					this.user = doc.id.split("_")[0].trim();
+					this.formation = doc.id.split("_")[1].trim();
 					this.valider_df = f.valider_df;
 					this.valider_superieur = f.valider_superieur;
 					this.date = f.date;

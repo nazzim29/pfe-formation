@@ -38,7 +38,20 @@ const supprimerFichier = (id) => {
 	}
 	xhr.send()
 }
-
+const postuler = (id) => {
+	if (!id) return;
+	let xhr = new XMLHttpRequest();
+	xhr.open("post", "\\postulation");
+	xhr.setRequestHeader("Content-Type", "application/json");
+	xhr.onload = () => {
+		window.location.reload()
+	};
+	xhr.send(
+		JSON.stringify({
+			id_formation: id,
+		})
+	);
+};
 function toggleModal() {
 	const body = document.querySelector("body");
 	const modal = document.querySelector(".modal");
@@ -51,6 +64,9 @@ function toggleModal() {
 $(document).on("click", (e) => {
 	let data = $(e.target).data();
 	console.log(data)
+	if ((data.target = "postuler")) {
+		postuler(data.toggle);
+	}
 	if (data.toggle == "modal") {
 		switch (data.target) {
 			case "generateur":

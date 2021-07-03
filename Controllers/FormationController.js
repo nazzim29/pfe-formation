@@ -3,6 +3,7 @@ const Formateur = require("../models/Formateur");
 const Lieu = require("../models/Lieu");
 const Postuler = require("../models/Postuler");
 const Files = require("../models/Files");
+const moment = require("moment");
 
 exports.create = (req, res) => {
 	console.log(req.body);
@@ -38,14 +39,14 @@ exports.deletefile = (req, res) => {
 			formation.files = formation.files.filter((el) => {
 				return el != req.params.fichier;
 			});
-			formation.update()
+			formation.update();
 		})
 	);
 	let file = new Files(req.params.fichier);
 	c.push(file.delete());
 	Promise.all(c).then(() => {
-		return res.send('ok')
-	})
+		return res.send("ok");
+	});
 };
 exports.addfile = (req, res) => {
 	let formation = new Formation(req.params.id);
@@ -130,24 +131,50 @@ exports.read = (req, res) => {
 		return res.render("pages/admin/formation");
 	if (!id && req.session.currentUser._role != "admin")
 		return res.render("pages/formation");
-	let formation = new Formation(id);
-	return formation.read().then(() => {
-		let a = [];
-		let files = [];
-		formation.files.forEach((el, index) => {
-			let file = new Files(el);
+	if (id) {
+
+		let formation = new Formation(id);
+		return formation.read().then(() => {
+			console.log(req.session.currentUser._id + "_" + id);
+			let a = [];
+			let files = [];
+			let formateur = new Formateur(formation.formateur);
+			let lieu = new Lieu(formation.lieu);
+			a.push(formateur.read());
+			a.push(lieu.read());
+			let postuled = false;
 			a.push(
-				file.read().then(() => {
-					files.push(file);
-				})
+				new Postuler(req.session.currentUser._id + "_" + id)
+					.read()
+					.then((err) => {
+						console.log(err);
+						if (!err) postuled = true;
+					})
 			);
+			if (formation.files) {
+				formation.files.forEach((el, index) => {
+					let file = new Files(el);
+					a.push(
+						file.read().then(() => {
+							files.push(file);
+						})
+					);
+				});
+			}
+			Promise.all(a).then(() => {
+				res.render("pages/formationprofile", {
+					formation,
+					files,
+					formateur,
+					lieu,
+					moment,
+					postuled,
+				});
+				formation.views++;
+				formation.update();
+			});
 		});
-		Promise.all(a).then(() => {
-			res.render("pages/formationprofile", { formation, files });
-			formation.views++;
-			formation.update();
-		});
-	});
+	}
 };
 exports.update = (req, res) => {
 	let formation = new Formation(req.params.id);

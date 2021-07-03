@@ -25,6 +25,7 @@
 		"firebase-admin": "^9.7.0",
 		"firestore-store": "^2.0.2",
 		"material-icons": "^0.6.4",
+		"moment": "^2.29.1",
 		"morgan": "^1.10.0",
 		"multer": "^1.4.2",
 		"postcss": "^8.2.15",
