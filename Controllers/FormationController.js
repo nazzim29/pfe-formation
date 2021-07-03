@@ -27,7 +27,7 @@ exports.create = (req, res) => {
 	formation.formateur = req.body.formateur;
 	formation.creat().then((err) => {
 		if (err) return res.send(err);
-		res.send("ok");
+		return res.send("ok");
 	});
 };
 exports.deletefile = (req, res) => {
