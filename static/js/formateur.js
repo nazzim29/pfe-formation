@@ -143,7 +143,7 @@ $(document).on("click", (e) => {
 				toggleModal();
 				break;
 			case "creer":
-				$(".modal-content .modal-title").text("Modifier un partenaire");
+				$(".modal-content .modal-title").text("creer un formateur");
 				$(".modal-content .modal-body").html(`
                     <div class="flex flex-row space-x-2">                    
                     <input
@@ -196,7 +196,7 @@ $(document).on("click", (e) => {
 				toggleModal();
 				break;
 			case "modifier":
-				$(".modal-content .modal-title").text("Modifier un partenaire");
+				$(".modal-content .modal-title").text("Modifier un formateur");
 				$(".modal-content .modal-body").html(`
                     <div class="flex flex-row space-x-2">                    
                     <input
