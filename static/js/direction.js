@@ -158,7 +158,7 @@ $(document).on("click", (e) => {
 				$(".modal-content .modal-body").html(
 					`
             <p>
-              etes vous sur de vouloir supprimer
+              Etes vous sur de vouloir supprimer
               <span class="font-semibold">
                 ${row.nom} (${row.directeur?.nom})
               </span>
@@ -177,7 +177,7 @@ $(document).on("click", (e) => {
 				toggleModal();
 				break;
 			case "creer":
-				$(".modal-content .modal-title").text("Modifier un partenaire");
+				$(".modal-content .modal-title").text("creer une direction");
 				$(".modal-content .modal-body").html(
 					`
                         <div class="flex flex-row space-x-2">
@@ -213,7 +213,7 @@ $(document).on("click", (e) => {
 				toggleModal();
 				break;
 			case "modifier":
-				$(".modal-content .modal-title").text("Modifier un partenaire");
+				$(".modal-content .modal-title").text("Modifier une direction");
 				$(".modal-content .modal-body").html(
 					`
                         <div class="flex flex-row space-x-2">

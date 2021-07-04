@@ -204,7 +204,7 @@ $(document).on("click", (e) => {
         toggleModal();
         break;
       case "creer":
-        $(".modal-content .modal-title").text("Modifier un partenaire");
+        $(".modal-content .modal-title").text("creer un partenaire");
         $(".modal-content .modal-body").html(
           `
             <div class="flex flex-row space-x-2">                    
@@ -249,7 +249,7 @@ $(document).on("click", (e) => {
         toggleModal();
         break;
       case "modifier":
-        $(".modal-content .modal-title").text("Modifier un utilisateur");
+        $(".modal-content .modal-title").text("Modifier un partenaire");
         $(".modal-content .modal-body").html(
           `
             <div class="flex flex-row space-x-2">                    

@@ -1,8 +1,8 @@
 models:
     |___[x]formation => mehdi 
     |___[]seminaire => nazim
-    |___[]fiche evaluation => mehdi
-    |___[]documentation formation =>nazim
+    |___[]fiche evaluation => MECHI mehdi
+    |___[x]documentation formation =>nazim
     |___[x]partenaire => nazim
     |       |___[x]type
     |       |___[x]nom
@@ -37,8 +37,8 @@ CRUD:
     |___[x]utilisateur => mehdi
     |___[x]formation => mehdi
     |___[]seminaire => nazim
-    |___[]fiwwtion => mehdi
-    |___[]document => nazim 
+    |___[]fiwwtion => MECHI mehdi
+    |___[x]document => mehdi
     |___[x]partenaire => nazim
     |___[]projet df => nazim
     |___[]formateur =>mehdi 
@@ -46,7 +46,7 @@ CRUD:
     |___[]lieu de formation =>mehdi
         |___[x] read
 Stat:
-    |___[]faire une liste des stats a proposer => nazim
+    |___[x]faire une liste des stats a proposer => nazim
 autre:
     |___[x] pwa => mehdi
     |___[x] calendrier => mehdi

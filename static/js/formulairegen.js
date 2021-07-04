@@ -89,7 +89,7 @@ $(document).on("click", (e) => {
 					<div class="flex flex-col">
 						<form  id="form" action="${window.location.href}/files" method="POST" enctype="multipart/form-data">
 							<input type="file" name="docs[]">
-							<input type="text" name='titre[]'>
+							<input class="border border-atblue-dark m-1" type="text" name='titre[]'>
 						</form>
 					</div>
 				`);
