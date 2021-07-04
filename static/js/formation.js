@@ -166,7 +166,7 @@ $(document).on("click", (e) => {
         toggleModal();
         break;
       case "creer":
-        $(".modal-content .modal-title").text("Modifier un partenaire");
+        $(".modal-content .modal-title").text("creer une formation");
         $(".modal-content .modal-body").html(
           `
             <div class="flex flex-row space-x-2">                    
@@ -250,7 +250,7 @@ $(document).on("click", (e) => {
         toggleModal();
         break;
       case "modifier":
-        $(".modal-content .modal-title").text("Modifier un partenaire");
+        $(".modal-content .modal-title").text("Modifier une formation");
         $(".modal-content .modal-body").html(
           `
             <div class="flex flex-row space-x-2">                    
@@ -370,7 +370,7 @@ const getActivite = (d) => {
       xhr.response.map((v) => {
         return v.activite;
       })
-    );
+      );
     $("#activite").html(
       `
         ${Array.from(activites)
@@ -380,24 +380,20 @@ const getActivite = (d) => {
         .join("")}
       `
     );
+
+    let t = $("#activite").tokenize2({
+      placeholder: "Activités...",
+      tokensAllowCustom: false,
+      dropdownMaxItems: 3,
+      searchHighlight: false,
+    })
     if (d) {
-      let t = $("#activite").tokenize2({
-        placeholder: "Activités...",
-        tokensAllowCustom: false,
-        dropdownMaxItems: 3,
-        searchHighlight: false,
-      })
       d.forEach((e) => {
         t.trigger('tokenize:tokens:add', [e, e, true]);
       })
       return
     }
-    $("#activite").tokenize2({
-      placeholder: "Activités...",
-      tokensAllowCustom: false,
-      dropdownMaxItems: 3,
-      searchHighlight: false,
-    });
+    
   };
   xhr.send();
 };

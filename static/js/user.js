@@ -134,7 +134,7 @@ const modifier = (f) => {
 			$(".modal-content .modal-body #direction").val()
 		)
 	)
-		return console.log("all field required");
+		return alert("all field required");
 
 	let form = {
 		email: $(".modal-content .modal-body #email").val(),
