@@ -46,17 +46,21 @@
                                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
                                         Formulaire</button>
                                     <% } %>
-                                <% if (locals.session.currentUser._role=="utilisateur" ) { %>
-                                    <% if (postuled) { %>
-                                        <button
-                                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" disabled>
-                                            Postulé</button>
-                                        
-                                    <% }else if(!postuled && formation.activite.includes(session.currentUser._activite)){%>
-                                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" data-target="postuler" data-toggle="<%= formation._id %>">
-                                            Postuler</button>
-                                    <%} %>
-                                <% } %>
+                                        <% if (locals.session.currentUser._role=="utilisateur" ) { %>
+                                            <% if (postuled) { %>
+                                                <button
+                                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                                                    disabled>
+                                                    Postulé</button>
+
+                                                <% }else if(!postuled &&
+                                                    formation.activite.includes(session.currentUser._activite)){%>
+                                                    <button
+                                                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                                                        data-target="postuler" data-toggle="<%= formation._id %>">
+                                                        Postuler</button>
+                                                    <%} %>
+                                                        <% } %>
                             </div>
                         </div>
                         <div class=" mx-auto lg:mx-0 w-4/5 pt-3 border-b-2 border-atgreen opacity-25">
@@ -121,42 +125,45 @@
                                 <path
                                     d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V9h14v10zM5 7V5h14v2H5zm5.56 10.46l5.93-5.93-1.06-1.06-4.87 4.87-2.11-2.11-1.06 1.06z" />
                             </svg>
-                            <% if(moment(formation.date_debut.toDate()).diff(moment())){%> 
-                            <%= moment(formation.date_debut.toDate()).fromNow() %>
-                            <% }else{%>
-                                <%= moment(formation.date_debut.toDate()).toNow() %>
-                            <%} %>  
+                            <% if(moment(formation.date_debut.toDate()).diff(moment())){%>
+                                <%= moment(formation.date_debut.toDate()).fromNow() %>
+                                    <% }else{%>
+                                        <%= moment(formation.date_debut.toDate()).toNow() %>
+                                            <%} %>
 
-                                <svg class="h-4 fill-current text-red-600 pr-4" xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 20 20">
-                                    <path
-                                        d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V9h14v10zM5 7V5h14v2H5zm3.23 9.41l1.06 1.06 2.44-2.44 2.44 2.44 1.06-1.06-2.44-2.44 2.44-2.44-1.06-1.06-2.44 2.44-2.44-2.44-1.06 1.06 2.44 2.44z" />
-                                </svg>
-                                <%= moment(formation.date_fin.toDate()).format('DD MMM, YYYY') %>
+                                                <svg class="h-4 fill-current text-red-600 pr-4"
+                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                    <path
+                                                        d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V9h14v10zM5 7V5h14v2H5zm3.23 9.41l1.06 1.06 2.44-2.44 2.44 2.44 1.06-1.06-2.44-2.44 2.44-2.44-1.06-1.06-2.44 2.44-2.44-2.44-1.06 1.06 2.44 2.44z" />
+                                                </svg>
+                                                <%= moment(formation.date_fin.toDate()).format('DD MMM, YYYY') %>
                         </p>
                         <p class="pt-8 text-sm">
                         </p>
-                        <button class="self-end outline-none focus:outline-none"><i data-toggle="modal"
-                                data-target="upload" class="material-icons">add</i></button>
-                        <ul class="overflow-y-auto h-52 justify-center items-center">
-                            <% files.forEach(element=> {%>
-                                <li class="flex flex-row justify-around">
-                                    <h3>
-                                        <%= element.titre %> (<%= (element.taille/1024).toFixed(2) %> Ko )
-                                    </h3>
-                                    <a href="<%= element.lien %> "
-                                        class=" outline-none focus:outline-none px-2 hover:text-atgreen ">
-                                        <%= element.downloads %> <span
-                                                class="material-icons ml-64 ">file_download</span>
-                                    </a>
-                                    <% if (session.currentUser._role == "admin") { %>
-                                        <button class=" outline-none focus:outline-none px-2 hover:text-atgreen ">
-                                            <span data-toggle="delete_file" data-target="<%= element._id %> "
-                                                class="material-icons ml-64 ">delete</span></button>
-                                    <% } %>
-                                </li>
-                                <%});%>
-                        </ul>
+                        <% if (session.currentUser._role=="admin" ){%>
+                            <button class="self-end outline-none focus:outline-none"><i data-toggle="modal"
+                                    data-target="upload" class="material-icons">add</i></button>
+                            <%}%>
+                                <ul class="overflow-y-auto h-52 justify-center items-center">
+                                    <% files.forEach(element=> {%>
+                                        <li class="flex flex-row justify-around">
+                                            <h3>
+                                                <%= element.titre %> (<%= (element.taille/1024).toFixed(2) %> Ko )
+                                            </h3>
+                                            <a href="<%= element.lien %> "
+                                                class=" outline-none focus:outline-none px-2 hover:text-atgreen ">
+                                                <%= element.downloads %> <span
+                                                        class="material-icons ml-64 ">file_download</span>
+                                            </a>
+                                            <% if (session.currentUser._role=="admin" ) { %>
+                                                <button
+                                                    class=" outline-none focus:outline-none px-2 hover:text-atgreen ">
+                                                    <span data-toggle="delete_file" data-target="<%= element._id %> "
+                                                        class="material-icons ml-64 ">delete</span></button>
+                                                <% } %>
+                                        </li>
+                                        <%});%>
+                                </ul>
 
                     </div>
                 </div>
