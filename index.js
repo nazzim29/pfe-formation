@@ -53,6 +53,7 @@ app.use("/formulaire", isAuth, routes.formulaireRoute);
 app.use("/seminaireformulaire", isAuth, routes.seminaireformulaireRoute);
 app.use("/seminaire", isAuth, routes.seminaireRoute);
 app.use("/animateur", isAuth, routes.animateurRoute);
+app.use("/projet", isAuth, routes.projetRoute);
 
 /**
  * launch the server

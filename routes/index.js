@@ -11,6 +11,7 @@ const formulaireRoute = require('./formulaire');
 const seminaireformulaireRoute = require('./seminaireformulaire');
 const seminaireRoute = require('./seminaire');
 const animateurRoute = require('./animateur');
+const projetRoute = require('./projet');
 
 
 module.exports = {
@@ -20,6 +21,7 @@ module.exports = {
 	formateurRoute,
 	lieuRoute,
 	formationRoute,
+	projetRoute,
 	animateurRoute,
 	seminaireRoute,
 	seminaireformulaireRoute,
