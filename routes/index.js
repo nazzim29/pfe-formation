@@ -7,7 +7,10 @@ const lieuRoute = require('./lieu');
 const postulationRoute = require('./postulation');
 const directionRoute = require('./direction');
 const calendrierRoute = require('./calendrier');
-const filesRoute = require('./files');
+const formulaireRoute = require('./formulaire');
+const seminaireformulaireRoute = require('./seminaireformulaire');
+const seminaireRoute = require('./seminaire');
+const animateurRoute = require('./animateur');
 
 
 module.exports = {
@@ -17,7 +20,10 @@ module.exports = {
 	formateurRoute,
 	lieuRoute,
 	formationRoute,
-	filesRoute,
+	animateurRoute,
+	seminaireRoute,
+	seminaireformulaireRoute,
+	formulaireRoute,
 	calendrierRoute,
 	directionRoute,
 	postulationRoute,

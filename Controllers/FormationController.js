@@ -2,8 +2,10 @@ const Formation = require("../models/Formation");
 const Formateur = require("../models/Formateur");
 const Lieu = require("../models/Lieu");
 const Postuler = require("../models/Postuler");
-const Files = require("../models/Files");
+const Files = require("../models/FormationFiles");
 const moment = require("moment");
+const Formulaire = require("../models/Formulaire");
+const User = require("../models/User");
 
 exports.create = (req, res) => {
 	console.log(req.body);
@@ -132,25 +134,36 @@ exports.read = (req, res) => {
 	if (!id && req.session.currentUser._role != "admin")
 		return res.render("pages/formation");
 	if (id) {
-
 		let formation = new Formation(id);
 		return formation.read().then(() => {
-			console.log(req.session.currentUser._id + "_" + id);
 			let a = [];
 			let files = [];
 			let formateur = new Formateur(formation.formateur);
 			let lieu = new Lieu(formation.lieu);
+			let postuled = new Postuler(req.session.currentUser._id + "_" + id);
+			let reponse = undefined;
 			a.push(formateur.read());
 			a.push(lieu.read());
-			let postuled = false;
 			a.push(
-				new Postuler(req.session.currentUser._id + "_" + id)
-					.read()
-					.then((err) => {
-						console.log(err);
-						if (!err) postuled = true;
-					})
+				Formulaire.getAll().then((rows) => {
+					reponse = rows.filter((e) => {
+						return id == e.id.split("_")[1];
+					});
+				})
 			);
+			a.push(
+				postuled.read().then((err) => {
+					console.log(err);
+					if (!err) {
+						postuled = {
+							accepter: postuled.valider_df && postuled.valider_superieur,
+						};
+					} else {
+						postuled = false;
+					}
+				})
+			);
+
 			if (formation.files) {
 				formation.files.forEach((el, index) => {
 					let file = new Files(el);
@@ -162,16 +175,29 @@ exports.read = (req, res) => {
 				});
 			}
 			Promise.all(a).then(() => {
-				res.render("pages/formationprofile", {
-					formation,
-					files,
-					formateur,
-					lieu,
-					moment,
-					postuled,
+				a = [];
+				reponse.forEach((e) => {
+					let u = new User(e.id.split("_")[0]);
+					a.push(
+						u.read().then(() => {
+							e.user = u;
+						})
+					);
 				});
-				formation.views++;
-				formation.update();
+				Promise.all(a).then(() => {
+					console.log(formation);
+					res.render("pages/formationprofile", {
+						formation,
+						files,
+						formateur,
+						lieu,
+						moment,
+						postuled,
+						reponse,
+					});
+					formation.views++;
+					formation.update();
+				});
 			});
 		});
 	}
@@ -196,8 +222,33 @@ exports.update = (req, res) => {
 	});
 };
 exports.delet = (req, res) => {
-	new Formation(req.params.id).delete().then((err) => {
-		if (err) return res.send(err);
-		return res.send("ok");
+	let f = new Formation(req.params.id);
+	f.read().then(() => {
+		Formulaire.getAll().then((rows) => {
+			reponse = rows.filter((e) => {
+				return f._id == e.id.split("_")[1];
+			});
+			reponse.forEach(e => {
+				new Formulaire(e.id).delete()
+			})
+		});
+		f.files.forEach((e) => {
+			new Files(e).delete()
+		})
+		f.delete().then((err) => {
+			if (err) return res.send(err);
+			return res.send("ok");
+		});
+	})
+};
+
+exports.addForm = (req, res) => {
+	console.log(req.body);
+	let formation = new Formation(req.params.id);
+	formation.read().then(() => {
+		formation.formulaire = req.body.questions;
+		formation.update().then(() => {
+			res.send("ok");
+		});
 	});
 };

@@ -13,6 +13,10 @@ exports.formationDocsStorage = (req,res,cb)=>{
     req.filedestination = 'uploads/formationdocs'
     cb()
 }
+exports.seminaireDocsStorage = (req, res, cb) => {
+    req.filedestination = 'uploads/seminairedocs'
+    cb()
+}
 
 
 

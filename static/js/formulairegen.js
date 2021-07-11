@@ -26,25 +26,25 @@ document.onkeydown = function (evt) {
 	}
 };
 const envoyer = () => {
-	$('#form').submit()
-}
+	$("#form").submit();
+};
 const supprimerFichier = (id) => {
-	console.log('file')
-	let xhr = new XMLHttpRequest()
-	xhr.open('delete', window.location.href +"/files/"+ id)
+	console.log("file");
+	let xhr = new XMLHttpRequest();
+	xhr.open("delete", window.location.href + "/files/" + id);
 	xhr.onload = () => {
-		console.log(xhr.response)
+		console.log(xhr.response);
 		window.location.reload();
-	}
-	xhr.send()
-}
+	};
+	xhr.send();
+};
 const postuler = (id) => {
 	if (!id) return;
 	let xhr = new XMLHttpRequest();
 	xhr.open("post", "\\postulation");
 	xhr.setRequestHeader("Content-Type", "application/json");
 	xhr.onload = () => {
-		window.location.reload()
+		window.location.reload();
 	};
 	xhr.send(
 		JSON.stringify({
@@ -60,27 +60,80 @@ function toggleModal() {
 	body.classList.toggle("modal-active");
 }
 
+const addQuestion = () => {
+	let question = $("#q").val();
+	if (question) {
+		$("#q").val("");
+		let div = $(`<div class="text-bold">${question}</div>`);
+		div.on("click", () => {
+			$("#q").val(div.html())
+			div.remove();
+		});
+		$("#questions").append(div);
+	}
+};
+const envoyerQuestion = () => {
+	let c = [];
+	$("#questions")
+		.children("div")
+		.each((i, element) => {
+			c.push($(element).html());
+		});
+	console.log(c);
+	let xhr = new XMLHttpRequest();
+	xhr.open("post", window.location.href + "/formulaire");
+	xhr.setRequestHeader("Content-Type", "application/json");
+	xhr.onload = () => {
+		window.location.reload();
+	};
+	xhr.send(JSON.stringify({ questions: c }));
+};
+const submitFormulaire = () => {
+	let c = []
+	$(".modal-content .modal-body>div").children('input').each((i, e) => {
+		c.push($(e).val())
+	})
+	let xhr = new XMLHttpRequest()
+	xhr.open("post", "/formulaire/" + window.location.href.split("/")[4]);
+	xhr.onload = () => {
+		toggleModal()
+	}
+	xhr.setRequestHeader("Content-Type", "application/json");
+	xhr.send(JSON.stringify({reponses : c}))
 
+}
 $(document).on("click", (e) => {
 	let data = $(e.target).data();
-	console.log(data)
-	if ((data.target = "postuler")) {
+	console.log(data);
+	if (data.target == "postuler") {
 		postuler(data.toggle);
 	}
 	if (data.toggle == "modal") {
 		switch (data.target) {
 			case "generateur":
 				$(".modal-content .modal-title").text("Generateur de formulaire");
-				// 			$(".modal-content .modal-body").html();
-				// 			$(".modal-content .modal-footer").html(`<button
-				//     class="px-4 bg-transparent p-3 rounded-lg hover:bg-gray-100 text-gray-500 hover:text-gray-700 mr-2 cancel">Annuler</button>
-				// <button class="px-4  p-1.5 rounded-lg text-white bg-red-500 hover:bg-red-700 action">Supprimer</button>`);
-				// 			$(".modal-content .action")
-				// 				.text("Supprimer")
-				// 				.on("click", (e) => {
-				// 					supprimer(row.id);
-				// 				});
-				// 			$(".modal-content .cancel").click(toggleModal);
+				$(".modal-content .modal-body").html(`
+					<div class="flex flex-col space-y-1 ">
+                        <p>introduisez votre question:</p>
+                        <textarea id="q" class="p-1 border border-atblue-dark focus:border-atgreen-dark bg-blue-300 focus:bg-green-300 text-atblue focus:text-atgreen resize-none outline-none focus:outline-none"></textarea>
+						<button onclick="addQuestion()" class="focus:outline-none align-middle self-end w-8 ">
+							<i class="material-icons" >add</i>
+						</button>
+					</div>
+					<div id='questions'>
+
+					</div>
+				`);
+				$(".modal-content .modal-footer").html(`
+					<button class="px-4 bg-transparent p-3 rounded-lg hover:bg-gray-100 text-gray-500 hover:text-gray-700 mr-2 cancel">Annuler</button>
+					<button class="px-4  p-1.5 rounded-lg text-white bg-atblue hover:bg-atblue-dark action">Valider</button>
+				`);
+				$(".modal-content .action")
+					.text("Valider")
+					.on("click", (e) => {
+						envoyerQuestion();
+					});
+				$(".modal-content .cancel").click(toggleModal);
 				toggleModal();
 				break;
 			case "upload":
@@ -101,15 +154,15 @@ $(document).on("click", (e) => {
 			          Ajouter
 			        </button>
 			    `);
-				$('input[name="docs[]"]').on('change', () => {
+				$('input[name="docs[]"]').on("change", () => {
 					const el = $('<input type="file" name="docs[]">');
-					el.on('change', () => {
-						$('#form').append(el)
-						$('#form').append('<input type="text" name=\'titre[]\'>')
-					})
+					el.on("change", () => {
+						$("#form").append(el);
+						$("#form").append("<input type=\"text\" name='titre[]'>");
+					});
 					$("#form").append(el);
 					$("#form").append("<input type=\"text\" name='titre[]'>");
-				})
+				});
 				$(".modal-content .action")
 					.text("Ajouter")
 					.on("click", (e) => {
@@ -118,109 +171,37 @@ $(document).on("click", (e) => {
 				$(".modal-content .cancel").click(toggleModal);
 				toggleModal();
 				break;
-			// 		case "modifier":
-			// 			$(".modal-content .modal-title").text("Modifier un partenaire");
-			// 			$(".modal-content .modal-body").html(
-			// 				`
-			//         <div class="flex flex-row space-x-2">
-			//           <input
-			//           class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-100 placeholder-atgreen bg-gray-100'
-			//           type="text" name="titre" id="titre" placeholder="titre" value="${
-			// 							row.titre
-			// 						}" >
-			//         </div>
-			//         <div class="flex flex-row space-x-2">
-			//           <select
-			//           class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-100 placeholder-atgreen bg-gray-100'
-			//           name="type" id="type" placeholder="type" value="${row.type}" >
-			//             <option value="interne" ${
-			// 								row.type == "interne" ? "selected" : ""
-			// 							}>interne</option>
-			//             <option value="externe"${
-			// 								row.type == "externe" ? "selected" : ""
-			// 							}>externe</option>
-			//           </select>
-			//         </div>
-			//         <div class="flex flex-row space-x-2">
-			//           <select
-			//           class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-100 placeholder-atgreen bg-gray-100'
-			//           name="activite" id="activite" placeholder="activite" style="display:none" multiple value="${
-			// 							row.activite
-			// 						}"></select>
-			//         </div>
-			//         <div class="flex flex-row space-x-2">
-			//           <select
-			//             class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-100 placeholder-atgreen bg-gray-100'
-			//             name="formateur" id="formateur" placeholder="formateur" value="">
-			//           </select>
-			//           <button onclick='getFormateur()'>a</button>
-			//           <a href="\\formateur" target="_blank">new</a>
-			//         </div>
-			//         <div class="flex flex-row space-x-2">
-			//           <select
-			//             class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-100 placeholder-atgreen bg-gray-100'
-			//             name="lieu" id="lieu" placeholder="lieu" value="${row.lieu.id}">
-			//           </select>
-			//           <button onclick='getLieu()'>a</button>
-			//           <a href="\\lieu" target="_blank">new</a>
-			//         </div>
-			//         <div class="flex flex-row space-x-2">
-			//           <input
-			//             class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-100 placeholder-atgreen bg-gray-100'
-			//             type="number" name="place" id="place" placeholder="place" value="${
-			// 								row.place
-			// 							}" >
-			//         </div>
-			//         <div class="flex flex-row space-x-2">
-			//           <label for="date_debut">date debut</label>
-			//           <input
-			//             class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-100 placeholder-atgreen bg-gray-100'
-			//             type="date" name="date_debut" id="date_debut" placeholder="date_debut" value="${
-			// 								row.date_debut
-			// 							}" >
-			//         </div>
-			//         <div class="flex flex-row space-x-2">
-			//           <label for="date_fin">date fin</label>
-			//           <input
-			//             class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-100 placeholder-atgreen bg-gray-100'
-			//             type="date" name="date_fin" id="date_fin" placeholder="date_fin" value="${
-			// 								row.date_fin
-			// 							}" >
-			//         </div>
-			//         <div class="flex flex-row">
-			//           <textarea
-			//             class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
-			//             name="description" id="description" placeholder="description" >${
-			// 								row.description
-			// 							}</textarea>
-			//         </div>
-			//       `
-			// 			);
-			// 			getFormateur(row.formateur);
-			// 			getActivite(row.activite);
-			// 			getLieu(row.lieu);
-			// 			$(".modal-content .modal-footer").html(
-			// 				`
-			//         <button class="px-4 bg-transparent p-3 rounded-lg hover:bg-gray-100 text-gray-500 hover:text-gray-700 mr-2 cancel">
-			//           Annuler
-			//         </button>
-			//         <button class="px-4  p-1.5 rounded-lg text-white hover:bg-atblue-dark bg-atblue action">
-			//           Supprimer
-			//         </button>
-			//       `
-			// 			);
-			// 			$(".modal-content .action")
-			// 				.text("Modifier")
-			// 				.on("click", (e) => {
-			// 					console.log(row.id);
-			// 					modifier(row.id);
-			// 				});
-			// 			$(".modal-content .cancel").click(toggleModal);
-			// 			toggleModal();
-			// 			break;
+			case "reponse":
+				$(".modal-content .modal-title").text("Repondre au formulaire");
+				$(".modal-content .modal-body").html(`
+					${FORMULAIRE.map((e) => {
+						return `
+							<div class="flex flex-col my-2">
+								<p class="mb-2"> ${e} </p>
+								<input type="text" name="rep[]" class="border border-atblue focus:outline-none outline-none rounded-xl px-2">
+							</div>
+						`;
+					})}
+				`);
+				$(".modal-content .modal-footer").html(`
+			        <button class="px-4 bg-transparent p-3 rounded-lg hover:bg-gray-100 text-gray-500 hover:text-gray-700 mr-2 cancel">
+			          Annuler
+			        </button>
+			        <button class="px-4  p-1.5 rounded-lg text-white hover:bg-atblue-dark bg-atblue action">
+			          Ajouter
+			        </button>
+			    `);
+				$(".modal-content .action")
+					.text("Soumettre")
+					.on("click", (e) => {
+						submitFormulaire();
+					});
+				$(".modal-content .cancel").click(toggleModal);
+				toggleModal();
+			break;
 		}
 	}
-	if (data.toggle == 'delete_file') {
-		supprimerFichier(data.target)
+	if (data.toggle == "delete_file") {
+		supprimerFichier(data.target);
 	}
 });

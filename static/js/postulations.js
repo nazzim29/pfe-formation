@@ -4,7 +4,11 @@ const card = (f) => {
 	return `<div class="w-full sm:w-1/2 md:w-1/2 xl:w-1/4 p-4">
                     <div class="c-card block bg-white shadow-md hover:shadow-xl rounded-lg overflow-hidden">
                         <div class="p-4">
-                            <h2 class="mt-2 mb-2  font-bold">${f.formation.titre}</h2>
+                            <a href="formation/${
+															f.id.split("_")[1]
+														}"><h2 class="mt-2 mb-2  font-bold">${
+		f.formation.titre
+	}</h2></a>
                            <p class="text-sm">${
 															f.valider_df == "accepté"
 																? "la DF a acceptée votre condidature"
@@ -22,7 +26,9 @@ const card = (f) => {
 
                                 <div class="flex flex-row items-center space-x-2">
                                     <span class="material-icons ">people_alt </span>
-                                    <span class="">${f.formation.participant}/${f.formation.place}</span>
+                                    <span class="">${f.formation.participant}/${
+		f.formation.place
+	}</span>
                                 </div>
                             </div>
                         </div>
@@ -48,7 +54,7 @@ const getPostulation = () => {
 const afficher = (e) => {
 	if (!e || e.length == 0)
 		return cardContainer.html(`
-    <div class="bg-white rounded-lg p-1 shadow-xl flex flex-col p-5">
+    <div class="bg-white rounded-lg shadow-xl flex flex-col p-5">
       <p class="text-sm">vous n'avez postuler a aucune formation </p>
       <div class="flex flex-row justify-end p-1">
       </div>
