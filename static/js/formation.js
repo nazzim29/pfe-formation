@@ -15,9 +15,9 @@ for (var i = 0; i < closemodal.length; i++) {
 }
 
 search.on("keyup", (r) => {
-  let query = search.val();
-  console.log(query);
-  table.search(query, false, false).draw();
+	let query = search.val();
+	console.log(query);
+	table.search(query, false, false).draw();
 });
 
 const supprimer = (f) => {

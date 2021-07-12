@@ -22,28 +22,6 @@ search.on("keyup", (r) => {
 });
 table = $("#example")
 	.DataTable({
-		initComplete: function () {
-			$("#example_filter").hide();
-			var cols = [this.api().columns(1)];
-			cols.forEach((col) => {
-				let select = $('<select> <option value=""></option> </select>')
-					.appendTo($(col.footer()).empty())
-					.on("change", () => {
-						var val = $.fn.dataTable.util.escapeRegex($(select).val());
-						col.search(val ? "^" + val + "$" : "", true, false).draw();
-					});
-				col
-					.data()
-					.eq(0)
-					.unique()
-					.sort()
-					.each((value) => {
-						select.append(
-							'<option value="' + value + '">' + value + "</option>"
-						);
-					});
-			});
-		},
 		processing: true,
 		ajax: {
 			url: "/projet?json=true",
@@ -70,7 +48,7 @@ table = $("#example")
 				},
 			},
 			{
-				targets: 3,
+				targets: 2,
 				data: null,
 				render: function (data, type, row, meta) {
 					return `<button class="button focus:outline-none" > <svg data-toggle='modal' data-target='modifier' class="fill-current text-atgreen hover:text-atgreen-dark" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="transform:;-ms-filter:"><path d="M8.707 19.707L18 10.414 13.586 6l-9.293 9.293c-.128.128-.219.289-.263.464L3 21l5.242-1.03C8.418 19.926 8.579 19.835 8.707 19.707zM21 7.414c.781-.781.781-2.047 0-2.828L19.414 3c-.781-.781-2.047-.781-2.828 0L15 4.586 19.414 9 21 7.414z"></path></svg> </button>
@@ -142,13 +120,12 @@ const creer = (f) => {
 		table.ajax.reload();
 		toggleModal();
 	};
-	form.append("nom", $(".modal-content .modal-body #nom").val());
-	form.append("type", $(".modal-content .modal-body #type").val());
+	form.append("titre", $(".modal-content .modal-body #titre").val());
 	form.append(
 		"description",
 		$(".modal-content .modal-body #description").val()
 	);
-	form.append("logo", $(".modal-content .modal-body #logo")[0].files[0]);
+	form.append("photo", $(".modal-content .modal-body #photo")[0].files[0]);
 	xhr.send(form);
 	$(".modal-content .modal-loader").removeClass("hidden");
 };
@@ -178,13 +155,13 @@ $(document).on("click", (e) => {
 	if (data.toggle == "modal") {
 		switch (data.target) {
 			case "supprimer":
-				$(".modal-content .modal-title").text("Supprimer un partenaire");
+				$(".modal-content .modal-title").text("Supprimer un projet");
 				$(".modal-content .modal-body").html(
 					`
             <p>
               etes vous sur de vouloir supprimer
               <span class="font-semibold user-name">
-                ${row.nom.toUpperCase()} (${row.type})
+                ${row.titre}
               </span>
             </p>
           `
@@ -194,36 +171,31 @@ $(document).on("click", (e) => {
     <button class="px-4  p-1.5 rounded-lg text-white bg-red-500 hover:bg-red-700 action">Supprimer</button>`);
 				$(".modal-content .action")
 					.text("Supprimer")
-					.on("click", (e) => {
+                    .on("click", (e) => {
+                        console.log(row.id)
 						supprimer(row.id);
 					});
 				$(".modal-content .cancel").click(toggleModal);
 				toggleModal();
 				break;
 			case "creer":
-				$(".modal-content .modal-title").text("creer un partenaire");
+				$(".modal-content .modal-title").text("creer un projet");
 				$(".modal-content .modal-body").html(
 					`
             <div class="flex flex-row space-x-2">                    
               <input
               class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-100 placeholder-atgreen bg-gray-100'
-              type="text" name="nom" id="nom" placeholder="Nom" >
-            </div>
-            <div class="flex flex-row space-x-2">                      
-              <input
-                class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-100 placeholder-atgreen bg-gray-100'
-                type="text" name="type" id="type" placeholder="type" >
+              type="text" name="titre" id="titre" placeholder="titre" >
             </div>
             <div class="flex flex-row">
               <textarea
                 class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
-                name="description" id="description" placeholder="description" >
-              </textarea>
+                name="description" id="description" placeholder="description" ></textarea>
             </div>
             <div class="flex flex-row space-x-2">                      
               <input
                 class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-100 placeholder-atgreen bg-gray-100'
-                type="file" name="logo" id="logo" placeholder="logo" >
+                type="file" name="photo" id="photo" placeholder="photo" >
             </div>
           `
 				);
@@ -246,29 +218,24 @@ $(document).on("click", (e) => {
 				toggleModal();
 				break;
 			case "modifier":
-				$(".modal-content .modal-title").text("Modifier un partenaire");
+				$(".modal-content .modal-title").text("Modifier un projet");
 				$(".modal-content .modal-body").html(
 					`
             <div class="flex flex-row space-x-2">                    
               <input
               class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-100 placeholder-atgreen bg-gray-100'
-              type="text" name="nom" id="nom" placeholder="Nom" value="${row.nom}" >
+              type="text" name="titre" id="titre" placeholder="titre" value="${row.titre}" >
             </div>
-            <div class="flex flex-row space-x-2">                      
-              <input
-                class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-100 placeholder-atgreen bg-gray-100'
-                type="text" name="type" id="type" placeholder="type" value="${row.type}" >
-            </div>
+
             <div class="flex flex-row">
               <textarea
                 class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-200 placeholder-atgreen bg-gray-100'
-                name="description" id="description" placeholder="description" >${row.description}
-              </textarea>
+                name="description" id="description" placeholder="description" >${row.description}</textarea>
             </div>
             <div class="flex flex-row space-x-2">                      
               <input
                 class='border px-1 focus:border-atblue outline-none rounded-lg border-gray-100 placeholder-atgreen bg-gray-100'
-                type="file" name="logo" id="logo" placeholder="logo" >
+                type="file" name="photo" id="photo" placeholder="photo" >
             </div>
           `
 				);

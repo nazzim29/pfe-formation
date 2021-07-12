@@ -4,15 +4,16 @@ const fs = require('fs')
 const storage = require('../utils/firebaseapp').storage()
 
 exports.create = (req, res) => {
+    console.log(req.body)
     let projet = new Projet()
     projet.titre = req.body.titre
-    projet.descrption = req.body.descrption
+    projet.description = req.body.description
     fs.readFile(req.file.path, (err, file) => {
         if (err) return res.statut(500).send(err)
         let dirref = storage.ref("PhotoProjet/" + req.file.filename);
         dirref.put(file, { contentType: 'image/jpeg' }).then((snap) => {
             snap.ref.getDownloadURL().then((url) => {
-                projet.photo = req.body.url
+                projet.photo = url
                 projet.creat().then((err) => {
                     res.send(err)
                 })
@@ -62,7 +63,7 @@ exports.update = (req,res)=>{
     })
 }
 exports.read = (req, res) => {
-    if (req.quey.json) return Projet.getAll().then((projets) => {
+    if (req.query.json) return Projet.getAll().then((projets) => {
         res.json(projets)
     })
     let id = req.params?.id

@@ -5,6 +5,10 @@ exports.avatarStorage = (req,res,cb)=>{
     req.filedestination = 'uploads/Avatar'
     cb()
 }
+exports.projetStorage = (req,res,cb)=>{
+    req.filedestination = 'uploads/Projet'
+    cb()
+}
 exports.partenaireLogoStorage = (req,res,cb)=>{
     req.filedestination = 'uploads/logoPartenaire'
     cb()
