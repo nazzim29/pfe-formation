@@ -3,6 +3,7 @@ const Lieu = require("../models/Lieu");
 const Animateur = require("../models/Animateur");
 const Files = require("../models/SeminaireFiles");
 const Postuler = require('../models/SeminairePostuler');
+const User = require('../models/User');
 const Formulaire = require('../models/SeminaireFormulaire');
 const moment = require('moment')
 
@@ -108,10 +109,19 @@ exports.read = (req, res) => {
 				a.push(f.read().then(() => files[i] = f));
 			});
 			return Promise.all(a).then(() => {
-				console.log(files)
-				res.render("pages/seminaireprofil", { seminaire, files, animateurs, lieu, moment, postuled, reponse });
-				seminaire.views++
-				seminaire.update()
+				a=[]
+				reponse.forEach((e, i) => {
+					let u = new User(e.id.split("_")[0]);
+					a.push(u.read().then(() => {
+						e.user = u
+					}))
+				})
+				return Promise.all(a).then(() => {
+					console.log(reponse)
+					res.render("pages/seminaireprofil", { seminaire, files, animateurs, lieu, moment, postuled, reponse });
+					seminaire.views++
+					seminaire.update()
+				})
 			});
 		});
 	}

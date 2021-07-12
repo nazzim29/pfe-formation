@@ -162,27 +162,31 @@
                             <button class="self-end outline-none focus:outline-none"><i data-toggle="modal"
                                     data-target="upload" class="material-icons">add</i></button>
                             <%}%>
-                                <ul class="overflow-y-auto h-52 justify-center items-center">
-                                    <% files.forEach(element=> {%>
-                                        <li class="flex flex-row justify-around">
-                                            <h3>
-                                                <%= element.titre %> (<%= (element.taille/1024).toFixed(2) %> Ko )
-                                            </h3>
-                                            <a href="<%= element.lien %> "
+                        <%if (files.length != 0) {%>
+                            
+                        
+                            <ul class="overflow-y-auto h-40 justify-center items-center">
+                                <% files.forEach(element=> {%>
+                                    <li class="flex flex-row justify-around">
+                                        <h3>
+                                            <%= element.titre %> (<%= (element.taille/1024).toFixed(2) %> Ko )
+                                        </h3>
+                                        <a href="<%= element.lien %> "
+                                            class=" outline-none focus:outline-none px-2 hover:text-atgreen ">
+                                            <%= element.downloads %> <span
+                                                    class="material-icons ml-64 ">file_download</span>
+                                        </a>
+                                        <% if (session.currentUser._role=="admin" ) { %>
+                                            <button
                                                 class=" outline-none focus:outline-none px-2 hover:text-atgreen ">
-                                                <%= element.downloads %> <span
-                                                        class="material-icons ml-64 ">file_download</span>
-                                            </a>
-                                            <% if (session.currentUser._role=="admin" ) { %>
-                                                <button
-                                                    class=" outline-none focus:outline-none px-2 hover:text-atgreen ">
-                                                    <span data-toggle="delete_file" data-target="<%= element._id %> "
-                                                        class="material-icons ml-64 ">delete</span>
-                                                </button>
-                                                <% } %>
-                                        </li>
-                                        <%});%>
-                                </ul>
+                                                <span data-toggle="delete_file" data-target="<%= element._id %> "
+                                                    class="material-icons ml-64 ">delete</span>
+                                            </button>
+                                            <% } %>
+                                    </li>
+                                    <%});%>
+                            </ul>
+                        <%}%>
                                 <% if(session.currentUser._role=="admin" ){%>
                                     <div class="flex flex-col overflow-y-auto overflow-x-hidden">
                                         <% reponse.forEach((e)=>{%>

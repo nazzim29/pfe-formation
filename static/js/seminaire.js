@@ -401,7 +401,7 @@ const getActivite = (d) => {
 	xhr.send();
 };
 
-const getLieu = () => {
+const getLieu = (d) => {
 	let xhr = new XMLHttpRequest();
 	xhr.open("get", "\\lieu?json=true");
 	xhr.responseType = "json";
@@ -409,7 +409,7 @@ const getLieu = () => {
 		$("#lieu").html(
 			`${xhr.response
 				.map((v) => {
-					return `<option value="${v.id}">${v.nom}</option>`;
+					return `<option value="${v.id}" ${d&&v.id==d._id?"selected":""}>${v.nom}</option>`;
 				})
 				.join("")}`
 		);
@@ -501,6 +501,7 @@ table = $("#example")
 				targets: 3,
 				data: "animateurs",
 				render: function (data, type, row, meta) {
+					console.log(row.animateurs)
 					return row.animateurs.map(animateur => {
 						return `${animateur._nom.toUpperCase()} ${animateur._prenom.charAt(0).toUpperCase() + animateur._prenom.slice(1).toLowerCase()}`
 					}).join(', ')

@@ -1,21 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seminaire</title>
+    <title>Projet</title>
     <link rel="stylesheet" href="\public/css/tables/datatables.css">
     <link rel="stylesheet" href="\public/css/tables/responsive.dataTables.css">
     <link rel="stylesheet" href="\public/css/iconfont/material-icons.css">
-    <link rel="stylesheet" href="\public/css/tokenize2.min.css">
     <link rel="stylesheet" href="\public/css/style.css">
-    <link rel="icon" type="image/svg+xml" sizes="16x16" href="\public/image/ATHEAD.png">
 </head>
 
 <body class="h-screen overflow-hidden flex flex-row items-center justify-center bg-atblue-light">
-    <%- include('../../navbar',{seminaire:true}) %>
+    <%- include('../../navbar',{projet:true}) %>
         <div class="flex w-full flex-col h-full overflow-hidden">
             <div class="flex flex-row items-center w-full mx-1 align-middle justify-center">
                 <div class="flex px-1 h-full items-center sm:mt-5 sm:mr-2.5 sm:flex-1 sm:justify-end ">
@@ -42,28 +40,15 @@
                 <table id="example" class="stripe ">
                     <thead class="bg-gray-50">
                         <tr>
-                            <th data-priority="1">Titre</th>
-                            <th data-priority="2">Type</th>
-                            <th data-priority="3">activite</th>
-                            <th data-priority="4">Animateurs</th>
-                            <th data-priority="5">lieu</th>
-                            <th data-priority="6">place</th>
-                            <th data-priority="7">Debut</th>
-                            <th data-priority="8">Fin</th>
-                            <th data-priority="10">Description</th>
-                            <th data-priority="9">Actions</th>
+                            <th data-priority="1">Nom</th>
+                            <th data-priority="2">Description</th>
+                            <th data-priority="4">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
                             <th></th>
                             <th></th>
                             <th></th>
@@ -94,7 +79,7 @@
                             </div>
                         </div>
                         <div class="modal-loader relative h-full w-full hidden">
-                            <div class="absolute h-full w-full justify-center items-center flex z-50">
+                            <div class="absolute h-full w-full justify-center items-center flex">
                                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                                     class="w-60 self-center justify-self-center m-auto" viewBox="0 0 100 100"
                                     preserveAspectRatio="xMidYMid">
@@ -296,8 +281,7 @@
         <script src="\public/js/Jquery/jquery-3.6.0.min.js"></script>
         <script src="\public/js/Jquery/jquery.dataTables.min.js"></script>
         <script src="\public/js/Jquery/dataTables.responsive.min.js"></script>
-        <script src="\public/js/tokenize2.min.js"></script>
-        <script src="\public/js/seminaire.js"></script>
+        <script src="\public/js/projet.js"></script>
 
 </body>
 
