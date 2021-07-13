@@ -33,7 +33,7 @@ app.use(ejsSession);
 app.set("view engine", "ejs");
 
 app.get("/", (req, res) => {
-	require('./models/Partenaire').getAll().then((partenaires) => res.render("pages/accueil",{partenaires}));
+	require('./models/Partenaire').getAll().then((partenaires) => res.render("pages/accueil", { partenaires }));
 });
 
 
@@ -55,6 +55,7 @@ app.use("/seminaire", isAuth, routes.seminaireRoute);
 app.use("/animateur", isAuth, routes.animateurRoute);
 app.use("/projet", isAuth, routes.projetRoute);
 app.use("/cours", isAuth, routes.coursRoute);
+app.get("/cour", (req,res)=>res.render("pages/cours"));
 
 /**
  * launch the server
