@@ -1,6 +1,6 @@
 models:
     |___[x]formation => mehdi 
-    |___[]seminaire => nazim
+    |___[x]seminaire => nazim
     |___[x]fiche evaluation => MECHI mehdi
     |___[x]documentation formation =>nazim
     |___[x]partenaire => nazim
