@@ -19,8 +19,8 @@
         <div class="flex w-full flex-col h-full overflow-hidden">
             <div class="flex flex-row items-center w-full mx-1 align-middle justify-center">
                 <div class="flex px-1 h-full items-center sm:mt-5 sm:mr-2.5 sm:flex-1 sm:justify-end ">
-                    <a class="text-atgreen-dark rounded-md outline-none hover:bg-gray-200 focus:outline-none"><i
-                            class=" align-middle material-icons" href='/cours/create'>add</i></a>
+                    <a class="text-atgreen-dark rounded-md outline-none hover:bg-gray-200 focus:outline-none" href='/cours/add'><i
+                            class=" align-middle material-icons" >add</i></a>
 
                 </div>
                 <div class="mr-2 search-bar sm:ml-auto  sm:mt-10 w-max my-6 mx-auto">
@@ -48,6 +48,7 @@
                             <th data-priority="5">like</th>
                             <th data-priority="6">visite</th>
                             <th data-priority="7">commentaire</th>
+                            <th data-priority="2">Validation</th>
                             <th data-priority="8">Description</th>
                             <th data-priority="9">Actions</th>
                         </tr>
@@ -56,6 +57,10 @@
                     </tbody>
                     <tfoot>
                         <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
                             <th></th>
                             <th></th>
                             <th></th>
@@ -291,6 +296,7 @@
         <script src="\public/js/Jquery/jquery.dataTables.min.js"></script>
         <script src="\public/js/Jquery/dataTables.responsive.min.js"></script>
         <script src="\public/js/tokenize2.min.js"></script>
+        <script src="\public/js/moment.min.js"></script>
         <script src="\public/js/cour.js"></script>
 
 </body>

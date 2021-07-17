@@ -1,7 +1,7 @@
 require("dotenv").config();
 global.XMLHttpRequest = require("xhr2");
 const express = require("express");
-const { isAuth } = require("./middleware/Auth");
+const { isAuth, isNotAuth } = require("./middleware/Auth");
 const session = require("./middleware/sessionstore");
 const ejsSession = require("./middleware/ejs-session");
 const cookieparser = require("cookie-parser");
@@ -12,8 +12,8 @@ const app = express();
 /**
  * request body decoder middleware
  */
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(express.json({ limit: "5gb" }));
+app.use(express.urlencoded({ extended: true, limit: "5gb" }));
 app.use(logger("dev"));
 app.use(cookieparser(process.env.COOKIE_SECRET));
 app.use("/public", express.static("./static"));
@@ -32,7 +32,7 @@ app.use(ejsSession);
  */
 app.set("view engine", "ejs");
 
-app.get("/", (req, res) => {
+app.get("/",isNotAuth, (req, res) => {
 	require('./models/Partenaire').getAll().then((partenaires) => res.render("pages/accueil", { partenaires }));
 });
 

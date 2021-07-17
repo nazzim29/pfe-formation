@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name='courid' content='<%=cour._id%>'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="\public/css/tokenize2.min.css">
+    <title>Formation</title>
+    <link rel="stylesheet" href="\public/css/iconfont/material-icons.css">
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="\public/image/ATHEAD.png">
+    <link rel="stylesheet" href="\public/css/style.css">
+</head>
+
+<body class="h-screen overflow-hidden flex items-center justify-center bg-atblue-light">
+    <%- include('../navbar',{cours:true}) %>
+        <div class="flex w-full flex-col h-full overflow-hidden">
+            <div class="flex-1 overflow-x-hidden p-1 mx-3 my-6 flex justify-center items-center max-h-full min-w-max">
+                <section
+                    class="px-4 flex flex-col overflow-y-auto max-h-full min-w-max p-2 w-full bg-white rounded-3xl">
+                    <div class="flex justify-between items-center h-48 border-b-2 mb-8">
+                        <div class="flex space-x-4 items-center">
+                            <div class="h-12 w-12 rounded-full overflow-hidden">
+                                <img src="<%= cour.createur._avatar %> " loading="lazy"
+                                    class="h-full w-full object-cover" />
+                            </div>
+                            <div class="flex flex-col">
+                                <a class="font-semibold text-lg" href="\\user/<%= cour.createur._id %> ">
+                                    <%= cour.createur.nom.toUpperCase()+" "+cour.createur.prenom.charAt(0).toUpperCase()+cour.createur.prenom.slice(1).toLowerCase()%> </a>
+                                    <a href=" mailto:<%=cour.createur._email %>" class="text-light text-gray-400"><%=
+                                            cour.createur._email %>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="w-16 h-16 inline-flex align-middle">
+                            <% if (cour.like.includes(session.currentUser._id)) { %>
+                                <span class="material-icons-outlined text-4xl inline-flex align-middle w-full h-full cursor-pointer text-red-600" data-toggle='like'>
+                                    favorite
+                                </span>
+                            <% }else{ %>
+                                <span class="material-icons-outlined text-gray-600 text-4xl inline-flex align-middle w-full h-full cursor-pointer" data-toggle="like" >
+                                    favorite_border
+                                </span>
+                            <%}%>
+                        </div>
+                    </div>
+                    <section>
+                        <h1 class="font-bold text-2xl">
+                            <%= cour.titre %>
+                        </h1>
+                        <article class="mt-8 text-gray-500 leading-7 tracking-wider">
+                            <p>
+                                <%= cour.description %>
+                            </p>
+                            <footer class="mt-12">
+                                <p>
+                                    <%= cour.signature %>
+                                </p>
+                            </footer>
+                        </article>
+                        <ul class="flex space-x-4 mt-12">
+                            <% if (session.currentUser._id==cour.createur._id) { %>
+                                <button onclick="addfilefield()"
+                                    class="w-5 h-5 inline-flex items-center justify-center rounded-md mb-2 focus:bg-atgreen focus-within:bg-atgreen-dark hover:bg-atgreen-light focus:outline-none outline-none"><span
+                                        class="material-icons align-middle">add</span></button>
+                                <% } %>
+                                    <% cour.files.forEach(file=> { %>
+                                        <li><a href="<%= file.link %>">
+                                                <%= file.titre%>
+                                            </a> (<%= (file.taille/1048576).toFixed(2) %> Mb )
+                                                <% if (session.currentUser._id==cour.createur._id) { %>
+
+                                                    <% } %>
+                                        </li>
+                                        <% }) %>
+                        </ul>
+                        <% if (cour.keywords && cour.keywords.length !=0) { %>
+                            <div class="border my-1"></div>
+                            <div class="flex flex-row overflow-y-auto overflow-x-hidden py-2">
+                                <% cour.keywords.forEach(keyword=> { %>
+                                    <div>
+                                        <div
+                                            class="text-xs inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-blue-200 text-blue-700 rounded-full">
+                                            <svg height="16" viewBox="0 -8 512.00031 512" width="16"
+                                                xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor"
+                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                class="feather feather-bell-off mr-2">
+                                                <path
+                                                    d="m306.753906 186.6875h-93.34375c-7.773437 0-14.261718 5.945312-14.941406 13.691406l-8.167969 93.347656c-.367187 4.191407 1.042969 8.339844 3.882813 11.441407 2.84375 3.101562 6.855468 4.863281 11.0625 4.863281h93.34375c7.777344 0 14.265625-5.941406 14.945312-13.691406l8.164063-93.34375c.367187-4.191406-1.042969-8.339844-3.882813-11.441406-2.84375-3.101563-6.855468-4.867188-11.0625-4.867188zm-21.910156 93.347656h-63.230469l5.542969-63.347656h63.230469zm0 0" />
+                                                <path
+                                                    d="m454.550781 216.6875c14.160157 0 27.886719-5.453125 38.652344-15.351562 10.75-9.882813 17.351563-23.109376 18.585937-37.234376 1.28125-14.65625-3.304687-28.503906-12.914062-38.992187-9.578125-10.453125-22.902344-16.207031-37.550781-16.207031h-53.605469l4.695312-53.699219c1.285157-14.660156-3.300781-28.507813-12.914062-38.996094-9.574219-10.449219-22.898438-16.207031-37.515625-16.207031-14.160156 0-27.886719 5.453125-38.652344 15.351562-10.75 9.882813-17.351562 23.105469-18.585937 37.234376l-4.929688 56.316406h-63.230468l4.699218-53.703125c1.28125-14.65625-3.304687-28.503907-12.914062-38.996094-9.578125-10.449219-22.902344-16.203125-37.519532-16.203125-14.160156 0-27.886718 5.449219-38.652343 15.347656-10.75 9.886719-17.347657 23.109375-18.585938 37.238282l-4.925781 56.3125h-56.265625c-14.160156 0-27.886719 5.453124-38.652344 15.351562-10.75 9.886719-17.351562 23.109375-18.585937 37.238281-1.28125 14.65625 3.308594 28.507813 12.917968 38.996094 9.578126 10.449219 22.898438 16.203125 37.515626 16.203125h53.636718l-5.542968 63.347656h-56.261719c-14.160157 0-27.886719 5.449219-38.652344 15.347656-10.75 9.886719-17.347656 23.109376-18.585937 37.234376-1.28125 14.660156 3.304687 28.507812 12.917968 38.996093 9.574219 10.449219 22.898438 16.203125 37.515625 16.203125h53.640625l-4.699218 53.703125c-1.28125 14.65625 3.304687 28.503907 12.917968 38.996094 9.574219 10.449219 22.898438 16.203125 37.515625 16.203125 14.160157 0 27.886719-5.449219 38.648438-15.347656 10.753906-9.886719 17.355469-23.109375 18.589843-37.234375.007813-.074219.015626-.148438.019532-.222657l4.90625-56.097656 63.230468.003906-4.695312 53.695313c-1.285156 14.660156 3.304688 28.507813 12.914062 38.996094 9.574219 10.453125 22.898438 16.207031 37.515626 16.207031 14.160156 0 27.886718-5.449219 38.652343-15.347656 10.75-9.886719 17.351563-23.109375 18.589844-37.238282.003906-.042968.007813-.089843.011719-.136718l4.914062-56.175782h56.265625c.117188 0 .234375 0 .351563-.003906 14.035156-.089844 27.625-5.53125 38.300781-15.347656 10.75-9.886719 17.351563-23.109375 18.585937-37.234375 1.28125-14.65625-3.304687-28.503906-12.917968-38.996094-9.574219-10.449219-22.898438-16.203125-37.546875-16.203125h-53.609375l5.542968-63.347656zm-89.238281 88.480469c2.84375 3.101562 6.855469 4.867187 11.0625 4.867187h70.007812c6.105469 0 11.574219 2.296875 15.402344 6.472656 3.859375 4.214844 5.6875 9.933594 5.148438 16.109376-1.195313 13.660156-13.722656 25.199218-27.355469 25.199218-.097656 0-.195313.003906-.296875.003906h-69.710938c-7.777343 0-14.265624 5.945313-14.941406 13.691407l-6.125 69.976562c0 .042969-.003906.082031-.007812.121094-1.246094 13.621094-13.746094 25.109375-27.347656 25.109375-6.105469 0-11.574219-2.296875-15.398438-6.472656-3.859375-4.214844-5.691406-9.9375-5.148438-16.113282l6.125-70.003906c.367188-4.191406-1.042968-8.339844-3.882812-11.441406-2.84375-3.101562-6.855469-4.867188-11.0625-4.867188l-93.34375-.003906c-7.777344 0-14.265625 5.945313-14.941406 13.695313l-6.121094 69.976562c-.007812.0625-.011719.121094-.015625.179688-1.273437 13.59375-13.761719 25.054687-27.339844 25.054687-6.105469 0-11.574219-2.300781-15.402343-6.476562-3.859376-4.210938-5.6875-9.933594-5.144532-16.113282l6.125-70.007812c.367188-4.1875-1.042968-8.339844-3.882812-11.441406-2.84375-3.097656-6.855469-4.863282-11.0625-4.863282h-70.007813c-6.105469 0-11.574219-2.300781-15.398437-6.472656-3.859375-4.214844-5.691406-9.9375-5.148438-16.113281 1.195313-13.660156 13.71875-25.199219 27.351563-25.199219h70.007812c7.777344 0 14.265625-5.945312 14.941407-13.691406l8.167968-93.347656c.367188-4.1875-1.042968-8.339844-3.882812-11.441406-2.839844-3.097657-6.855469-4.863282-11.058594-4.863282h-70.007812c-6.105469 0-11.574219-2.300781-15.398438-6.472656-3.859375-4.214844-5.691406-9.9375-5.148438-16.113281 1.195313-13.664063 13.722657-25.203125 27.351563-25.203125h70.007813c7.777343 0 14.265624-5.945313 14.941406-13.691406l6.128906-70.007813c1.195312-13.660156 13.71875-25.199219 27.351562-25.199219 6.105469 0 11.574219 2.296875 15.398438 6.472656 3.859375 4.210938 5.691406 9.933594 5.148438 16.109376l-6.125 70.007812c-.367188 4.191406 1.042968 8.34375 3.882812 11.441406 2.839844 3.101563 6.855469 4.867188 11.058594 4.867188h93.34375c7.777344 0 14.265625-5.945313 14.945312-13.691406l6.125-70.007813c1.195313-13.660156 13.722656-25.199219 27.355469-25.199219 6.101563 0 11.574219 2.296875 15.398437 6.472656 3.859376 4.210938 5.6875 9.933594 5.148438 16.109376l-6.125 70.007812c-.367188 4.191406 1.042969 8.339844 3.882812 11.441406 2.839844 3.101563 6.851563 4.867188 11.058594 4.867188h70.011719c6.101563 0 11.570313 2.300781 15.394531 6.472656 3.863282 4.214844 5.691406 9.9375 5.148438 16.113281-1.191406 13.664063-13.71875 25.203125-27.351563 25.203125h-70.011719c-7.773437 0-14.261718 5.945313-14.941406 13.691406l-8.167968 93.347657c-.367188 4.1875 1.042968 8.335937 3.882812 11.4375zm0 0" />
+                                            </svg>
+                                            <%= keyword %>
+                                        </div>
+                                    </div>
+                                    <% }) %>
+                            </div>
+                            <% } %>
+                            <% if (cour.video) { %>
+                                <div class="border my-1 mb-2"></div>
+                                <div>
+                                    <video id='video' controls preload="metadata">
+                                        <source src="<%= cour.video%>#t=0.5" type="video/mp4">
+                                    </video>
+                                </div>
+                            <% } %>
+                                <div class="border my-1 mb-2"></div>
+                                <div class="flex flex-col space-y-2 w-full my-2">
+                                    <% cour.comments.forEach((comment,i)=> { %>
+                                        <div class="flex items-center space-x-2">
+                                            <div class="group relative flex flex-shrink-0 self-start cursor-pointer avatar-sm">
+                                                <img 
+                                                    src="<%= comment.user._avatar %> "
+                                                    alt="" class="h-8 w-8 object-fill rounded-full">
+                                            </div>
+                                        
+                                            <div class="flex items-center justify-center space-x-2">
+                                                <div class="block">
+                                                    <div class="flex justify-center items-center space-x-2">
+                                                        <div class="bg-gray-100 w-auto rounded-xl px-2 pb-2">
+                                                            <div class="font-medium">
+                                                                <a href="\\user/<%= comment.user._id %> " class="hover:underline text-sm">
+                                                                    <small><%= comment.user.nom%> <%= comment.user.prenom %></small>
+                                                                </a>
+                                                            </div>
+                                                            <div class="text-xs">
+                                                                <%= comment.content %> 
+                                                            </div>
+                                                        </div>
+                                                        <div
+                                                            class="self-stretch flex justify-center items-center transform transition-opacity duration-200 opacity-0 hover:opacity-100">
+                                                            <a href="#" class="">
+                                                                <div
+                                                                    class="text-xs cursor-pointer flex h-6 w-6 transform transition-colors duration-200 hover:bg-gray-100 rounded-full items-center justify-center">
+                                                                    <svg class="w-4 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                                                        xmlns="http://www.w3.org/2000/svg">
+                                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                            d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z">
+                                                                        </path>
+                                                                    </svg>
+                                                                </div>
+                                        
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="flex justify-start items-center text-xs w-full">
+                                                        <div class="font-semibold text-gray-700 px-2 flex items-center justify-center space-x-1">
+                                                            <a href="#" class="hover:underline">
+                                                                <small><%= moment(comment.date.toDate()).fromNow()%></small>
+                                                            </a>
+                                                            <%if(session.currentUser._id == comment.user._id){%>
+                                                                <small>.</small>
+                                                                <a href="/cours/<%= cour._id %>/comment/<%= i %>" class="hover:underline">
+                                                                    <small>delete</small>
+                                                                </a>
+                                                            <%}%>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        
+                                        </div>
+                                    <% }) %>
+                                </div>
+                    </section>
+                    <form action="/cours/<%= cour._id %>/comment" method="POST">
+                        <section class="mt-6 border rounded-xl bg-gray-50 mb-3">
+                            <textarea
+                                class="resize-none focus:outline-none outline-none w-full bg-gray-50 p-2 rounded-xl"
+                                placeholder="Commentaire..." rows="3" name='comment' required id="content"></textarea>
+                            <div class="flex items-center justify-between p-2">
+                                <input type="submit" class="bg-atblue text-white px-6 py-2 rounded-xl" disabled id='submit' onclick="$('#submit').attr('disable',true)">
+                            </div>
+                        </section>
+                    </form>
+                </section>
+            </div>
+        </div>
+        <script src="\public/js/Jquery/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).on('click',(e)=>{
+                let data = $(e.target).data()
+                if(data.toggle == 'like'){
+                    let xhr = new XMLHttpRequest()
+                    xhr.open('get','/cours/'+document.head.querySelector('[name="courid"]').content+'/like')
+                    xhr.onload = ()=>window.location.reload()
+                    xhr.send()
+                }
+            })
+            $('#content').on('change keyup paste',()=>{
+                if($('#content').val().length){
+                    $('#submit').removeAttr('disabled')
+                }else{
+                    $('#submit').attr('disabled',true)
+                }
+            })
+        </script>
+
+</body>
+
+</html>

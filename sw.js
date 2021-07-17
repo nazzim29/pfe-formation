@@ -16,11 +16,10 @@ const bgSyncPlugin = new workbox.backgroundSync.BackgroundSyncPlugin(QUEUE_NAME,
 });
 
 workbox.routing.registerRoute(
-  new RegExp('/*'),
-  new workbox.strategies.StaleWhileRevalidate({
-    cacheName: CACHE,
-    plugins: [
-      bgSyncPlugin
-    ]
-  })
+	new RegExp("/.(.*)"),
+	// StaleWhileRevalidate
+	new workbox.strategies.NetworkFirst({
+		cacheName: CACHE,
+		plugins: [bgSyncPlugin],
+	})
 );

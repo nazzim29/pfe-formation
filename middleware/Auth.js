@@ -14,3 +14,11 @@ exports.isAuth = (req,res,next) => {
         res.redirect("\/login")
     });
 }
+exports.isNotAuth = (req, res, next) => {
+    if (!req.session.authToken) return next()
+    fadmin.auth().verifyIdToken(req.session.authToken).then((decodedToken) => {
+        if (decodedToken.uid) return res.redirect('/home') 
+    }).catch((err) => {
+        return next()
+    })
+}

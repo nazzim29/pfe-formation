@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="\public/css/tokenize2.min.css">
+    <link rel="stylesheet" href="\public/css/iconfont/material-icons.css">
+    <title>Formation</title>
+    <link rel="icon" type="image/svg+xml" sizes="16x16" href="\public/image/ATHEAD.png">
+    <link rel="stylesheet" href="\public/css/style.css">
+</head>
+
+<body class="h-screen overflow-hidden flex items-center justify-center bg-atblue-light">
+    <%- include('../navbar',{formation:true}) %>
+        <form enctype="multipart/form-data" method="POST" action="/cours" id="form" class="flex w-full flex-col h-full overflow-hidden ">
+            <div class=" mx-3 my-6 flex-1 overflow-x-hidden p-1 flex justify-center items-center max-h-full ">
+                <section class="w-full px-4 flex flex-col overflow-y-auto max-h-full p-2 bg-white rounded-3xl">
+                    <section>
+                        <input class="outline-none focus:outline-none border border-atgreen p-2 rounded-md" type="text" id="titre" name="titre" placeholder="Titre...">
+                        <article class="mt-8 text-gray-500 leading-7 tracking-wider">
+                            <textarea id="description" name='description' class=" p-2 rounded-md w-full resize-vertical focus:outline-none outline-none border border-atblue-light focus:border-atblue"></textarea>
+                            <footer class="mt-5">
+                                <textarea id="signature" name='signature' class="rounded-md p-2 w-full resize-vertical focus:outline-none outline-none border border-atblue-light focus:border-atblue"></textarea>
+                            </footer>
+                        </article>
+                        <ul class="flex flex-col mt-5 overflow-y-auto space-y-2" id='files'>
+                            <button onclick="addfilefield()" class="w-5 h-5 inline-flex items-center justify-center rounded-md mb-2 focus:bg-atgreen focus-within:bg-atgreen-dark hover:bg-atgreen-light focus:outline-none outline-none"><span class="material-icons align-middle">add</span></button>
+                            <li class="flex flex-col"><input type="file" name="docs[]" id='file'><input class="border border-atgreen-light focus:border-atblue-light rounded-md mt-1 w-3/4 focus:outline-none outline-none px-1 py-0.5" type="text" name="filetitle[]" placeholder="Titre de la piece jointe..."></li>
+                        </ul>
+                        <div class="border my-1"></div>
+                        <div class="flex flex-row overflow-y-auto overflow-x-hidden h-16 py-2">
+                            <select id="keywords" name="keywords" multiple>
+                            </select>
+                        </div>
+                    </section>
+
+                    <div class="border my-1"></div>
+                    <div>
+                        <input type="checkbox" name="video_chk" id="chk_video">
+                        <input type="file" name='video' id="video" disabled>
+                    </div>
+                    <div class="border my-1"></div>
+                    <div class="flex flex-row justify-end space-x-3 mr-2">
+                        <button class="px-3 bg-transparent p-2 rounded-lg hover:bg-gray-100 text-gray-500 hover:text-gray-700" onclick="anuller()">Annuler</button>
+                        <button class="px-3 p-1 rounded-lg text-white hover:bg-atblue-dark bg-atblue" onclick="creer()">Enregistrer</button>
+                    </div>
+
+                </section>
+
+            </div>
+        </form>
+        
+        <script src="\public/js/Jquery/jquery-3.6.0.min.js"></script>
+        <script src="\public/js/tokenize2.min.js"></script>
+        <script src="\public/js/addcours.js"></script>
+        <style>
+            .tokenize{
+                width:100%;
+            }
+        </style>
+</body>
+
+</html>
