@@ -22,3 +22,7 @@ exports.isNotAuth = (req, res, next) => {
         return next()
     })
 }
+exports.adminOnly = (req, res, next)=>{
+    if (req.session.currentUser._role != "admin") return res.send('non autorisé')
+    return next()
+}

@@ -119,7 +119,7 @@ exports.read = (req, res) => {
 exports.login = async (req, res) => {
 	firebase.auth().onAuthStateChanged((user) => {
 		if (user) {
-			user.getIdToken(true).then((idToken) => {
+			return user.getIdToken(true).then((idToken) => {
 				req.session.authToken = idToken;
 				req.session.currentUser = new User(user.uid);
 				req.session.currentUser.read().then(() => {
@@ -129,19 +129,20 @@ exports.login = async (req, res) => {
 							? null
 							: req.session.redirecturl;
 					req.session.redirecturl = undefined;
+					let c=[]
 					if (req.body.remember_me) {
-						res.cookie("email", req.body.email, { signed: true });
-						res.cookie("password", req.body.password, { signed: true });
+						c.push(res.cookie("email", req.body.email, { signed: true }))
+						c.push(res.cookie("password", req.body.password, { signed: true }))
 					} else {
-						res.clearCookie("email");
-						res.clearCookie("password");
+						c.push(res.clearCookie("email"))
+						c.push(res.clearCookie("password"))
 					}
-					res.redirect(a || "/home");
+					return Promise.all(c).then(()=>res.redirect(a || "/home"))
 				});
 			});
 		}
 	});
-	firebase
+	return firebase
 		.auth()
 		.signInWithEmailAndPassword(req.body.email, req.body.password)
 		.then((userCredential) => {

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calendrier</title>
-    <script src="/public/js/calendrier.js" defer></script>
+    
     <link rel="stylesheet" href="\public/css/iconfont/material-icons.css">
     <link rel="icon" type="image/svg+xml" sizes="16x16" href="\public/image/ATHEAD.png">
     <link rel="stylesheet" href="\public/css/style.css">
@@ -14,9 +14,9 @@
 
 <body class="h-screen overflow-hidden flex items-center justify-center bg-atblue-light">
     <%- include('../navbar',{calendrier:true}) %>
-        <div class="flex w-full flex-col h-full justify-center">
+        <div class="flex w-full flex-col h-full justify-center " id='page'>
 
-            <div class="bg-white rounded-lg shadow overflow-hidden mx-3 my-5">
+            <div class="bg-white rounded-lg shadow overflow-hidden mx-3 my-5" id="displayinhome">
                 <div class="flex items-center justify-between py-2 px-6">
                     <div>
                         <span class="text-lg font-bold text-gray-800" id="month"></span>
@@ -24,7 +24,8 @@
                     </div>
                     <div class="border rounded-lg px-1" style="padding-top: 2px;">
                         <button type="button" id="prev"
-                            class="leading-none rounded-lg transition ease-in-out duration-100 inline-flex cursor-pointer hover:bg-gray-200 p-1 items-center" onclick="prevMonth()">
+                            class="leading-none rounded-lg transition ease-in-out duration-100 inline-flex cursor-pointer hover:bg-gray-200 p-1 items-center"
+                            onclick="prevMonth()">
                             <svg class="h-6 w-6 text-gray-500 inline-flex leading-none" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -33,7 +34,8 @@
                         </button>
                         <div class="border-r inline-flex h-6"></div>
                         <button type="button" id="next"
-                            class="leading-none rounded-lg transition ease-in-out duration-100 inline-flex items-center cursor-pointer hover:bg-gray-200 p-1" onclick="nextMonth()">
+                            class="leading-none rounded-lg transition ease-in-out duration-100 inline-flex items-center cursor-pointer hover:bg-gray-200 p-1"
+                            onclick="nextMonth()">
                             <svg class="h-6 w-6 text-gray-500 inline-flex leading-none" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
@@ -44,9 +46,10 @@
                 </div>
                 <div class="-mx-1 -mb-1 overflow-x-auto">
                     <div class="flex flex-nowrap " style="margin-bottom: -40px;">
-                        <div style="width: 28.52%;"  class="px-2 py-2">
+                        <div style="width: 28.52%;" class="px-2 py-2">
                             <div x-text="day"
-                                class="text-gray-600 text-sm uppercase tracking-wide font-bold text-center">Dimanche</div>
+                                class="text-gray-600 text-sm uppercase tracking-wide font-bold text-center">Dimanche
+                            </div>
                         </div>
 
                         <div style="width: 28.52%;" class="px-2 py-2 w-44">
@@ -61,7 +64,8 @@
 
                         <div style="width: 28.52%" class="px-2 py-2 w-44">
                             <div x-text="day"
-                                class="text-gray-600 text-sm uppercase tracking-wide font-bold text-center">Mercredi</div>
+                                class="text-gray-600 text-sm uppercase tracking-wide font-bold text-center">Mercredi
+                            </div>
                         </div>
 
                         <div style="width: 28.52%" class="px-2 py-2 w-44">
@@ -71,7 +75,8 @@
 
                         <div style="width: 28.52%" class="px-2 py-2 w-44">
                             <div x-text="day"
-                                class="text-gray-600 text-sm uppercase tracking-wide font-bold text-center">Vendredi</div>
+                                class="text-gray-600 text-sm uppercase tracking-wide font-bold text-center">Vendredi
+                            </div>
                         </div>
 
                         <div style="width: 28.52%" class="px-2 py-2 w-44">
@@ -80,13 +85,15 @@
                         </div>
                     </div>
                     <div id="calendrier" class="flex flex-wrap border-t border-l">
-                    
+
                     </div>
+                </div>
+                
+                
             </div>
-
-
+            <script src="\public/js/Jquery/jquery-3.6.0.min.js"></script>
+            <script src="/public/js/calendrier.js" defer></script>
         </div>
-        <script src="\public/js/Jquery/jquery-3.6.0.min.js"></script>
 </body>
 
 </html>

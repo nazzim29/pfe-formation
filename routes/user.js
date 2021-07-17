@@ -3,6 +3,7 @@ const firebase = require('../utils/firebaseapp')
 const {read,create,delet,test,update} = require('../Controllers/UserController')
 const multer = require('multer')
 const path = require('path')
+const {adminOnly} = require('../middleware/Auth')
 
 
 const patchbody= (req,res,cb)=>{
@@ -37,19 +38,12 @@ let upload = multer({
     }
 })
 
-router.get('/',read)
-router.post('/',create)
+router.get("/", adminOnly,read);
+router.post("/", adminOnly,create);
 router.get('/photo', test)
 router.get('/:id',read)
-router.post('/:id',update)
-router.delete('/:id',delet)
-router.post('/:id',(req,res)=>{
-    console.log(req.body)
-    res.send('ok')
-    
-})
-
-
+router.post("/:id", adminOnly,update);
+router.delete("/:id", adminOnly,delet);
 
 
 module.exports = router

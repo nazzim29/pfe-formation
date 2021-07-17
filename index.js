@@ -1,7 +1,7 @@
 require("dotenv").config();
 global.XMLHttpRequest = require("xhr2");
 const express = require("express");
-const { isAuth, isNotAuth } = require("./middleware/Auth");
+const { isAuth, isNotAuth, adminOnly } = require("./middleware/Auth");
 const session = require("./middleware/sessionstore");
 const ejsSession = require("./middleware/ejs-session");
 const cookieparser = require("cookie-parser");

@@ -51,7 +51,7 @@
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    @apply h-10 text-xs;
+    @apply text-xs;
   }
   .card-content>h1{
     @apply text-lg;
