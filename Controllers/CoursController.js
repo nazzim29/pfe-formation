@@ -18,7 +18,7 @@ exports.create = (req, res) => {
 	cour.like = [];
 	cour.comments = new Array();
 	cour.files = [];
-	cour.valider_df = req.session.currentUser._role == "admin" ? true : false;
+	cour.valider_df = req.session.currentUser._role == "admin" ? "accepté" : "en attente";
 	a = [];
 	if (req.files) {
 		c = [];
@@ -157,7 +157,9 @@ exports.getedit = (req, res) => {
 };
 
 
-exports.delet = (req, res) => {};
+exports.delet = (req, res) => {
+	new Cours(req.params.id).delete().then(()=>res.send('ok'))
+};
 exports.deletevideo = (req, res) => {
 	const id = req.params.id
 	let cour = new Cours(id)

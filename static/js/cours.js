@@ -49,7 +49,7 @@ const cards = (el) => {
             ${el.video ? `
                 <div class="-my-2 -mr-2 w-1/3">
                     <video id='video' preload="metadata" class="object-cover">
-                        <source src="${el.video}#t=0.5" type="video/mp4">
+                        <source src="${el.video}#t=1" type="video/mp4">
                     </video>
                 </div>
             `:''}
